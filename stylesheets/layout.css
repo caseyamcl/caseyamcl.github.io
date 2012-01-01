@@ -1,0 +1,195 @@
+/*
+* Skeleton V1.1
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 8/17/2011
+*/
+
+/* Table of Content
+==================================================
+  #Site Layout
+	#Specific Page Styles
+	#Media Queries
+	#Font-Face */
+
+/* #Site Layout
+================================================== */
+
+/* -- Widgets ------------------------------------ */
+
+.big_text {
+	font-size: 1.4em;
+	font-weight: bold;
+	line-height: 1.2em;
+	margin: 20px auto;
+	text-align: center;
+	width: 90%;
+}
+
+.post-list > li:hover {
+	background-color: #F1F1F1;
+}
+
+.post-list > li > a {
+	color: #000;
+	text-decoration: none;
+	display: block;
+	padding: 3px;
+}
+
+.post-list span.post_title {
+	font-weight: bold;
+	display: block;
+	margin: 1px;
+}
+
+.post-list span.post_desc {
+	font-size: 0.9em;
+	color: #333;
+}
+
+.post-list.floating {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+.post-list.floating > li {
+	width: 45%;
+	float: left;
+}
+
+/* -- Header ------------------------------------- */
+
+body > header {
+	background-color: #90cce7;
+}
+
+body > header h1 {
+	font-size: 1.1em;
+}
+
+body > header ul {
+	float: right;
+}
+
+body > header ul li {
+	display: block;
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* -- Footer ------------------------------------- */
+
+body > footer {
+	text-align: center;
+	color: #6F6F6F;
+}
+
+body > footer,
+body > footer p {
+	font-size: 14px;
+}
+
+body > footer a[rel=license] img {
+	margin: 0;
+}
+
+/* -- Main Content ------------------------------- */
+
+.container.main {
+	padding-top: 20px;
+}
+
+/* -- Calendar Default --------------------------- */
+
+.big-calendar-container {
+	display: block;
+}
+
+.medium-calendar-container,
+.little-calendar-container {
+	display: none;
+}
+
+
+/* #Specific Page Styles
+================================================== */
+
+/* -- Individual Post Pages ---------------------- */
+
+.post-image {
+	margin: 2px auto;
+	display: block;
+}
+
+
+/* #Media Queries
+================================================== */
+
+	/* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 959px) {
+
+		/* Calendar */
+		.big-calendar-container,
+		.little-calendar-container {
+			display: none;
+		}
+		
+		.medium-calendar-container {
+			display: block;
+		}
+		
+	}
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (max-width: 767px) {
+		
+		/* Floating Post List should not Float */
+		.post-list.floating > li {
+			width: auto;
+			float: none;
+		}
+		
+	}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {
+		
+		/* Calendar */
+		.big-calendar-container,
+		.medium-calendar-container {
+			display: none;
+		}
+		
+		.little-calendar-container {
+			display: block;
+		}		
+	}
+
+
+/* #Font-Face
+================================================== */
+/* 	This is the proper syntax for an @font-face file
+		Just create a "fonts" folder at the root,
+		copy your FontName into code below and remove
+		comment brackets */
+
+/*	@font-face {
+	    font-family: 'FontName';
+	    src: url('../fonts/FontName.eot');
+	    src: url('../fonts/FontName.eot?iefix') format('eot'),
+	         url('../fonts/FontName.woff') format('woff'),
+	         url('../fonts/FontName.ttf') format('truetype'),
+	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
+	    font-weight: normal;
+	    font-style: normal; }
+*/
