@@ -1,0 +1,1 @@
+Cache files for Greyhound CMS go in here.  This folder should be writable.
