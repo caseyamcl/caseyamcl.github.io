@@ -6,5 +6,4 @@ TODO:
  - Clean up main functionality if at all possible (it's kind of messy)
  - Fix rewrite functionality in .htaccess
  - Add content!
- - Implement ability for redirects (read from config file)
  - Add functions for getting lists of content
