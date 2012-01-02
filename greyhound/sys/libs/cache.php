@@ -70,7 +70,17 @@ class Cache
 		if ($this->cache_method)
 		{
 			$key = $this->get_cache_key_from_uri();
-			return $this->cache_obj->retrieve_cache_item($key);
+			
+			$cache_item = $this->cache_obj->retrieve_cache_item($key);
+			
+			//Check expired
+			if ($cache_item && $check_expired && $this->cache_obj->check_expired($key, $this->cache_expire))
+			{
+				$this->cache_obj->clear_cache($key);
+				return FALSE;
+			}
+			else
+				return $cache_item;
 		}
 		else
 			return FALSE;
