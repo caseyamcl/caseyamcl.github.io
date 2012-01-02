@@ -121,7 +121,7 @@ class Output
 	 * Typically HTML text, but can be any UTF-8 Text
 	 */
 	public function set_output($output)
-	{
+	{		
 		$this->output_content = $output;
 	}
 
@@ -137,7 +137,7 @@ class Output
 	 * If $return is TRUE, this function will return the output string.  Otherwise NULL
 	 */
 	public function go($return = FALSE)
-	{
+	{		
 		ob_start();
 		
 		//Output all of the HTTP headers
@@ -158,7 +158,9 @@ class Output
 			return $data;
 		}
 		else
+		{
 			ob_end_flush();
+		}
 	}
 	
 	// --------------------------------------------------------------		
