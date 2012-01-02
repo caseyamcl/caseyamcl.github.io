@@ -77,8 +77,26 @@ body > header ul {
 body > header ul li {
 	display: block;
 	float: left;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin: 0.2em 10px 0 10px;
+	padding: 0;
+}
+
+body > header ul li > a {
+	display: block;
+	padding: 0.1em 7px 0.3em 7px;
+	border-radius: 5px 5px 0 0;
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+body > header ul li > a:hover {
+	background-color: blue;
+}
+
+body > header ul li.current > a,
+body > header ul li.current > a:hover {
+	background-color: #FFF;
 }
 
 /* -- Footer ------------------------------------- */
