@@ -61,12 +61,8 @@
 	
 	
 	<div class="container main">
-
-		<?php				
-			$page_name = (isset($_GET['p'])) ? $_GET['p'] : 'front';
-			$the_file = 'pages/'. $page_name .'.html';			
-		  include($the_file);
-		?>	
+		
+		<?php echo $page_content; ?>
 				
 	</div> <!-- End Main Container -->
 	
