@@ -1,0 +1,9 @@
+TODO:
+ - Add create cache to main file
+ - Add ability for custom JS and CSS (later maybe)
+ - Add meta header functionality
+ - Clean up code.  Add docblocks and comments
+ - Clean up main functionality if at all possible (it's kind of messy)
+ - Fix rewrite functionality in .htaccess
+ - Add content!
+ - Implement ability for redirects (read from config file)
