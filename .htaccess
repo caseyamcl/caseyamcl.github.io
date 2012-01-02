@@ -21,16 +21,19 @@ Options All -Indexes
 </LimitExcept>
 
 # CMCL:[ERROR PAGES]
-ErrorDocument 404 greyhound/includes/error_404_default.html
-ErrorDocument 500 greyhound/includes/error_500_default.html
+#ErrorDocument 403 greyhound/includes/error_403_default.html
+#ErrorDocument 404 greyhound/includes/error_404_default.html
+#ErrorDocument 500 greyhound/includes/error_500_default.html
 
 # CMCL:[REDIRECT]
-RewriteEngine on
-RewriteCond $1 !^(index\.php|images|robots\.txt|humans\.txt)
-RewriteCond $1 !^(greyhound/includes/(.*)\.html)
-RewriteCond $1 !^templates/(.*)/(.*)\.(?!(php))
-RewriteCond $1 !^pages/(.*)/(.*)\.(?!(php))
-RewriteRule ^(.*)$ index.php/$1 [L]
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond $1 !^(index\.php|images|robots\.txt|humans\.txt)
+	RewriteCond $1 !^(greyhound/includes/(.*)\.html)
+	RewriteCond $1 !^templates/(.*)/(.*)\.(?!(php))
+	RewriteCond $1 !^pages/(.*)/(.*)\.(?!(php))
+	RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
 
 
 # 5G FIREWALL from PerishablePress.com
@@ -38,7 +41,7 @@ RewriteRule ^(.*)$ index.php/$1 [L]
 # 5G:[QUERY STRINGS]
 <IfModule mod_rewrite.c>
  RewriteEngine On
- RewriteBase /
+#RewriteBase /
  RewriteCond %{QUERY_STRING} (environ|localhost|mosconfig|scanner) [NC,OR]
  RewriteCond %{QUERY_STRING} (menu|mod|path|tag)\=\.?/? [NC,OR]
  RewriteCond %{QUERY_STRING} boot\.ini  [NC,OR]
