@@ -21,10 +21,10 @@ class Page {
 	public $page_meta;
 	
 	/**
-	 * Main Content
+	 * Main Content File
 	 * @var string
 	 */
-	public $content;	
+	public $content_file;	
 
 	/**
 	 * An array continaing auxiliary files for the page

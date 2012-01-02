@@ -1,13 +1,57 @@
 <?php
 
+/**
+ * Template Class
+ * 
+ * A few rules:
+ *  - The template folder can be anywhere in the system, but the URL must be
+ *    'templates' directly under the base URL
+ *  - Same with the pages folder
+ * 
+ * @TODO: Clean this up!
+ * 
+ */
 class Template
 {
+	/**
+	 * Base URL, with trailing slash
+	 * @var string
+	 */
+	private $baseurl;
+	
+	/**
+	 * Basepath to the template files directory
+	 * @var string
+	 */
 	private $template_basepath;
+	
+	/**
+	 * Name of the current template in use
+	 * @var string
+	 */
 	private $template;
+	
+	/**
+	 * Basepath to the current template file
+	 * @var string
+	 */
 	private $template_path;
 	
-	public function __construct($basepath = '.', $template = 'default')
+	// --------------------------------------------------------------
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param string $baseurl
+	 * @param string $basepath
+	 * @param string $template 
+	 */
+	public function __construct($baseurl, $basepath = '.', $template = 'default')
 	{
+		//Base URL
+		$this->baseurl = $baseurl;
+		
+		//Basepath
 		if ( ! is_readable(realpath($basepath)))
 			throw new RuntimeException("Basepath $basepath not readable or does not exist");
 		
@@ -16,6 +60,7 @@ class Template
 		if ( ! is_readable($this->template_basepath . $template . DIRECTORY_SEPARATOR . 'main.php'))
 			throw new Exception("Template $template is not readable! Check template name.");
 
+		//Template name and template path
 		$this->template = $template;
 		$this->template_path = $this->template_basepath . $template . DIRECTORY_SEPARATOR;
 	}
@@ -33,6 +78,7 @@ class Template
 	public function render_page(Page $page_obj)
 	{
 		//Work from the inside out
+		$page_content = $this->render($page_obj->content_file, NULL, $page_obj);
 		
 		//If there is a template for the page type, use that.. Otherwise, just
 		//echo the page_obj->content
@@ -43,7 +89,7 @@ class Template
 		
 		//Render the layout
 		if (isset($tpl_file))
-			$page_content = $this->render($tpl_file, $page_obj->content, $page_obj);
+			$page_content = $this->render($tpl_file, $page_content, $page_obj);
 		else
 			$page_content = $page_obj->content;
 
@@ -68,11 +114,23 @@ class Template
 			if ($key != 'content')
 				$$key = $val;
 		}
+
+		//Also create variables for URL paths
+		$base_url = $this->reduce_url_double_slashes($this->baseurl . '/');
+		$template_url = $this->reduce_url_double_slashes($this->baseurl . 'templates/' . $this->template . '/');
+		$page_url = $this->reduce_url_double_slashes($this->baseurl . 'pages/' . $page_obj->page_path . '/');
 		
 		//Render the output and return it
 		ob_start();
 		require($fullpath);
 		return ob_get_clean();
+	}
+	
+	// --------------------------------------------------------------
+
+	private function reduce_url_double_slashes($str)
+	{
+		return preg_replace("#(^|[^:])//+#", "\\1/", $str);
 	}
 }
 
