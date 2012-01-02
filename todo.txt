@@ -1,5 +1,5 @@
 TODO:
- - Add create cache to main file
+ - Add ability to pass parameters to cache methods
  - Add ability for custom JS and CSS (later maybe)
  - Add meta header functionality
  - Clean up code.  Add docblocks and comments

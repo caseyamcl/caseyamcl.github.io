@@ -41,6 +41,14 @@ try {
 	//@TODO: This - In the meantime, just set it to application/html
 	$c['mimetype'] = 'application/html';
 
+	//Check for redirect
+	$redirects = $c['config']->get_item('redirects');
+	if (in_array($c['uri']->get_path_string(), array_keys($redirects)))
+	{
+		$to = $c['uri']->get_base_url() . $redirects[$c['uri']->get_path_string()];
+		$c['output']->redirect($to, '301');
+	}
+		
 	//Check for cached version
 	if ($cached_version = $c['cache']->retrieve_cache_version())
 	{		

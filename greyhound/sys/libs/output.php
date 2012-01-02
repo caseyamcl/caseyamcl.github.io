@@ -109,7 +109,7 @@ class Output
 	 */
 	public function set_http_header($header_txt)
 	{
-		$this->http_headers = $header_txt;
+		$this->http_headers[] = $header_txt;
 	}
 	
 	// --------------------------------------------------------------
@@ -125,6 +125,15 @@ class Output
 		$this->output_content = $output;
 	}
 
+	// --------------------------------------------------------------		
+	
+	public function redirect($to, $code = '301')
+	{
+		$this->set_http_status($code);
+		$this->set_http_header("Location: $to");
+		$this->output_http_headers();
+	}
+	
 	// --------------------------------------------------------------		
 
 	/**

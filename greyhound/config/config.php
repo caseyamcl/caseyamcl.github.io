@@ -101,7 +101,7 @@ $config['meta_fields']['code'] = array(
  * 
  * Use '' (empty string) to redirect to home page
  */
-$config['redirects']['some/arbitrary/path'] = '';
+$config['redirects']['some/arbitrary/path'] = 'content';
 
 // --------------------------------------------------------------
 
