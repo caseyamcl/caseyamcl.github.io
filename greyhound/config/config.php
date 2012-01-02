@@ -57,19 +57,26 @@ $config['cache']['fail_gracefully'] = FALSE;
 // --------------------------------------------------------------
 
 /*
- * Node Types
+ * Page Types
+ * (basic_page is built-in)
  */
-$config['node_types'] = array(
-	'article'    => 'Article',
-	'resource'   => 'Resource',
-	'work'       => 'Work'
+$config['page_types'] = array(
+	'post'       => 'Post',
+	'code'       => 'Code'
 );
 
 /*
- * Custom Node Meta Fields
+ * Custom Node Page Fields
  * (title is built-in)
  */
 $config['meta_fields'] = array(
+	'summary'        => 'Summary'
+);
+
+/*
+ * Custom Meta Fields per Page Type
+ */
+$config['meta_fields']['post'] = array(
 	'date_published' => 'Date Published',
 	'date_updated'   => 'Date Updated',
 	'image'          => 'Teaser Image',
@@ -78,11 +85,13 @@ $config['meta_fields'] = array(
 	'category'       => 'Category'
 );
 
-/*
- * Custom Meta Fields per Node Type
- */
-$config['meta_fields']['article'] = array(
-	'category'   => 'Category'	
+$config['meta_fields']['code'] = array(
+	'date_published' => 'Date Published',
+	'date_updated'   => 'Date Updated',
+	'image'          => 'Teaser Image',
+	'summary'        => 'Summary',
+	'tags'           => 'Tags',
+	'category'       => 'Category'
 );
 
 // --------------------------------------------------------------

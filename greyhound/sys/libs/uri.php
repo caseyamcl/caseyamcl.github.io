@@ -149,6 +149,20 @@ class URI
 	// --------------------------------------------------------------
 
 	/**
+	 * Get the base URL without the script file
+	 * 
+	 * This is useful for including axuiliary files (CSS, JS, etc)
+	 * 
+	 * @return string
+	 */
+	public function get_base_url_path()
+	{
+		return $this->protocol . '://' . $this->reduce_double_slashes($this->host_name . '/' . $this->base_path . '/');
+	}
+	
+	// --------------------------------------------------------------
+
+	/**
 	 * Get the base URL (omits the index.php file if it is not in-use)
 	 *
 	 * @return string
