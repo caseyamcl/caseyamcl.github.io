@@ -14,10 +14,11 @@
 class Template
 {
 	/**
-	 * Base URL, with trailing slash
-	 * @var string
+	 * URL Class
+	 * 
+	 * @var Url
 	 */
-	private $baseurl;
+	private $uri;
 	
 	/**
 	 * Basepath to the template files directory
@@ -43,13 +44,14 @@ class Template
 	 * Constructor
 	 * 
 	 * @param string $baseurl
+	 * @param string $siteurl
 	 * @param string $basepath
 	 * @param string $template 
 	 */
-	public function __construct($baseurl, $basepath = '.', $template = 'default')
+	public function __construct(Uri $uri, $basepath = '.', $template = 'default')
 	{
-		//Base URL
-		$this->baseurl = $baseurl;
+		//Base URL and Site URL
+		$this->uri = $uri;
 		
 		//Basepath
 		if ( ! is_readable(realpath($basepath)))
@@ -116,9 +118,11 @@ class Template
 		}
 
 		//Also create variables for URL paths
-		$base_url = $this->reduce_url_double_slashes($this->baseurl . '/');
-		$template_url = $this->reduce_url_double_slashes($this->baseurl . 'templates/' . $this->template . '/');
-		$page_url = $this->reduce_url_double_slashes($this->baseurl . 'pages/' . $page_obj->page_path . '/');
+		$base_url     = $this->reduce_url_double_slashes($this->uri->get_base_url_path());
+		$site_url     = $this->reduce_url_double_slashes($this->uri->get_base_url());
+		$current_url  = $this->reduce_url_double_slashes($this->uri->get_current_url());
+		$template_url = $this->reduce_url_double_slashes($base_url . 'templates/' . $this->template . '/');
+		$page_url     = $this->reduce_url_double_slashes($base_url . 'pages/' . $page_obj->page_path . '/');
 		
 		//Render the output and return it
 		ob_start();

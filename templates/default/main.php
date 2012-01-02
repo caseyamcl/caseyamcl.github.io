@@ -1,3 +1,8 @@
+<?php 
+
+	require_once(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'funcs.php'; 
+
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -47,9 +52,16 @@
 
 			<nav class="ten columns">
 				<ul>
-					<li><a href="#" title="Homepage">Home</a></li>
-					<li><a href="#" title="Stuff I've Written and Resources">Content</a></li>
-					<li><a href="#" title="My Calendar">My Calendar</a></li>					
+					<?php 
+						echo draw_menu(
+							$site_url, $current_url,
+							array(
+								'' => 'Home',
+								'content' => 'Content',
+								'calendar' => 'My Calendar'
+							)
+						);
+					?>
 				</ul>
 			</nav>		
 			

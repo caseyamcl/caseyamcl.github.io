@@ -60,7 +60,7 @@ try {
 	{
 		//Load more dependencies
 		$c['pageloader'] = $c->share(function ($c) { return new Pageloader($c['config'], $c['page_filepath'], 'pages'); });
-		$c['template'] = $c->share(function ($c) { return new Template($c['uri']->get_base_url_path(), TEMPLATEPATH, 'default'); }); //@TODO: default is configurable
+		$c['template'] = $c->share(function ($c) { return new Template($c['uri'], TEMPLATEPATH, 'default'); }); //@TODO: default is configurable
 
 		//Read the URI
 		$uri = $c['uri']->get_path_string();
