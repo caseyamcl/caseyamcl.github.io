@@ -79,27 +79,32 @@ class Template
 	 */
 	public function render_page(Page $page_obj)
 	{
-		//Work from the inside out
+		//Work from the inside out...
+		
+		//Render the inner content file first
 		$page_content = $this->render($page_obj->content_file, NULL, $page_obj);
 		
-		//If there is a template for the page type, use that.. Otherwise, just
-		//echo the page_obj->content
+		//Check for a template file for this type of content
 		if (is_readable($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . $page_obj->page_type . '.php'))
 			$tpl_file = realpath($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . $page_obj->page_type . '.php');
 		elseif (is_readable($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . 'default.php'))
 			$tpl_file = realpath($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . 'default.php');
 		
-		//Render the layout
+		//Render the content template file
 		if (isset($tpl_file))
 			$page_content = $this->render($tpl_file, $page_content, $page_obj);
 		else
 			$page_content = $page_obj->content;
-
-		//@TODO: Include CSS and JS files, too
 		
 		//Render the main output
 		$main_tpl_file = realpath($this->template_path . 'main.php');
-		return $this->render($main_tpl_file, $page_content, $page_obj);
+		$output = $this->render($main_tpl_file, $page_content, $page_obj);
+		
+		//Embed any CSS and JS files into the output for this content
+		$output = $this->add_auxiliary_file_links($output, $page_obj->page_path, $page_obj->files);
+		
+		//Return the output
+		return $output;
 	}
 	
 	// --------------------------------------------------------------
@@ -132,6 +137,37 @@ class Template
 	
 	// --------------------------------------------------------------
 
+	private function add_auxiliary_file_links($content, $page_path, $filelist)
+	{
+		$to_add = array();
+		
+		$page_uri = $this->uri->get_base_url_path() . 'pages/' . $page_path;
+		
+		//Add CSS
+		if (isset($filelist['css']))
+		{
+			foreach($filelist['css'] as $file)
+				$to_add[] = "<link rel='stylesheet' type='text/css' href='{$page_uri}{$file}' />";
+		}
+		
+		//Add JS
+		if (isset($filelist['js']))
+		{
+			foreach($filelist['js'] as $file)
+				$to_add[] = "<script type='text/javascript' src='{$page_uri}{$file}'></script>";
+		}
+				
+		//Embed it...
+		if (count($to_add) > 0)
+		{
+			$embed_str = "\n\t<!-- Embedded by Greyhound -->\n\t" . implode("\n\t", $to_add);			
+			
+			$content = str_replace('</head>', $embed_str . "\n" . '</head>', $content);
+		}
+		
+		return $content;
+	}
+	
 	private function reduce_url_double_slashes($str)
 	{
 		return preg_replace("#(^|[^:])//+#", "\\1/", $str);
