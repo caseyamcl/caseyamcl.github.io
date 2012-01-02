@@ -21,16 +21,16 @@
 
 	<!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="stylesheets/base.css">
-	<link rel="stylesheet" href="stylesheets/skeleton.css">
-	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link rel="stylesheet" href="<?php echo $template_url; ?>stylesheets/base.css">
+	<link rel="stylesheet" href="<?php echo $template_url; ?>stylesheets/skeleton.css">
+	<link rel="stylesheet" href="<?php echo $template_url; ?>stylesheets/layout.css">
 
 	<!-- Favicons
 	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="<?php echo $template_url; ?>images/favicon.ico">
+	<link rel="apple-touch-icon" href="<?php echo $template_url; ?>images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $template_url; ?>images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $template_url; ?>images/apple-touch-icon-114x114.png">
 
 </head>
 <body>
@@ -74,7 +74,7 @@
 		<div class="container">
 			
 			<p class="sixteen columns">
-				<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="Creative Commons Attribution No Commercial No Deriviatives 3.0 Unported License" rel="license"><img src="images/cc_12x12_gray.png" alt="Creative Commons" /></a>
+				<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" title="Creative Commons Attribution No Commercial No Deriviatives 3.0 Unported License" rel="license"><img src="<?php echo $template_url; ?>images/cc_12x12_gray.png" alt="Creative Commons" /></a>
 				Casey McLaughlin
 			</p>
 					
