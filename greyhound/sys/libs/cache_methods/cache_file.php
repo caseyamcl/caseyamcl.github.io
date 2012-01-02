@@ -9,7 +9,7 @@ class Cache_file implements Cache_interface
 	public function __construct($cache_dir = 'DEFAULT')
 	{
 		if ($cache_dir == 'DEFAULT')
-			$cache_dir = sys_get_temp_dir() . 'gh_temp_cache';
+			$cache_dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'gh_temp_cache' . DIRECTORY_SEPARATOR;
 		
 		if ( ! is_dir($cache_dir) && ! mkdir($cache_dir))
 			throw new Exception("Could not find or auto-create cache directory: $cache_dir");
@@ -24,15 +24,15 @@ class Cache_file implements Cache_interface
 
 	public function create_cache_item($key, $output)
 	{
-		return file_put_contents($this->cache_dir . DIRECTORY_SEPARATOR . $key . '.cache', $output);
+		return file_put_contents($this->cache_dir . $key . '.cache', $output);
 	}
 	
 	// --------------------------------------------------------------
 
 	public function retrieve_cache_item($key)
 	{
-		if (is_readable($this->cache_dir . DIRECTORY_SEPARATOR . $key . '.cache'))
-			return file_get_contents($this->cache_dir . DIRECTORY_SEPARATOR . $key . '.cache');
+		if (is_readable($this->cache_dir . $key . '.cache'))
+			return file_get_contents($this->cache_dir . $key . '.cache');
 		else
 			return FALSE;
 	}
@@ -47,7 +47,7 @@ class Cache_file implements Cache_interface
 		//Either we delete only one based on the key or scan the entire directory
 		//for all cache files
 		if ( ! is_null($key))
-			$files_to_delete[] = $this->cache_dir . DIRECTORY_SEPARATOR . $key . '.cache'; 
+			$files_to_delete[] = $this->cache_dir . $key . '.cache'; 
 		else
 		{
 			foreach(scandir($this->cache_dir) as $file)
@@ -70,6 +70,16 @@ class Cache_file implements Cache_interface
 		
 		return TRUE;
 	}	
+	
+	// --------------------------------------------------------------
+
+	public function check_expired($key, $seconds)
+	{
+		$file = $this->cache_dir . $key . '.cache';
+		$created_time = filemtime($file);
+		
+		return (time() - $created_time > $seconds);
+	}
 }
 
 /* EOF: cache_file.php */

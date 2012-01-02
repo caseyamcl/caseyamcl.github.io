@@ -34,7 +34,7 @@ $config['default_template'] = 'default';
  *  'memcache' - Memcache (if available)
  *  'redis'    - REDIS (if available)
  */
-$config['cache']['method'] = FALSE;
+$config['cache']['method'] = 'file';
 
 /*
  * How long until the cache automatically expires per page?

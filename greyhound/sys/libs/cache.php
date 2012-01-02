@@ -27,7 +27,10 @@ class Cache
 	{
 		//External Dependencies
 		$this->uri = $uri;
-				
+		
+		//Load interface
+		require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache_methods' . DIRECTORY_SEPARATOR . 'cache_interface.php');
+		
 		//Set config
 		$config = $config->get_item('cache') ?: array();
 		$this->cache_method = (isset($config['method'])) ? $config['method'] : FALSE;
@@ -58,13 +61,29 @@ class Cache
 	 * Check and return cache content, if it exists.
 	 * 
 	 * Returns FALSE if no cache items exist
+	 * 
+	 * @param $check_expired
+	 * If TRUE, will clear the cache item and return FALSE if the cache expired
 	 */
-	public function retrieve_cache_version()
+	public function retrieve_cache_version($check_expired = TRUE)
 	{
 		if ($this->cache_method)
 		{
 			$key = $this->get_cache_key_from_uri();
 			return $this->cache_obj->retrieve_cache_item($key);
+		}
+		else
+			return FALSE;
+	}
+	
+	// --------------------------------------------------------------
+
+	public function create_cache_version($content)
+	{
+		if ($this->cache_method)
+		{
+			$key = $this->get_cache_key_from_uri();
+			return $this->cache_obj->create_cache_item($key, $content);
 		}
 		else
 			return FALSE;
@@ -95,6 +114,7 @@ class Cache
 	{
 		if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache_methods' . DIRECTORY_SEPARATOR . 'cache_' . $cache_driver . '.php'))
 		{
+			require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache_methods' . DIRECTORY_SEPARATOR . 'cache_' . $cache_driver . '.php');
 			$class = 'Cache_' . $cache_driver;
 			return new $class;
 		}

@@ -26,21 +26,13 @@ try {
 	$c['cache_filepath'] = gh_path('greyhound/data/cache');
 	$c['page_filepath'] = gh_path('pages');
 
-	//Load Config
+	//Load Classes
 	$c['config_path'] = gh_path('greyhound/config/');
 	$c['config'] = $c->share(function ($c) { return new Config($c['config_path']); });
-
-	//Load URI
 	$c['uri'] = $c->share(function ($c) { return new Uri(); });		
-
-	//Client Request Information
 	$c['browscap'] = $c->share(function($c) { return new Browscap($c['cache_filepath']); });
 	$c['client'] = $c->share(function ($c) { return new Client($c['browscap']); });		
-
-	//Cache class
 	$c['cache'] = $c->share(function ($c) { return new Cache($c['config'], $c['uri']); });
-
-	//Output class
 	$c['output'] = $c->share(function($c) { return new Output($c[$cache]); });
 
 	//Get the accepted mime types from the client, and attempt to match them
@@ -49,12 +41,10 @@ try {
 	//@TODO: This - In the meantime, just set it to application/html
 	$c['mimetype'] = 'application/html';
 
-	//Cache - At this point, we've read the config, uri, and determined a response format.
-	//We can now check for a cached version of the output.
+	//Check for cached version
 	if ($cached_version = $c['cache']->retrieve_cache_version())
-	{
-		$c['output']->set_http_status('304');
-		$c['output']->set_output($cached_version);
+	{		
+		$output = $cached_version;
 	}
 	else //Load the page through the system
 	{
@@ -70,6 +60,9 @@ try {
 		{
 			$page = $c['pageloader']->load_page($uri);
 			$output = $c['template']->render_page($page);
+			
+			//Also created a cached version
+			$c['cache']->create_cache_version($output);			
 		}
 		else //404
 		{
