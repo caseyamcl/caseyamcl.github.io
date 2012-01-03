@@ -121,7 +121,7 @@ class Template
 			if ($key != 'content')
 				$$key = $val;
 		}
-
+		
 		//Also create variables for URL paths
 		$base_url     = $this->reduce_url_double_slashes($this->uri->get_base_url_path());
 		$site_url     = $this->reduce_url_double_slashes($this->uri->get_base_url());

@@ -106,8 +106,8 @@ class Pageloader
 			{
 				$page_meta = json_decode(trim($raw_meta));
 				
-				if ( ! $page_obj->page_meta)
-					throw new RuntimeException ("Malformed JSON for page at path $uri_path");						
+				if ( ! $page_meta)
+					throw new RuntimeException ("Malformed JSON for page at path $path");						
 			}
 		}
 		
