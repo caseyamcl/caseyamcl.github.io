@@ -1,0 +1,131 @@
+.hresume {
+	
+}
+
+.hresume ul,
+.hresume ol {
+	padding-left: 20px;
+}
+
+.hresume li {
+	margin: 25px 0;
+	padding-left: 20px;
+}
+
+.hresume ul ul,
+.hresume ol ul,
+.hresume ol ol,
+.hresume ul ol {
+	margin: 2px 0 2px;
+	padding-left: 25px;
+}
+
+.hresume ul ul li,
+.hresume ol ul li,
+.hresume ol ol li,
+.hresume ul ol li {
+	margin: 5px 0;
+}
+
+/* -- Personal and Contact Information ----------------------- */
+.hresume address.vcard {
+	font-style: normal;
+	text-align: center;
+	border-bottom: 1px solid #333;
+	margin-bottom: 2em;
+}
+
+.hresume address.vcard .adr {
+	margin-top: 0px;
+	font-size: 0.9em;
+}
+
+
+.hresume address.vcard .contact_info > span {
+	margin: 0 30px;
+}
+
+.hresume address.vcard .contact_info abbr {
+	border: none;
+	font-style: italic;
+	font-size: 0.9em;
+}
+
+/* -- Education, Experience, and Projects -------------------------- */
+
+.hresume .education p,
+.hresume .experience p,
+.hresume .project p,
+.hresume .guest-lecture p {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.hresume .education .summary {
+	font-weight: bold;	
+}
+
+.hresume .education .duration,
+.hresume .experience .duration,
+.hresume .project .duration {
+	font-weight: bold;
+	float: right;
+}
+
+.hresume .education .duration .dtstart,
+.hresume .education .duration .dtsep {
+	display: none;
+}
+
+.hresume .experience .title {
+	font-weight: bold;
+}
+
+.hresume .project .title {
+	font-weight: bold;
+}
+
+.hresume .project .project-link {
+	font-style: italic;
+	margin-left: 20px;
+	font-size: 0.9em;
+}
+
+.hresume .guest-lecture .venue {
+	font-weight: bold;
+}
+
+.hresume .guest-lecture .date {
+	float: right;
+	font-weight: bold;
+}
+
+/* -- Other Activities -------------------------------------- */
+
+.hresume .other-activities li {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+
+/* -- Research Participation -------------------------------- */
+
+.hresume .hcitation .author.firstauthor {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.hresume .hcitation .publication .volumetitle,
+.hresume .hcitation .presentation .title {
+	font-style: italic;
+}
+
+/* -- Skills ----------------------------------------------- */
+
+.hresume .skill_list {
+	margin-left: 40px;
+}
+
+.hresume .skill_list ul li {
+	margin: 2px 0;
+}

@@ -1,4 +1,8 @@
 TODO:
+ * Add content (check most popular articles in Piwik, and move those)
+ * Finish Resume
+ * Tweak - And POST ONLINE!
+
  - Add ability to pass parameters to cache methods
  - Add ability for custom JS and CSS (later maybe)
  - Add meta header functionality

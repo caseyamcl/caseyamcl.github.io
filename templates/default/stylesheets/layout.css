@@ -81,9 +81,14 @@ body > header ul li {
 	padding: 0;
 }
 
+body > header ul li > a,
+body > header ul li > a:visited {
+	color: #000;
+}
+
 body > header ul li > a {
 	display: block;
-	padding: 0.1em 7px 0.3em 7px;
+	padding: 0.3em 7px 0.1em 7px;
 	border-radius: 5px 5px 0 0;
 	color: #000;
 	font-weight: bold;
@@ -193,6 +198,17 @@ body > footer a[rel=license] img {
 		}		
 	}
 
+	/* Print Stylesheet */
+	@media only print {
+		
+		body > header {
+			display: none;
+		}
+		
+		.hresume {
+			margin-left: -.25in;
+		}
+	}
 
 /* #Font-Face
 ================================================== */
