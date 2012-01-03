@@ -1,13 +1,19 @@
-TODO:
+TODO SOON:
  * Add content (check most popular articles in Piwik, and move those)
- * Finish Resume
+  - Local Configuration File in CodeIgniter
+  - Biting the Distributed Development Bullet
+  - Playing with Asynchronous PHP Processing
+  - My Mercurial Workflow
+ * Setup redirects
+ * Finish link to resume
+ * Fix CSS for mobile stylesheet
+ * Change Google calendar code for mobile using custom API library (just use SimplePie and RSS?)
+ * Add functions for getting lists of content
  * Tweak - And POST ONLINE!
 
+TODO LATER:
  - Add ability to pass parameters to cache methods
- - Add ability for custom JS and CSS (later maybe)
  - Add meta header functionality
  - Clean up code.  Add docblocks and comments
  - Clean up main functionality if at all possible (it's kind of messy)
- - Fix rewrite functionality in .htaccess
- - Add content!
- - Add functions for getting lists of content
+ 
