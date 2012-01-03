@@ -378,6 +378,11 @@ a, a:hover, a:active, a:focus {
 	 background-color: #F9F9F9;
  }
  
+ code {
+	 color: #002534;
+	 background-color: #F5F5F5; 
+ }
+ 
  pre {
 	 color: #444;
  }

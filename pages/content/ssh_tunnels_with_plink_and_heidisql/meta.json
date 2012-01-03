@@ -1,0 +1,10 @@
+{
+	"title": "SSH Tunnels with HiediSQL and Plink",
+	"page_type": "post",
+	"date_published": "2010 Nov 5",
+	"date_updated": "2012 Jan 2",
+	"image": "tunnel.jpg",
+	"summary": "This post describes how to use Plink and HeidiSQL together to connect to MySQL servers via SSH tunnels, which can be tricky.",
+	"tags": ["HeidiSQL", "SSH", "SSH Tunnel", "MySQL"],
+	"category": "Web Development"
+}

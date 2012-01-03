@@ -60,6 +60,26 @@
 	float: left;
 }
 
+.tag-list {
+	padding: 0;
+	margin: 2px 0;
+	list-style-type: none;
+}
+
+.tag-header {
+	font-size: 1em;
+	margin-bottom: 2px;
+}
+
+.tag-list > li {
+	font-size: 0.8em;
+	float: left;
+	background-color: #F1F1F1;
+	margin: 3px;
+	padding: 1px 12px 1px 6px;
+	border-radius: 0 70px 70px 0;
+}
+
 /* -- Header ------------------------------------- */
 
 body > header {
@@ -148,6 +168,30 @@ body > footer a[rel=license] img {
 	display: block;
 }
 
+.post-meta .post-about {
+	display: none;
+}
+
+.post > h1 {
+	margin-bottom: 1px;
+}
+
+.post .post_topline {
+	margin-top: 0;
+	color: #777;
+	font-size: 0.9em;
+}
+
+.post .post_topline .post-publish-date,
+.post .post_topline .post-update-date {
+	font-weight: bold;
+}
+
+.post img {
+	display: block;
+	max-width: 80%;
+	margin: 2px auto;
+}
 
 /* #Media Queries
 ================================================== */
@@ -196,6 +240,11 @@ body > footer a[rel=license] img {
 		.little-calendar-container {
 			display: block;
 		}		
+		
+		.post-meta .post-about {
+			display: block;
+		}
+		
 	}
 
 	/* Print Stylesheet */
@@ -207,6 +256,10 @@ body > footer a[rel=license] img {
 		
 		.hresume {
 			margin-left: -.25in;
+		}
+		
+		.post-meta .post-about {
+			display: block;
 		}
 	}
 
