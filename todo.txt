@@ -1,4 +1,5 @@
 TODO SOON:
+ * Make Cache expiration something that can be set per page!  This is esp. important for the calendar
  * Add content (check most popular articles in Piwik, and move those)
   - Local Configuration File in CodeIgniter
   - Biting the Distributed Development Bullet

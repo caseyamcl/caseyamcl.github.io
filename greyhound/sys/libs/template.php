@@ -127,6 +127,8 @@ class Template
 		$site_url     = $this->reduce_url_double_slashes($this->uri->get_base_url());
 		$current_url  = $this->reduce_url_double_slashes($this->uri->get_current_url());
 		$template_url = $this->reduce_url_double_slashes($base_url . 'templates/' . $this->template . '/');
+		
+		$page_path    = dirname($fullpath) . DIRECTORY_SEPARATOR;
 		$page_url     = $this->reduce_url_double_slashes($base_url . 'pages/' . $page_obj->page_path . '/');
 		
 		//Render the output and return it
