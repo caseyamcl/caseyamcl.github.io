@@ -31,6 +31,12 @@ class Page {
 	 * @var array
 	 */
 	public $files = array();
+	
+	/**
+	 * Page path (relative to the root of the pages directory / URL of index.php)
+	 * @var string 
+	 */
+	public $page_path;
 }
 
 /* EOF: page.class.php */

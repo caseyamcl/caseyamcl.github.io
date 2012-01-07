@@ -1,5 +1,4 @@
 TODO SOON:
- * Make Cache expiration something that can be set per page!  This is esp. important for the calendar
  * Add content (check most popular articles in Piwik, and move those)
   - Local Configuration File in CodeIgniter
   - Biting the Distributed Development Bullet
@@ -8,7 +7,6 @@ TODO SOON:
  * Setup redirects
  * Finish link to resume
  * Fix CSS for mobile stylesheet
- * Change Google calendar code for mobile using custom API library (just use SimplePie and RSS?)
  * Add functions for getting lists of content
  * Tweak - And POST ONLINE!
 
@@ -17,4 +15,9 @@ TODO LATER:
  - Add meta header functionality
  - Clean up code.  Add docblocks and comments
  - Clean up main functionality if at all possible (it's kind of messy)
+ - Make Cache expiration something that can be set per page!
+   (Or just set the cache to an hour for now - This is esp. important for the calendar)
+ 
+DONE:
+ * Change Google calendar code for mobile using custom API library (just use SimplePie and RSS?)
  

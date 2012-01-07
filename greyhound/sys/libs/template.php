@@ -170,7 +170,7 @@ class Template
 	{
 		$to_add = array();
 		
-		$page_uri = $this->uri->get_base_url_path() . 'pages/' . $page_path;
+		$page_uri = $this->uri->get_base_url_path() . 'pages/' . $page_path . '/';
 		
 		//Add CSS
 		if (isset($filelist['css']))

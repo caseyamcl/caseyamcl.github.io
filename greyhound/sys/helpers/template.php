@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * 
+ */
+function get_page_lister()
+{	
+	global $c;
+	return $c['pagelister'];
+}
+
+// --------------------------------------------------------------
+
+/**
  * Image Helper Function
  * 
  * Render an image with auto pan-n-scan sizing

@@ -80,7 +80,11 @@ class Pageloader
 		$page_obj->content_file = realpath($path . 'index.php');
 		$page_obj->page_meta = $this->get_page_meta($path);
 		$page_obj->page_type = $page_obj->page_meta->page_type;
-		$page_obj->page_path = ($uri_path == '/' OR $uri_path == '') ? '_front/' : $uri_path . '/';
+		
+		$page_obj->page_path = ($uri_path == '/' OR $uri_path == '') ? '_front' : $uri_path;
+		if ($page_obj->page_path{0} == '/')
+			$page_obj->page_path = substr($page_obj->page_path, 1);
+		
 		$page_obj->files = $this->get_page_auxilary_files($path);
 
 		//Return output object

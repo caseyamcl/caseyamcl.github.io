@@ -62,8 +62,15 @@ try {
 	//Load the page through the system
 	else 
 	{
+		//Load template helpers
+		foreach(scandir(gh_path('greyhound/sys/helpers')) as $file) {
+			if ($file{0} != '.' && substr($file, strlen($file)-strlen('.php')) == '.php')
+				require_once(gh_path('greyhound/sys/helpers/'. $file));
+		}
+		
 		//Load more dependencies
 		$c['pageloader'] = $c->share(function ($c) { return new Pageloader($c['config'], $c['page_filepath'], 'pages'); });
+		$c['pagelister'] = $c->share(function ($c) { return new Pagelister($c['pageloader']); });
 		$c['template'] = $c->share(function ($c) { return new Template($c['uri'], TEMPLATEPATH, 'default'); }); //@TODO: default is configurable
 
 		//Read the URI
