@@ -26,9 +26,9 @@ try {
 	//Filepaths
 	$c['cache_filepath'] = gh_path('greyhound/data/cache');
 	$c['page_filepath'] = gh_path('pages');
+	$c['config_path'] = gh_path('greyhound/config/');
 
 	//Load Classes
-	$c['config_path'] = gh_path('greyhound/config/');
 	$c['config'] = $c->share(function ($c) { return new Config($c['config_path']); });
 	$c['uri'] = $c->share(function ($c) { return new Uri(); });		
 	$c['browscap'] = $c->share(function($c) { return new Browscap($c['cache_filepath']); });
@@ -73,7 +73,7 @@ try {
 		if ($c['pageloader']->check_page_exists($uri))
 		{
 			$page = $c['pageloader']->load_page($uri);
-			$output = $c['template']->render_page($page);
+			$output = $c['template']->render_main_template($page);
 			
 			//Also created a cached version
 			$c['cache']->create_cache_version($output);			
@@ -86,7 +86,7 @@ try {
 			if ($c['pageloader']->check_page_exists('_404'))
 			{
 				$page = $c['pageloader']->load_page('_404');
-				$output = $c['template']->render_page($page);
+				$output = $c['template']->render_main_template($page);
 			}
 			elseif (is_readable(gh_path('greyhound/includes/error_404_default.html')))
 				$c['output']->set_output(file_get_contents(gh_path('greyhound/includes/error_404_default.html')));
@@ -114,7 +114,7 @@ catch(Exception $e) {
 	try {
 		
 		$page = $c['pageloader']->load_page('_500');
-		$c['output']->set_output($c['template']->render_page($page));
+		$c['output']->set_output($c['template']->render_main_template($page));
 		$c['output']->go();
 		
 	} catch (Exception $exp) {
