@@ -8,8 +8,6 @@
  *    'templates' directly under the base URL
  *  - Same with the pages folder
  * 
- * @TODO: Clean this up!
- * 
  */
 class Template
 {
@@ -68,33 +66,18 @@ class Template
 	}
 	
 	// --------------------------------------------------------------
-	
+
 	/**
-	 * Render a page
+	 * Render page content as a full HTML page, using the template
 	 * 
 	 * @param Page $page_obj 
 	 * 
 	 * @return string
 	 * HTML output for the page
 	 */
-	public function render_page(Page $page_obj)
+	public function render_main_template(Page $page_obj)
 	{
-		//Work from the inside out...
-		
-		//Render the inner content file first
-		$page_content = $this->render($page_obj->content_file, NULL, $page_obj);
-		
-		//Check for a template file for this type of content
-		if (is_readable($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . $page_obj->page_type . '.php'))
-			$tpl_file = realpath($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . $page_obj->page_type . '.php');
-		elseif (is_readable($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . 'default.php'))
-			$tpl_file = realpath($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . 'default.php');
-		
-		//Render the content template file
-		if (isset($tpl_file))
-			$page_content = $this->render($tpl_file, $page_content, $page_obj);
-		else
-			$page_content = $page_obj->content;
+		$page_content = $this->render_page_template($page_obj);
 		
 		//Render the main output
 		$main_tpl_file = realpath($this->template_path . 'main.php');
@@ -104,7 +87,50 @@ class Template
 		$output = $this->add_auxiliary_file_links($output, $page_obj->page_path, $page_obj->files);
 		
 		//Return the output
-		return $output;
+		return $output;		
+	}
+	
+	// --------------------------------------------------------------
+	
+	/**
+	 * Render page content, inside of its template file, if there is one
+	 * 
+	 * @param Page $page_obj 
+	 * 
+	 * @return string
+	 * HTML output for the page
+	 */
+	public function render_page_template(Page $page_obj)
+	{
+		$page_content = $this->render_page_content($page_obj);
+		
+		//Check for a template file for this type of content
+		if (is_readable($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . $page_obj->page_type . '.php'))
+			$tpl_file = realpath($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . $page_obj->page_type . '.php');
+		elseif (is_readable($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . 'default.php'))
+			$tpl_file = realpath($this->template_path . 'layouts' . DIRECTORY_SEPARATOR . 'default.php');
+		
+		//Render the content template file, if applicable
+		if (isset($tpl_file))
+			$page_content = $this->render($tpl_file, $page_content, $page_obj);
+
+		return $page_content;
+	}
+	
+	// --------------------------------------------------------------
+
+	/**
+	 * Render page content
+	 * 
+	 * @param Page $page_obj 
+	 * 
+	 * @return string
+	 * HTML output for the page
+	 */
+	public function render_page_content(Page $page_obj)
+	{
+		//Render the inner content file first
+		return $this->render($page_obj->content_file, NULL, $page_obj);		
 	}
 	
 	// --------------------------------------------------------------
@@ -114,6 +140,8 @@ class Template
 	 */
 	private function render($fullpath, $page_content, $page_obj)
 	{
+		//Any variables in here will be available to our templates
+		
 		//Set the keys up as local variables for everything except the content itself
 		//(that would be redundant)
 		foreach($page_obj as $key => $val)
@@ -122,15 +150,14 @@ class Template
 				$$key = $val;
 		}
 		
-		//Also create variables for URL paths
+		//Create variables for URL paths
 		$base_url     = $this->reduce_url_double_slashes($this->uri->get_base_url_path());
 		$site_url     = $this->reduce_url_double_slashes($this->uri->get_base_url());
 		$current_url  = $this->reduce_url_double_slashes($this->uri->get_current_url());
 		$template_url = $this->reduce_url_double_slashes($base_url . 'templates/' . $this->template . '/');
-		
 		$page_path    = dirname($fullpath) . DIRECTORY_SEPARATOR;
 		$page_url     = $this->reduce_url_double_slashes($base_url . 'pages/' . $page_obj->page_path . '/');
-		
+				
 		//Render the output and return it
 		ob_start();
 		require($fullpath);
