@@ -4,7 +4,7 @@
 Options All -Indexes
 
 # CMCL:[HIDE HIDDEN AND PROJECT FILES]
-<FilesMatch "^((\.(.)+$)|nbproject|todo\.txt)">
+<FilesMatch "^((\.(.)+$)|nbproject)">
  Order Allow,Deny
  Deny from all
 </FilesMatch>
