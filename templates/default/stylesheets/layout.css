@@ -166,6 +166,7 @@ body > footer a[rel=license] img {
 .post-image {
 	margin: 2px auto;
 	display: block;
+	max-width: 275px;
 }
 
 .post-meta .post-about {

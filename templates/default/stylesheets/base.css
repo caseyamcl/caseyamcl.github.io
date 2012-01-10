@@ -352,6 +352,7 @@ a, a:hover, a:active, a:focus {
  h3 {
 	 font-size: 1.3em;
 	 line-height: 1.1em;
+	 border-bottom: 1px solid #CCC;
  }
  
  h4 {
@@ -389,13 +390,28 @@ a, a:hover, a:active, a:focus {
  
  /* Two different ways to markup sourcecode
  /* See: http://www.w3.org/TR/html5/text-level-semantics.html#the-code-element */
- pre.code,
- pre > code {
+ pre,
+ pre.code {
 	 background-color: #2A2925;
 	 margin: 2px 6px;
 	 padding: 12px;
 	 border-radius: 12px;
 	 color: #FFF;
+ }
+ 
+ pre {
+ 	 overflow-x: scroll;
+ }
+ 
+ pre.code {
+	 overflow-x: auto;
+ }
+
+ pre > code {
+	 background-color: #2A2925;
+	 color: #FFF;
+	 width: 100%;
+	 white-space: pre;
  }
  
  blockquote {
