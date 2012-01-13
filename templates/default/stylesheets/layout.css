@@ -255,6 +255,26 @@ body > footer a[rel=license] img {
 	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 	@media only screen and (max-width: 479px) {
 		
+		/* Header */
+		body > header h1 {
+			text-align: center;
+		}
+		
+		body > header ul {
+			margin: 0px auto;
+			padding: 1px;
+			float: none;
+		}
+		
+		body > header ul li  {
+			margin: 0 4px;
+			background-color: #555;
+		}
+		
+		body > header ul li > a {
+			border-radius: 0;
+		}
+		
 		/* Calendar */
 		.big-calendar-container,
 		.medium-calendar-container {
