@@ -46,18 +46,6 @@
 				<span class="post_desc">I write code.  This is a list of my projects.</span>
 			</a>
 		</li>
-		<li>
-			<a href="#" title="Somethin">
-				<span class="post_title">Post Name</span>
-				<span class="post_desc">Brief Description</span>
-			</a>
-		</li>
-		<li>
-			<a href="#" title="Somethin">
-				<span class="post_title">Post Name</span>
-				<span class="post_desc">Brief Description</span>
-			</a>
-		</li>
 	</ul>
 
 </section>
