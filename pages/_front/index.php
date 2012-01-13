@@ -11,47 +11,39 @@
 		and team leadership.  I also enjoy teaching Advanced Web Development
 	</p>
 
-	<p>
-		On this site, I post <a href="#">blog entries</a>, <a href="#">projects</a>,
-		<a href="#">work samples</a>, and other items.
-	</p>
-
 </section>
 
 <section class="one-third column">
 	<img class="sidebar-image" src="<?php echo $page_url; ?>fp_image.jpg" alt="Picture of Me" />
 </section>		
 
-
 <section class="two-thirds column">
-
 	<h3>
-		Popular Stuff
+		What's on the Site
 	</h3>
-
 	<ul class="floating post-list">
 		<li>
-			<a href="#" title="Somethin">
-				<span class="post_title">Post Name</span>
-				<span class="post_desc">Brief Description</span>
+			<a href="<?php echo $site_url; ?>content/resume" title="My CV">
+				<span class="post_title">My Resume</span>
+				<span class="post_desc">AKA my Curriculum Vita</span>
 			</a>
 		</li>
 		<li>
-			<a href="#" title="Somethin">
-				<span class="post_title">Post Name</span>
-				<span class="post_desc">Brief Description</span>
+			<a href="<?php echo $site_url; ?>calendar" title="Google Calendar">
+				<span class="post_title">My Calendar</span>
+				<span class="post_desc">I publish it online.  You can see what I'm up to</span>
 			</a>
 		</li>
 		<li>
-			<a href="#" title="Somethin">
-				<span class="post_title">Post Name</span>
-				<span class="post_desc">Brief Description</span>
+			<a href="<?php echo $site_url; ?>content" title="Content">
+				<span class="post_title">Posts and other Content</span>
+				<span class="post_desc">Articles, ramblings, etc.</span>
 			</a>
 		</li>
 		<li>
-			<a href="#" title="Somethin">
-				<span class="post_title">Post Name</span>
-				<span class="post_desc">Brief Description</span>
+			<a href="<?php echo $site_url; ?>content/code" title="Code">
+				<span class="post_title">Code</span>
+				<span class="post_desc">I write code.  This is a list of my projects.</span>
 			</a>
 		</li>
 		<li>

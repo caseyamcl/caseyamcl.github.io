@@ -1,12 +1,36 @@
+<section class="one-third column">
+		
+	<h2>Jump To&hellip;</h2>
+	
+	<ul>
+		<li><a href="#posts_and_articles">Posts and Articles</a></li>
+		<li><a href="#">Work Portfolio</a></li>
+		<li><a href="#">Stuff from Yore</a></li>
+	</ul>
+	
+	<h2>Also&hellip;</h2>
+	
+	<ul>
+		<li><a href="<?php echo $site_url; ?>content/resume">My Resume / CV</a></li>
+		<li><a href="<?php echo $site_url; ?>calendar">My Calendar</a></li>
+		<li><a href="<?php echo $site_url; ?>content/code">Code Projects</a></li>
+	</ul>
+	
+</section>
+
 <section class="two-thirds column">
 	
 	<?php
-	
-		$pl = get_page_lister();
-		$posts = $pl->get_types('post')->order_by('date_published DESC')->go();
+		$posts =  get_page_lister()->get_types('post')->order_by('date_published DESC')->go();
 	?>
 
-	<h2>Stuff I've Written</h2>
+	<h3>The Latest</h3>
+	
+	<ul>
+		<li>Latest stuff here</li>
+	</ul>
+	
+	<h3 id="posts_and_articles">Posts &amp; Articles</h3>
 	
 	<ul class="post-list">
 		
@@ -20,20 +44,5 @@
 		</li>
 		
 		<?php endforeach; ?>	
-	
-</section>
-
-
-<section class="one-third column">
-		
-	<h3>Jump To&hellip;</h3>
-	
-	<ul>
-		<li><a href="#">Web Development Posts</a></li>
-		<li><a href="#">IT Administration Posts</a></li>
-		<li><a href="#">Code Projects</a></li>
-		<li><a href="#">Work Portfolio</a></li>
-		<li><a href="#">Stuff from Yore</a></li>
-	</ul>
 	
 </section>
