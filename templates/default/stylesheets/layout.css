@@ -250,13 +250,10 @@ body > footer a[rel=license] img {
 	}
 
 	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
-	@media only screen and (min-width: 480px) and (max-width: 767px) {}
-
-	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-	@media only screen and (max-width: 479px) {
-		
+	@media only screen /*and (min-width: 480px)*/ and (max-width: 767px) {
+	
 		/* Header */
-		body > header h1 {
+		body > header {
 			text-align: center;
 		}
 		
@@ -270,6 +267,7 @@ body > footer a[rel=license] img {
 		body > header ul li  {
 			margin: 0 4px;
 			background-color: #555;
+			font-size: 0.9em;
 		}
 		
 		body > header ul li > a {
@@ -288,7 +286,12 @@ body > footer a[rel=license] img {
 		
 		.post-meta .post-about {
 			display: block;
-		}
+		}	
+	
+	}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {
 		
 	}
 
