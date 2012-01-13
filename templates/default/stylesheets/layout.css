@@ -264,6 +264,7 @@ body > footer a[rel=license] img {
 			margin: 0px auto;
 			padding: 1px;
 			float: none;
+			display: inline;
 		}
 		
 		body > header ul li  {
