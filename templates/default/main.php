@@ -47,7 +47,9 @@
 		<div class="container">
 
 			<div class="six columns">
-				<h1>Casey McLaughlin</h1>
+				<h1>
+					<a href="<?php echo $site_url; ?>">Casey McLaughlin</a>
+				</h1>
 			</div>
 
 			<nav class="ten columns">

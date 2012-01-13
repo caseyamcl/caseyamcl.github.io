@@ -5,6 +5,8 @@
 		$pl = get_page_lister();
 		$posts = $pl->get_types('post')->order_by('date_published DESC')->go();
 	?>
+
+	<h2>Stuff I've Written</h2>
 	
 	<ul class="post-list">
 		

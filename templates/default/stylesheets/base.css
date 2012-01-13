@@ -50,7 +50,7 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
    ========================================================================== */
 
 a { color: #00e; }
-a:visited { color: #551a8b; }
+a:visited { color: #4367A5; }
 a:focus { outline: thin dotted; }
 
 /* Improve readability when focused and hovered in all browsers: people.opera.com/patrickl/experiments/keyboard/test */
@@ -393,7 +393,7 @@ a, a:hover, a:active, a:focus {
  pre,
  pre.code {
 	 background-color: #2A2925;
-	 margin: 2px 6px;
+	 margin: 12px 6px;
 	 padding: 12px;
 	 border-radius: 12px;
 	 color: #FFF;
@@ -405,6 +405,7 @@ a, a:hover, a:active, a:focus {
  
  pre.code {
 	 overflow-x: auto;
+	 border-radius: 12px;
  }
 
  pre > code {

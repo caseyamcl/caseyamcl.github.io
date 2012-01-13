@@ -19,7 +19,7 @@
 </section>
 
 <section class="one-third column">
-	<img src="<?php echo $page_url; ?>fp_image.jpg" alt="Picture of Me" />
+	<img class="sidebar-image" src="<?php echo $page_url; ?>fp_image.jpg" alt="Picture of Me" />
 </section>		
 
 
