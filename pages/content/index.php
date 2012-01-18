@@ -26,8 +26,18 @@
 
 	<h3>The Latest</h3>
 	
-	<ul>
-		<li>Latest stuff here</li>
+	<?php
+		$latest = get_page_lister()->get_types('post')->order_by('date_published DESC')->limit(1)->go(); 
+		$latest = array_shift($latest);	
+	?>
+	
+	<ul class="post-list">
+		<li>
+			<a href="<?php echo $site_url . $latest->page_path; ?>" title="<?php echo $latest->page_meta->title; ?>">
+				<span class="post_title"><?php echo $latest->page_meta->title; ?></span>
+				<span class="post_desc"><?php echo $latest->page_meta->summary; ?></span>
+			</a>
+		</li>
 	</ul>
 	
 	<h3 id="posts_and_articles">Posts &amp; Articles</h3>

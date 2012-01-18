@@ -7,7 +7,7 @@
 	</p>
 	
 	<ul>
-		<li>List projects here</li>
+		<li>List projects here (Manually code Github URL for select projects Curl->get()...)</li>
 	</ul>
 	
 </div>

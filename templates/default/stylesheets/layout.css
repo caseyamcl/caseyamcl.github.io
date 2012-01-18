@@ -223,6 +223,10 @@ body > footer a[rel=license] img {
 
 /* -- Individual Post Pages ---------------------- */
 
+.post > h1 {
+	border-bottom: 1px solid #CCC;
+}
+
 .post-image {
 	margin: 2px auto;
 	display: block;
@@ -231,6 +235,11 @@ body > footer a[rel=license] img {
 
 .post-meta .post-about {
 	display: none;
+}
+
+.post-meta p {
+	font-size: 0.9em;
+	color: #333;
 }
 
 .post > h1 {
@@ -321,9 +330,19 @@ body > footer a[rel=license] img {
 			display: block;
 		}		
 		
+		.post-meta {
+			padding-bottom: 20px;
+		}
+				
 		.post-meta .post-about {
 			display: block;
 		}	
+		
+		.post-meta .post-image,
+		.post-meta .tag-header,
+		.post-meta .tag-list {
+			display: none;
+		}
 	
 	}
 

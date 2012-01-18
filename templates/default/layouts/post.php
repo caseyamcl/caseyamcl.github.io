@@ -2,11 +2,11 @@
 	
 	<h1><?php echo $page_meta->title; ?></h1>
 	<p class="post_topline">
-		I wrote this on
+		Written
 		<span class='post-publish-date'><?php echo $page_meta->date_published; ?></span>
 	
 		<?php if ($page_meta->date_updated): ?>
-			and last updated it on <span class='post-update-date'><?php echo $page_meta->date_updated; ?></span>
+			and revised on <span class='post-update-date'><?php echo $page_meta->date_updated; ?></span>
 		<?php endif; ?>
 	</p>
 	
@@ -23,17 +23,14 @@
 	<?php if ($page_meta->image): ?>
 		<img src="<?php echo $page_url . $page_meta->image; ?>" class="post-image" alt="Post Image" />
 	<?php endif; ?>
-	
-	<p>
-		I wrote this on
-		<span class='post-publish-date'><?php echo $page_meta->date_published; ?></span>
-	
-		<?php if ($page_meta->date_updated): ?>
-			and last updated it on <span class='post-update-date'><?php echo $page_meta->date_updated; ?></span>
-		<?php endif; ?>
+		
+	<p class="post-meta-details">
+		This post was written by Casey McLaughlin on <span class='post-publish-date'><?php echo $page_meta->date_published; ?></span>
+		<?php if ($page_meta->date_updated): ?>and revised on <span class='post-update-date'><?php echo $page_meta->date_updated; ?></span><?php endif; ?>.
 	</p>
+
 	
-	<p>
+	<p class="post-meta-details">
 		It is about <span class="post-category"><?php echo $page_meta->category; ?></span>
 	</p>
 	
