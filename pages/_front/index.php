@@ -10,17 +10,25 @@
 		in information management, web application development, systems administration,
 		and team leadership.  I also enjoy teaching Advanced Web Development
 	</p>
+	
+	<?php 
+		$post = get_page_lister()->get_types('post')->order_by('date_published DESC')->limit(1)->go(); 
+		$post = array_shift($post);
+	?>
 
-</section>
-
-<section class="one-third column">
-	<img class="sidebar-image" src="<?php echo $page_url; ?>fp_image.jpg" alt="Picture of Me" />
-</section>		
-
-<section class="two-thirds column">
 	<h3>
-		What's on the Site
+		What's on the Site		
 	</h3>
+	
+	<p>
+		<a class="latest_post" href="<?php echo $site_url . $post->page_path; ?>" title="<?php echo $post->page_meta->title; ?>">
+			<span class="latest_post_txt">Latest Post:</span>
+			<span class="latest_post_title"><?php echo $post->page_meta->title; ?></span>
+			<span class="latest_post_date"><?php echo $post->page_meta->date_published; ?></span>
+			<span class="latest_post_summary"><?php echo $post->page_meta->summary; ?></span>
+		</a>
+	</p>	
+	
 	<ul class="floating post-list">
 		<li>
 			<a href="<?php echo $site_url; ?>content/resume" title="My CV">
@@ -31,7 +39,7 @@
 		<li>
 			<a href="<?php echo $site_url; ?>calendar" title="Google Calendar">
 				<span class="post_title">My Calendar</span>
-				<span class="post_desc">I publish it online.  You can see what I'm up to</span>
+				<span class="post_desc">See what I'm up to</span>
 			</a>
 		</li>
 		<li>
@@ -47,13 +55,13 @@
 			</a>
 		</li>
 	</ul>
-
+	
 </section>
 
-
 <section class="one-third column">
+	<img class="sidebar-image" src="<?php echo $page_url; ?>fp_image.jpg" alt="Picture of Me" />	
 
-	<h3>
+	<h3 style="margin-top: 20px;">
 		Around the web
 	</h3>
 
