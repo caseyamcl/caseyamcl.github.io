@@ -33,10 +33,15 @@
 	<!-- Favicons
 	================================================== -->
 	<link rel="shortcut icon" href="<?php echo $template_url; ?>images/favicon.ico">
-	<link rel="apple-touch-icon" href="<?php echo $template_url; ?>images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $template_url; ?>images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $template_url; ?>images/apple-touch-icon-114x114.png">
-
+		
+	<!-- Mobile
+	================================================== -->
+	<link rel="apple-touch-icon" href="img/apple_touch_57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo $template_url; ?>images/apple_touch_72.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo $template_url; ?>images/apple_touch_114.png" />	
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $template_url; ?>images/apple_touch_114.png" />	
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	
 </head>
 <body>
 
