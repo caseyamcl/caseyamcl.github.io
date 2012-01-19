@@ -20,14 +20,15 @@
 		What's on the Site		
 	</h3>
 	
-	<p>
-		<a class="latest_post" href="<?php echo $site_url . $post->page_path; ?>" title="<?php echo $post->page_meta->title; ?>">
-			<span class="latest_post_txt">Latest Post:</span>
-			<span class="latest_post_title"><?php echo $post->page_meta->title; ?></span>
-			<span class="latest_post_date"><?php echo $post->page_meta->date_published; ?></span>
-			<span class="latest_post_summary"><?php echo $post->page_meta->summary; ?></span>
-		</a>
-	</p>	
+	<ul class="post-list">
+		<li>
+			<a href="<?php echo $site_url . $post->page_path; ?>" title="<?php echo $post->page_meta->title; ?>">
+				<span class="post_title">Latest Post</span>
+				<span class="post_desc"><?php echo $post->page_meta->title; ?></span>
+				<span class="post_date"><?php echo $post->page_meta->date_published; ?></span>
+			</a>
+		</li>
+	</ul>
 	
 	<ul class="floating post-list">
 		<li>

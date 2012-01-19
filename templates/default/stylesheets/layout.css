@@ -45,9 +45,15 @@
 	margin: 1px;
 }
 
-.post-list span.post_desc {
+.post-list span.post_desc,
+.post-list span.post_date {
 	font-size: 0.9em;
 	color: #333;
+}
+
+.post-list span.post_date {
+	font-size: 0.8em;
+	color: #4367A5;
 }
 
 .post-list.floating {
@@ -168,7 +174,6 @@ body > header ul li > a {
 	display: block;
 	padding: 0.3em 10px 0.1em 10px;
 	border-radius: 5px 5px 0 0;
-	color: #000;
 	font-weight: bold;
 	text-decoration: none;
 }
