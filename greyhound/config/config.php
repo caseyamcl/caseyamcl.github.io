@@ -91,7 +91,10 @@ $config['meta_fields']['code'] = array(
 	'image'          => 'Teaser Image',
 	'summary'        => 'Summary',
 	'tags'           => 'Tags',
-	'category'       => 'Category'
+	'github_id'      => 'Github ID',
+  'bitbucket_id'   => 'Bitbucket ID',
+	'download_link'  => 'Download Link',
+	'version'        => 'Version'
 );
 
 // --------------------------------------------------------------
