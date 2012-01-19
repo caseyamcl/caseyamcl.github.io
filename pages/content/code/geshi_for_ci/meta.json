@@ -1,0 +1,9 @@
+{
+	"title": "GeSHi for CodeIgniter",
+	"page_type": "code",
+	"image": "",
+	"summary": "A library to make it easy to implement the popular GeSHi syntax highlighter with CodeIgniter",
+	"tags": ["PHP, GeSHi, CodeIgniter, Web Development, Syntax Highlight"],
+	"github_id": "geshiforci",
+	"version": "2.0"
+}

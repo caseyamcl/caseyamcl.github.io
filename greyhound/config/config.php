@@ -86,8 +86,6 @@ $config['meta_fields']['post'] = array(
 );
 
 $config['meta_fields']['code'] = array(
-	'date_published' => 'Date Published',
-	'date_updated'   => 'Date Updated',
 	'image'          => 'Teaser Image',
 	'summary'        => 'Summary',
 	'tags'           => 'Tags',
