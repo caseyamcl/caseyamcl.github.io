@@ -13,76 +13,47 @@
 <div class="little-calendar-container sixteen columns">
 	
 	<?php 
-	
-		require_once($page_path . 'ical/SG_iCal.php');
-		$ical = @new SG_iCalReader('https://www.google.com/calendar/ical/caseyamcl%40gmail.com/public/basic.ics');
+		require_once($page_path . 'simple_html_dom.php');
 		
-		if (is_array($ical->getEvents()))
-		{
-			//Sort the events by date and only show new ones
-			$events = $ical->getEvents();
-			usort($events, 'calendar_usort');
+		$cal_html = file_get_html('https://www.google.com/calendar/htmlembed?src=caseyamcl@gmail.com&ctz=America/New_York&mode=AGENDA');		
+
+		$cal_items = array();
+		foreach($cal_html->find('div.date-section') as $ds) {
 			
-			//Build the list items
-			$items = array();
-			foreach($events as $event) {
+			$date = array_shift($ds->find('div.date'))->plaintext;
+			$date = DateTime::createFromFormat('D M j, Y H:i', $date . ' 00:00')->format('U');
+			
+			$date_html  = "<p class='cal_dateline'>";
+			$date_html .= "<span class='cal_dow'>" . date('D', $date) . "</span>";
+			$date_html .= "<span class='cal_month'>" . date('M', $date) . "</span>";
+			$date_html .= "<span class='cal_date'>" . date('j', $date) . "</span>";
+			$date_html .= "<span class='cal_year'>" . date('Y', $date) . "</span>";
+			$date_html .= "</p>";
 				
-				//If any dates are older than the current date, ignore them
-				if ($event->getStart() < time())
-					continue;
-				
-				$item_html = "";
-				
-				if ($event->isWholeDay())
-					$item_html .= "<span class='cal_allday'>All Day</span>";
-				else
-					$item_html .= "<span class='cal_time'>" . date('G:i', $event->getStart()) . "</span>";
-				
-				$item_html .= "<span class='cal_title'>". $event->getProperty('summary') ."</span>";
+			$date_items = array();
+			foreach($ds->find('tr.event') as $event) {				
+				$time = array_shift($event->find('td.event-time'))->plaintext;
+				$desc = array_shift($event->find('span.event-summary'))->plaintext;				
 								
-				if ($event->getProperty('location'))
-					$item_html .= "<span class='cal_loc'>". $event->getProperty('location') ."</span>";
+				if (trim($time) == '')
+					$item_html = "<span class='cal_allday'>All Day</span>";
+				else
+					$item_html = "<span class='cal_time'>" . $time ."</span>";
 				
-				//Get the timestamp for midnight that day
-				$idate = strtotime(date('m/d/Y', $event->getStart()));
+				$item_html .= "<span class='cal_title'>". $desc ."</span>";
+				//$item_html .= "<span class='cal_loc'>". $event->getProperty('location') ."</span>";
 				
-				//echo "<br/>" . $event->getEnd();
-				$items[$idate][] = "<li>" . $item_html . "</li>";
+				$date_items[] = "<li>" . $item_html . "</li>";
 			}
 			
-			//Build the output
-			$output = array();
-			foreach($items as $date => $ditems) {
-				
-				$item_html  = "<p class='cal_dateline'>";
-				$item_html .= "<span class='cal_dow'>" . date('D', $date) . "</span>";
-				$item_html .= "<span class='cal_month'>" . date('M', $date) . "</span>";
-				$item_html .= "<span class='cal_date'>" . date('j', $date) . "</span>";
-				$item_html .= "<span class='cal_year'>" . date('Y', $date) . "</span>";
-				$item_html .= "</p>";
-				
-				$item_html .= "<ul class='cal_dateitems'>" . implode($ditems) . "</ul>";
-				
-				$output[] = "<li class='cal_datelist'>" . $item_html . "</li>";
-			} 
-			
-			//Show the output
-			
-			echo "<ul class='calendar_agenda'>"  . implode("\n", $output) . "</ul>";
-		}
-		else
-		{
-			echo "<p>The Calendar is not available at the moment.  Please try again later";
+			$cal_items[] = "<li class='cal_datelist'>$date_html<ul class='cal_dateitems'>" . implode("\n", $date_items) . "</ul></li>";
 		}
 		
-		function calendar_usort($a, $b) {
-			
-			if ($a->getStart() == $b->getStart())
-				return 0;
-			
-			return ($a->getStart() < $b->getStart()) ? -1 : 1;
-		}
+		echo "<ul class='calendar_agenda'>" . implode("\n", $cal_items) . "</ul>";
 	?>
 	
+	<p class='calendar_agenda_more_link'>
+		<a href="https://www.google.com/calendar/embed?src=caseyamcl%40gmail.com&ctz=America/New_York" title="My Calendar at Google.com"></a>
+	</p>
 	
 </div>

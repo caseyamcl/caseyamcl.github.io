@@ -46,12 +46,12 @@
 	font-color: blue;
 	display: block;
 	float: left;
-	width: 40px;
+	width: 90px;
 }
 
 .calendar_agenda .cal_dateitems .cal_title,
 .calendar_agenda .cal_dateitems .cal_loc {
-	margin: 0 0 4px 50px;
+	margin: 0 0 4px 90px;
 	display: block;
 }
 
