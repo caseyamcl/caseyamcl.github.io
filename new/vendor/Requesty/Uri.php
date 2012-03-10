@@ -1,6 +1,6 @@
 <?php
 
-namespace Requesty;
+namespace Routely;
 
 /**
  * URI Class
@@ -27,10 +27,11 @@ class Uri
 
 	/**
 	 * Constructor
+   * @param array $server_data  Keep NULL unless testing
 	 */
-	public function __construct()
+	public function __construct($server_data = NULL)
 	{
-		$this->detect_info();
+		$this->detect_info($server_data);
 	}
 	
 	// --------------------------------------------------------------
@@ -187,48 +188,48 @@ class Uri
 	 * Tested In: Apache 2.2
 	 * @TODO: Check if this works in NGINX, IIS6, and Lighttpd
 	 *
-	 * @param boolean $omit_index_php
+	 * @param $server_data  Optionally, pass in an array for testing
 	 */
-	private function detect_info()
+	private function detect_info($server_data = NULL)
 	{
 		//Only run this once
 		if ( ! empty($this->host_ip))		
 			return;
-		
+	
+    if (is_null($server_data))
+      $server_data = $_SERVER;
+    
 		//Get the protocol and port
-		$this->port = $_SERVER['SERVER_PORT'];
-		$this->protocol = ($this->port == 443 || ( ! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')) ? 'https' : 'http';
+		$this->port = $server_data['SERVER_PORT'];
+		$this->protocol = ($this->port == 443 || ( ! empty($server_data['HTTPS']) && $server_data['HTTPS'] == 'on')) ? 'https' : 'http';
 
 		//Get the server name
-		$this->host_name = (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
-		$this->host_ip = $_SERVER['SERVER_ADDR'];
+		$this->host_name = (isset($server_data['SERVER_NAME'])) ? $server_data['SERVER_NAME'] : $server_data['HTTP_HOST'];
+		$this->host_ip = $server_data['SERVER_ADDR'];
 
 		//Get the base URL path & script name
-		$script_name = basename($_SERVER['SCRIPT_FILENAME']);
-		$this->base_path = str_replace($script_name, '', $_SERVER['SCRIPT_NAME']);
+		$script_name = basename($server_data['SCRIPT_FILENAME']);
+		$this->base_path = str_replace($script_name, '', $server_data['SCRIPT_NAME']);
 
 		//set the script name.
-		if (strpos($_SERVER['REQUEST_URI'], $script_name) !== FALSE)
+		if (strpos($server_data['REQUEST_URI'], $script_name) !== FALSE)
 			$this->script_name = $script_name;
 		else
 			$this->script_name = '';
 
 		//Set the request_uri
-		if (strpos($_SERVER['REQUEST_URI'], '?') !== FALSE)
-		{
-			list($request_uri, $get_query) = explode('?', $_SERVER['REQUEST_URI'], 2);
-			$this->query_info = $this->parse_query($get_query);
-		}
-		else
-		{
-			$request_uri = $_SERVER['REQUEST_URI'];
-			$this->query_info = array();
-		}
+    if (strpos($server_data['REQUEST_URI'], '?' !== FALSE))
+      $request_uri = array_shift(explode('?', $server_data['REQUEST_URI'], 2));
+    else
+      $request_uri = $server_data['REQUEST_URI'];
+    
+    //The query string
+		parse_str($server_data['QUERY_STRING'], $this->query_info);
 
 		//Get the PATH.. Use PATH_INFO if possible
 		$this->path_array = array();
-		if (isset($_SERVER['PATH_INFO']) && ! empty($_SERVER['PATH_INFO']))
-			$path_info = $_SERVER['PATH_INFO'];
+		if (isset($server_data['PATH_INFO']) && ! empty($server_data['PATH_INFO']))
+			$path_info = $server_data['PATH_INFO'];
 		else
 			$path_info = substr($request_uri, strlen($this->base_path . $this->script_name));
 		if ( ! empty($path_info))
@@ -258,29 +259,6 @@ class Uri
 	
 	// --------------------------------------------------------------
 
-	/**
-	 * Converts a GET Query to an associative array
-	 *
-	 * Returns an empty array if no get query, or empty string
-	 *
-	 * @param string $str
-	 * @return array
-	 */
-	private function parse_query($str)
-	{
-		$out_array = array();
-		
-		foreach(explode('&', $str) as $item)
-		{
-			if (strpos($item, '='))
-			{
-				list($key, $val) = explode('=', $item, 2);
-				$out_array[$key] = $val;
-			}
-		}
-		
-		return $out_array;
-	}
 }
 
-/* EOF: uri.php */
+/* EOF: Uri.php */

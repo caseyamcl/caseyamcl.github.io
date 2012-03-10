@@ -10,7 +10,7 @@ namespace Requesty;
 class Request
 {
 	/**
-	 * @var Browscap $browscap
+	 * @var \Browscap $browscap
 	 */
 	private $browscap;
 	
@@ -21,7 +21,7 @@ class Request
 	 * 
 	 * @param Browscap $browscap 
 	 */
-	public function __construct(Browscap $browscap)
+	public function __construct($browscap)
 	{
 		//Load dependencies
 		$this->browscap = $browscap;
@@ -197,4 +197,4 @@ class Request
 	}
 }
 
-/* EOF: client.php */
+/* EOF: Request.php */
