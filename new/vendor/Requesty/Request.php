@@ -21,7 +21,7 @@ class Request
 	 * 
 	 * @param Browscap $browscap 
 	 */
-	public function __construct($browscap)
+	public function __construct(\Browscap $browscap)
 	{
 		//Load dependencies
 		$this->browscap = $browscap;
@@ -100,7 +100,7 @@ class Request
 	 */
 	public function is_ajax()
 	{
-		return ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest');		
+		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest');		
 	}
 	
 	// --------------------------------------------------------------		
@@ -117,7 +117,7 @@ class Request
 		$langs = $this->_unserialize_header($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 				
 		//Return them
-		return ($include_weights) ? $languages : array_keys($languages);
+		return ($include_weights) ? $langs : array_keys($langs);
 	}
 	
 	// --------------------------------------------------------------
@@ -129,7 +129,7 @@ class Request
 	 */
 	public function get_accepted_encodings()
 	{
-		return $this->_unserialize_header($_SERVER['HTTP_ACCEPT_ENCODING']);
+		return array_keys($this->_unserialize_header($_SERVER['HTTP_ACCEPT_ENCODING']));
 	}
 	
 	// --------------------------------------------------------------		
@@ -173,13 +173,13 @@ class Request
 	private function _unserialize_header($header)
 	{
 		$items = array_map('trim', explode(',', $header));
-		
+    
 		//Output
 		$output = array();
 		
 		foreach($items as $item)
-		{
-			if (strpos(';', $item) !== FALSE)
+		{     
+			if (strpos($item, ';') !== FALSE)
 				list($val, $weight) = array_map('trim', explode(';', $item));
 			else
 				list($val, $weight) = array($item, 'q=1');
