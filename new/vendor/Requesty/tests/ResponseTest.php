@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../Response.php');
 
-class UriTest extends PHPUnit_Framework_TestCase {
+class ResponseTest extends PHPUnit_Framework_TestCase {
   
   // --------------------------------------------------------------
   

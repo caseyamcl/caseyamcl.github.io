@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../Request.php');
 
-class UriTest extends PHPUnit_Framework_TestCase {
+class RequestTest extends PHPUnit_Framework_TestCase {
 
   private $orig_server_array;
   
