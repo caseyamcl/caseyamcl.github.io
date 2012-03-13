@@ -219,7 +219,7 @@ class Response
 			header("HTTP/1.1 {$code} {$text}", TRUE, $code);		
 			
 		//Output content type header
-		
+    header("Content-type: " . $this->http_content_type);
 			
 		//Output custom headers
 		foreach($this->http_headers as $header)

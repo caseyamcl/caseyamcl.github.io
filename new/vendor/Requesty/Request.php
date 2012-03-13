@@ -164,6 +164,50 @@ class Request
 
 	// --------------------------------------------------------------		
 
+  /**
+   * Negotiate a content-type, language, etc. from a request header
+   *
+   * The $requested paramater should be in the format:
+   * key is type/language/whatever
+   * value is the weight (between 0 and 1)
+   * 
+   * Example:
+   *  array(
+   *    'en-us' => 1
+   *    'en'    => 0.8
+   *    'de'    => 0.5
+   *    '*'     => 0
+   *  ); 
+   * 
+   * 
+   * @param array $requested  Requesed Items (name is key / value is weight)
+   * @param array $available  Available items, in descending priority order
+   * @param string|boolean $default  The default to send back if no match.  FALSE if not set
+   * If NULL, send back the first item in the $available array
+   */
+  public function negotiate($requested, $available, $default = FALSE) {
+    
+    //Manipulate the requested array
+    asort($requested);
+    $requested = array_reverse($requested);
+    
+    //Look for a match
+    foreach($requested as $item => $weight) {
+      if (in_array($item, $available))
+        return $item;      
+    }
+    
+    //No match - Go with the first item in avaialble if '*' or '*/*' sent
+    if ( ! $default && (in_array('*', array_keys($requested)) OR in_array('*/*', array_keys($requested)))) {
+      return array_shift($available);
+    }
+    else {
+      return $default;
+    }
+  }  
+  
+	// --------------------------------------------------------------		
+  
 	/**
 	 * Unserialize a Header
 	 * 

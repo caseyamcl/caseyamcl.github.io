@@ -138,6 +138,60 @@ class UriTest extends PHPUnit_Framework_TestCase {
   
   // --------------------------------------------------------------
   
+  public function testNegotiateLanguagesWithMatch() {
+
+    $req_array = array('en-us' => 1, 'en' => 0.7, 'de' => 0.3, '*' => 0.1);
+    $avail_array = array('en', 'de');
+    
+    $obj = $this->get_request_obj();
+    $result = $obj->negotiate($req_array, $avail_array);
+    
+    $this->assertEquals($result, 'en');
+  }
+  
+  // --------------------------------------------------------------
+  
+  public function testNegotiateLanguagesWithoutMatchAndStar() {
+ 
+    $req_array = array('en-us' => 1, 'en' => 0.7, 'de' => 0.3, '*' => 0.1);
+    $avail_array = array('jp', 'sw');
+    
+    $obj = $this->get_request_obj();
+    $result = $obj->negotiate($req_array, $avail_array);
+    
+    $this->assertEquals($result, 'jp');
+    
+  }
+  
+  // --------------------------------------------------------------
+  
+  public function testNegotiateContentTypesWithoutMatchAndNoStar() {
+ 
+    $req_array = array('en-us' => 1, 'en' => 0.7, 'de' => 0.3);
+    $avail_array = array('jp', 'sw');
+    
+    $obj = $this->get_request_obj();
+    $result = $obj->negotiate($req_array, $avail_array);
+    
+    $this->assertFalse($result);
+  }
+  
+  // --------------------------------------------------------------
+  
+  public function testNegotiateContentTypesWithoutMatchAndNoStarAndDefaultVal() {
+    
+    $req_array = array('en-us' => 1, 'en' => 0.7, 'de' => 0.3);
+    $avail_array = array('jp', 'sw');
+    
+    $obj = $this->get_request_obj();
+    $result = $obj->negotiate($req_array, $avail_array, 'barf');
+    
+    $this->assertEquals($result, 'barf');
+    
+  }
+  
+  // --------------------------------------------------------------
+  
   private function get_request_obj() {
 
     return new \Requesty\Request($this->get_browscap_stub());
