@@ -1,4 +1,1 @@
-/greyhound/config/config.local.php
-/greyhound/data/cache/*
-!/greyhound/data/cache/readme.txt
 /nbproject/private/
