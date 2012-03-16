@@ -41,6 +41,8 @@ class Mapper {
    * @param string $subfolder 
    */
   public function get_sitemap($subdir = '') {
+
+    var_dump($this->scan_content_directory());
     
   }
 	

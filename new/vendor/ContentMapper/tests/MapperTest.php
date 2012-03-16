@@ -91,9 +91,12 @@ class MapperTest extends PHPUnit_Framework_TestCase {
   
   // --------------------------------------------------------------
 
-  //LEFT OFF HERE LEFT OFF HERE LEFT OFF HERE!
-  //Need to test the actual methods in the file...
-
+  public function testGetSiteMapReturnsCorrectFullSiteMap() {
+    
+    $obj = new ContentMapper\Mapper($this->content_path);
+    $obj->get_sitemap();
+    
+  }
 }
 
 /* EOF: MapperTest.php */
