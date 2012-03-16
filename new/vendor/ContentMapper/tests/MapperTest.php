@@ -96,6 +96,9 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $obj = new ContentMapper\Mapper($this->content_path);
     $obj->get_sitemap();
     
+    //@TODO: LEFT OFF HERE LEFT OFF HERE
+    //NEED TO WRITE TESTS FOR CONTENT_ITEM FIRST!!
+    
   }
 }
 
