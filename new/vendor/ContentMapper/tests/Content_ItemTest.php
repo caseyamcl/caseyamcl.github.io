@@ -96,6 +96,33 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($obj->file_urls, array('http://localhost/test/arbitrary.txt'));
     $this->assertEquals($obj->file_paths, array(realpath($this->content_path) . DIRECTORY_SEPARATOR . 'arbitrary.txt'));
   }
+  
+  // --------------------------------------------------------------
+  
+  public function testPhpCodeIsExecutedCorrectlyInContentFile() {
+
+    //Overwrite the content file
+    $new_file_str = "<p>Front Html</p><p><?php echo \$page_url; ?></p><p><?php echo \$page_path; ?></p><p><?php include(\$page_path . 'arbitrary.txt'); ?></p>";
+    file_put_contents($this->content_path . DIRECTORY_SEPARATOR . 'content.php', $new_file_str);   
+    
+    $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test');   
+
+    $cp = $this->content_path . DIRECTORY_SEPARATOR;
+    $this->assertEquals(
+      "<p>Front Html</p><p>http://localhost/test/</p><p>{$cp}</p><p>some arbitrary textfile</p>",
+      $obj->content
+    );      
+  }
+  
+  // --------------------------------------------------------------
+  
+  public function testTrailingSlashesAreAutomaticallyAppended() {
+     $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test');
+     
+     $this->assertEquals($obj->path, $this->content_path . DIRECTORY_SEPARATOR);
+     $this->assertEquals($obj->url, 'http://localhost/test/');
+     
+  }
 }
 
 /* EOF: Content_ItemTest.php */

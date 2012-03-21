@@ -2,7 +2,7 @@
 
 namespace ContentMapper;
 
-class Malformed_ContentItem_Exception extends Exception { /* ... */ }
+class Malformed_ContentItem_Exception extends \Exception { /* ... */ }
 
 /**
  * Content Item Class
@@ -55,7 +55,7 @@ class Content_item {
   /**
    * @var The content file name to use
    */
-  private $_content_filename = 'content.html';
+  private $_content_filename = 'content.php';
   
 	// --------------------------------------------------------------	
 
@@ -68,7 +68,7 @@ class Content_item {
    */
   public function __construct($path, $url) {
     
-    $this->path = realpath($path);
+    $this->path = realpath($path). DIRECTORY_SEPARATOR;
     
     if ( ! is_readable($this->path))
       throw new Exception("The path $path does not actually exist!");
@@ -92,7 +92,7 @@ class Content_item {
     if ($item{0} != '_')
       return $this->$item;
     else
-      throw new Exception("Cannot access private property: $item");
+      throw new \Exception("Cannot access private property: $item");
   }
   
 	// --------------------------------------------------------------	
@@ -104,9 +104,9 @@ class Content_item {
    * @throws Malformed_ContentItem_Exception
    */
   private function read_meta() {
-    
+        
     if ( ! is_readable($this->path . $this->_meta_filename)) {
-      throw new Malformed_ContentItem_Exception("Cannot find required meta file (meta.json)");
+      throw new Malformed_ContentItem_Exception("Cannot find required meta file ({$this->_meta_filename})");
     }
     
     $meta = json_decode(file_get_contents($this->path . $this->_meta_filename));
@@ -137,20 +137,16 @@ class Content_item {
   private function read_content() {
    
     if ( ! is_readable($this->path . $this->_content_filename)) {
-      throw new Malformed_ContentItem_Exception("Cannot find required meta file (meta.json)");      
+      throw new Malformed_ContentItem_Exception("Cannot find required content file ({$this->_content_filename})");      
     }
     
-    //@TODO: Variables that are able to be used on the page go here!
-    //Derive them from this object properties...
-    //
-    //$pageurl
-    //$pagepath
-    //etc....
+    //Create local variables from object properties
+    $page_url = $this->url;
+    $page_path = $this->path;
     
     ob_start();
     include($this->path . $this->_content_filename);
     $this->content = ob_get_clean();
-    ob_end_clean();
     
     return strlen($this->content);
   }
@@ -167,21 +163,27 @@ class Content_item {
     $files = $this->read_dir_to_array($this->path);
     
     //Convert the files to URLS
-    $this->file_urls = array_map(
-      function($val) { return $this->url . $val; }, 
-      $files
-    );
+    $this->file_urls = array_map(array($this, 'generate_file_urls_callback'), $files);
     
     //Convert the files to realpaths
-    $this->file_paths = array_map(
-      function($val) { return realpath($this->path . str_replace('/', DIRECTORY_SEPARATOR, $val)); }, 
-      $files
-    );
+    $this->file_paths = array_map(array($this, 'generate_file_paths_callback'), $files);
     
     return count($files);
   }
   
-	// --------------------------------------------------------------	
+  // --------------------------------------------------------------	
+  
+  private function generate_file_urls_callback($val) {
+    return $this->url . $val;
+  }
+  
+  // --------------------------------------------------------------	
+  
+  private function generate_file_paths_callback($val) {
+    return realpath($this->path . str_replace('/', DIRECTORY_SEPARATOR, $val));
+  }
+  
+  // --------------------------------------------------------------	
    
   /**
 	 * Recursively scan a directory and returns an array of files
