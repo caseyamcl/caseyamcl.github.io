@@ -97,7 +97,8 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $obj->get_sitemap();
     
     //@TODO: LEFT OFF HERE LEFT OFF HERE
-    //NEED TO WRITE TESTS FOR CONTENT_ITEM FIRST!!
+    //YOU NEED TO FINISH THE OTHER TEST (CONTENT_ITEMTEST) FIRST!! THEN COME
+    //BACK HERE!
     
   }
 }
