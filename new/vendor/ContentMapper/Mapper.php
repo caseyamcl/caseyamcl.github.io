@@ -8,20 +8,35 @@ class Mapper {
   const URLPATH = 2;
   
   /**
-   * Content Folder
+   * Content Folder (sans trailing slash)
    * @var string
    */
   private $content_path;
 	
+  /**
+   * Content URL (with trailing slash)
+   * @var string
+   */
+  private $content_url;
+  
 	// --------------------------------------------------------------	  
   
   /**
-   * @param string $content_folder 
+   * Constructor 
+   * 
+   * @param string $content_folder   The base path content items
+   * @param string $content_url      A full base url to content items
    */
-  public function __construct($content_path) {
+  public function __construct($content_path, $content_url) {
     
-    //Remove trailing slash if it exists
+    //Remove trailing slash from content path if it exists
     $content_path = rtrim($content_path, DIRECTORY_SEPARATOR);
+    
+    //Add trailing slash to URL if it doesn't exist
+    if (substr($content_url, -1) != '/')
+      $content_url .= '/';
+   
+    $this->content_url = $content_url;
     
     //Ensure path exists
     if ( ! is_readable($content_path) OR ! is_dir($content_path)) {
@@ -38,11 +53,12 @@ class Mapper {
    * 
    * Key is full URL & Value is the Title of the Item
    * 
-   * @param string $subfolder 
+   * @param string $subfolder  If defined, starts at the specified subfolder
+   * @return array
    */
   public function get_sitemap($subdir = '') {
 
-    var_dump($this->scan_content_directory());
+    return $this->scan_content_directory($subdir);
     
   }
 	
@@ -60,7 +76,7 @@ class Mapper {
       $path = $this->map_url_to_filepath($path);
     }
     
-    return new Content_item($path);
+    return new Content_item($path, $this->content_url . $path);
   }
 
 	// --------------------------------------------------------------	
@@ -118,7 +134,7 @@ class Mapper {
 			if ($item)
 			{			
 				$pagelist[$item->path] = $item->title;
-				$pagelist = array_merge($pagelist, $this->scan_page_directory($filepath));
+				$pagelist = array_merge($pagelist, $this->scan_content_directory($path . DIRECTORY_SEPARATOR . $file));
 			}
 		}
 		
