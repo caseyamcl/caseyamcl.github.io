@@ -105,7 +105,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $new_file_str = "<p>Front Html</p><p><?php echo \$page_url; ?></p><p><?php echo \$page_path; ?></p><p><?php include(\$page_path . 'arbitrary.txt'); ?></p>";
     file_put_contents($this->content_path . DIRECTORY_SEPARATOR . 'content.php', $new_file_str);   
     
-    $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test');   
+    $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test/');   
 
     $cp = $this->content_path . DIRECTORY_SEPARATOR;
     $this->assertEquals(
