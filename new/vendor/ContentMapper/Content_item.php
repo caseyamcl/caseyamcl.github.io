@@ -173,12 +173,24 @@ class Content_item {
   
   // --------------------------------------------------------------	
   
+  /**
+   * Callback for read_files() method
+   * 
+   * @param string $val
+   * @return string
+   */
   private function generate_file_urls_callback($val) {
     return $this->url . $val;
   }
   
   // --------------------------------------------------------------	
   
+  /**
+   * Callback for read_files() method
+   * 
+   * @param string $val
+   * @return string
+   */
   private function generate_file_paths_callback($val) {
     return realpath($this->path . str_replace('/', DIRECTORY_SEPARATOR, $val));
   }
