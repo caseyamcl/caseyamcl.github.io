@@ -20,19 +20,13 @@ class Json implements Outputter {
   
   // --------------------------------------------------------------
  
-  public function render_main_content(Renderlib\Content_item $content_item) {
-    
-  }
-  
-  // --------------------------------------------------------------
- 
   public function render_output(Renderlib\Content_item $content_item) {
     
   }
   
   // --------------------------------------------------------------
  
-  public function get_404_output() {
+  public function render_404_output() {
    
     return json_encode(array('error' => 'Content not found', 'type' => '404'));
     
@@ -40,7 +34,7 @@ class Json implements Outputter {
   
   // --------------------------------------------------------------
  
-  public function get_500_output($msg = NULL) {
+  public function render_error_output($error, $msg = NULL) {
     
     return json_encode(
       array(

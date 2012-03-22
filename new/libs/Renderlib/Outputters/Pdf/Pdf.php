@@ -19,14 +19,7 @@ class Pdf extends Html implements Outputter {
     );
     
   }
-  
-  // --------------------------------------------------------------
- 
-  public function render_main_content(Renderlib\Content_item $content_item) {
-    
-    $content = parent::render_main_content();
-  }
-  
+
   // --------------------------------------------------------------
  
   public function render_output(Renderlib\Content_item $content_item) {
@@ -36,16 +29,16 @@ class Pdf extends Html implements Outputter {
   
   // --------------------------------------------------------------
  
-  public function get_404_output() {
+  public function render_404_output() {
     
     $content = parent::get_404_output();
   }
   
   // --------------------------------------------------------------
  
-  public function get_500_output($msg = NULL) {
+  public function render_error_output($error, $msg = NULL) {
     
-    $content = parent::get_500_output();
+    $content = parent::get_500_output($error, $msg);
   }
 }
 

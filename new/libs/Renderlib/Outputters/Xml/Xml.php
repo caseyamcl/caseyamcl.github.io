@@ -17,13 +17,7 @@ class Xml implements Outputter {
     );
     
   }
-  
-  // --------------------------------------------------------------
- 
-  public function render_main_content(Renderlib\Content_item $content_item) {
-    
-  }
-  
+
   // --------------------------------------------------------------
  
   public function render_output(Renderlib\Content_item $content_item) {
@@ -32,7 +26,7 @@ class Xml implements Outputter {
    
   // --------------------------------------------------------------
  
-  public function get_404_output() {
+  public function render_404_output() {
     
     $xml = new \SimpleXMLElement("<error></error>");
     $xml->addChild('type', '404');
@@ -42,14 +36,11 @@ class Xml implements Outputter {
   
   // --------------------------------------------------------------
  
-  public function get_500_output($msg = NULL) {
+  public function render_error_output($error, $msg = NULL) {
     
-    $out_msg = "Internal Server Error";
-    if ($msg)
-      $out_msg .= ": $msg";
-    
+    $out_msg = $msg ?: 'An Error Occured';
     $xml = new \SimpleXMLElement("<error></error>");
-    $xml->addChild('type', '500');
+    $xml->addChild('type', $error);
     $xml->addChild('message', $out_msg);
     return $xml->asXML();
   }
