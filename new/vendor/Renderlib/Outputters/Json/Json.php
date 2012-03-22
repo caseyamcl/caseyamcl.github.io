@@ -22,12 +22,24 @@ class Json implements Outputter {
    
   public function set_option($opt_name, $opt_value) {
     
+    //No options
+    throw new \InvalidArgumentException("Option name '$opt_name' does not exist!");
   }
   
   // --------------------------------------------------------------
  
   public function render_output(Renderlib\Content_item $content_item) {
     
+    $output_array = array(
+      'title'        => $content_item->title,
+      'content-type' => 'text/html'
+    );
+    
+    foreach($content_item->meta as $mname => $mvalue) {
+      $output_array[$mname] = $mvalue;
+    }
+    
+    return json_encode($output_array);
   }
   
   // --------------------------------------------------------------

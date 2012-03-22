@@ -22,11 +22,24 @@ class Xml implements Outputter {
  
   public function render_output(Renderlib\Content_item $content_item) {
 
+    $output = new \SimpleXMLElement("<content></content>");
+    $output->addChild("title", $content_item->title);
+    $meta = $output->addChild('meta');
+    foreach($content_item->meta as $mname => $mvalue) {
+      $meta->addChild($mname, $mvalue);
+    }
+    $output->addChild('content_type', 'text/html');
+    $output->addChild('content', $content_item->content);
+    
+    return $output->asXML();
   }
    
   // --------------------------------------------------------------
      
   public function set_option($opt_name, $opt_value) {
+    
+    //No options
+    throw new \InvalidArgumentException("Option name '$opt_name' does not exist!");
     
   }
   
