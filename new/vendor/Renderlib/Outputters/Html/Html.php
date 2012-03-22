@@ -48,7 +48,7 @@ class Html implements Outputter {
   
   // --------------------------------------------------------------
  
-  public function render_error_output() {
+  public function render_error_output($error, $msg = NULL) {
     
   }
 }

@@ -25,7 +25,13 @@ class Xml implements Outputter {
   }
    
   // --------------------------------------------------------------
- 
+     
+  public function set_option($opt_name, $opt_value) {
+    
+  }
+  
+  // --------------------------------------------------------------
+   
   public function render_404_output() {
     
     $xml = new \SimpleXMLElement("<error></error>");

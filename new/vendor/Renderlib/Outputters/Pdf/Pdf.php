@@ -6,7 +6,7 @@ class Pdf extends Html implements Outputter {
   
   public function __construct() {
     
-    parent::construct();
+    parent::__construct();
     
   }
   
@@ -21,7 +21,13 @@ class Pdf extends Html implements Outputter {
   }
 
   // --------------------------------------------------------------
- 
+    
+  public function set_option($opt_name, $opt_value) {
+    
+  }
+  
+  // --------------------------------------------------------------
+      
   public function render_output(Renderlib\Content_item $content_item) {
     
     $content = parent::render_output();
