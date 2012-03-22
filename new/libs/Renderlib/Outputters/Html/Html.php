@@ -4,6 +4,8 @@ namespace Renderlib\Outputters;
 
 class Html implements Outputter {
   
+  private $template_dir;
+  
   public function __construct() {
     
   }
@@ -17,6 +19,19 @@ class Html implements Outputter {
       'application/html+xml'
     );
     
+  }
+  
+  // --------------------------------------------------------------
+  
+  public function set_option($opt_name, $opt_value) {
+    
+    switch($opt_name) {
+      case 'template_dir':
+        $this->template_dir = $opt_value;
+      break;
+      default:
+        throw new \InvalidArgumentException("Option name '$opt_name' does not exist!");
+    }
   }
   
   // --------------------------------------------------------------

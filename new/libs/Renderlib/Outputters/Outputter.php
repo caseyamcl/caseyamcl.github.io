@@ -13,5 +13,7 @@ Interface Outputter {
   public function render_error_output($error, $msg = NULL);
   
   public function get_mime_types();
-   
+ 
+  public function set_option($opt_name, $opt_value);
+  
 }
