@@ -71,7 +71,7 @@ class Content_item {
     $this->path = realpath($path). DIRECTORY_SEPARATOR;
     
     if ( ! is_readable($this->path))
-      throw new Exception("The path $path does not actually exist!");
+      throw new Exception("The path $path does not actually exist or is not readable!");
     
     //Append a trailing slash to the URL
     if (substr($url, -1) != '/')

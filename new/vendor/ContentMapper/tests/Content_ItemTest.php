@@ -54,6 +54,20 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test/');
     $this->assertInstanceOf('ContentMapper\Content_item', $obj);
   }
+
+  // --------------------------------------------------------------
+  
+  public function testConstructThrowsExceptionForNonExistentContentPath() {
+    
+    try {
+      $obj = new ContentMapper\Content_item('/does/not/exist', 'http://localhost/test/');
+    } catch (Exception $e) {
+      return;
+    }
+    
+    $this->fail("Creation of a content item at a non-existent path should have thrown an exception!");
+    
+  }
   
   // --------------------------------------------------------------
   

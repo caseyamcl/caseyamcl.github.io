@@ -93,8 +93,8 @@ class MapperTest extends PHPUnit_Framework_TestCase {
   // --------------------------------------------------------------
 
   /**
-  * @depends testTestDirectoriesAndFilesAreCorrectlySetup
-  */
+   * @depends testTestDirectoriesAndFilesAreCorrectlySetup
+   */
   public function testGetSiteMapReturnsCorrectFullSiteMap() {
 
     $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
@@ -110,8 +110,62 @@ class MapperTest extends PHPUnit_Framework_TestCase {
 
   // --------------------------------------------------------------
 
-  //TODO: Left off here.. I will never finish this, will I??
+  public function testMapUrlPathToFilePathMapsCorrectly() {
+        
+    $ds = DIRECTORY_SEPARATOR;
+        
+    $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
+    $result = $obj->map_urlpath_to_filepath('some_content/subcontent');
+    $this->assertEquals($this->content_path . $ds . 'some_content' . $ds . 'subcontent', $result);
+  }
   
+  // --------------------------------------------------------------
+  
+  public function testMapUrlReturnsCorrectResultForFront() {
+    
+    $ds = DIRECTORY_SEPARATOR;
+    
+    $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
+    $result = $obj->map_urlpath_to_filepath('');
+    
+    $this->assertEquals($this->content_path . $ds, $result);
+  }
+  
+  // --------------------------------------------------------------
+  
+  public function testLoadContentObjectReturnsContentObject() {
+    
+    $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
+    $result = $obj->load_content_object('some_content/subcontent');
+    
+    $this->assertInstanceOf('ContentMapper\Content_item', $result);    
+  }
+  
+  // --------------------------------------------------------------
+  
+  public function testLoadContentObjectReturnsContentObjectForFront() {
+    
+    $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
+    $result = $obj->load_content_object('');
+    
+    $this->assertInstanceOf('ContentMapper\Content_item', $result);     
+  }
+  
+  // --------------------------------------------------------------
+  
+  public function testExceptionOccursWhenTryingToLoadNonexistentContentItem() {
+    
+    try {
+      $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
+      $result = $obj->load_content_object('certainly_does_not_exist');
+      
+    } catch (ContentMapper\MapperException $e) {
+      return;
+    }
+    
+    $this->fail("Mapping a non-existent path should have thrown an exception!");
+    
+  }
 }
 
 /* EOF: MapperTest.php */

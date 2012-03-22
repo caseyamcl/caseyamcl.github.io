@@ -2,6 +2,8 @@
 
 namespace ContentMapper;
 
+class MapperException extends \Exception { /* ... */ }
+
 class Mapper {
 
   const FILEPATH = 1;
@@ -72,11 +74,13 @@ class Mapper {
    */
   public function load_content_object($path, $type = self::URLPATH) {
     
-    if ($type == self::URLPATH) {
-      $path = $this->map_url_to_filepath($path);
+    $realpath = ($type == self::URLPATH) ? $this->map_urlpath_to_filepath($path) : $path;
+    
+    if ($realpath === FALSE) {
+      throw new MapperException("Cannot find content item at " . (($type == self::URLPATH) ? 'url' : 'path') . ": $path");
     }
     
-    return new Content_item($path, $this->content_url . $path);
+    return new Content_item($realpath, $this->content_url . $path);
   }
 
 	// --------------------------------------------------------------	
@@ -89,7 +93,7 @@ class Mapper {
    */
   public function map_urlpath_to_filepath($urlpath) {
     
-    $path = ltrim(str_replace('/', DIRECTORY_SEPARATOR, $path), DIRECTORY_SEPARATOR);
+    $path = ltrim(str_replace('/', DIRECTORY_SEPARATOR, $urlpath), DIRECTORY_SEPARATOR);
     
     if (file_exists($this->content_path . DIRECTORY_SEPARATOR . $path)) {
       return $this->content_path . DIRECTORY_SEPARATOR . $path;
