@@ -16,74 +16,23 @@
  * to Laravel
  */
 
-/* A. Define Constants
+/* Setup Application
 /* -------------------------------------------------------------------------
  */
+
+//Constants
 define('BASEPATH', realpath(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 
-
-/* B. Load Resources
-/* -------------------------------------------------------------------------
- */
 
 //Load Non-PSR Classes that we'll be using no matter what anyway
 require_once(BASEPATH . 'libs/Pimple/Pimple.php');
 require_once(BASEPATH . 'libs/Requesty/Browscap.php');
 
-/**
- * PSR-0 Autoloader
- * 
- * From https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
- * 
- * @param string $class_name 
- */
-function autoload($class_name)
-{ 
-  if (class_exists($class_name))
-    return;
-
-  $class_name = ltrim($class_name, '\\');
-  $basepath   = BASEPATH . 'libs' . DIRECTORY_SEPARATOR;
-  $file_name  = '';
-  $namespace = '';
-  $last_ns_pos = strripos($class_name, '\\');
-  
-  if ($last_ns_pos) {
-    $namespace = substr($class_name, 0, $last_ns_pos);
-    $class_name = substr($class_name, $last_ns_pos + 1);
-    $file_name  = $basepath . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-  }
-  $file_name .= str_replace('_', DIRECTORY_SEPARATOR, $class_name) . '.php';
-  
-  require $file_name;
-}
+//Register PSR-0 Autoloader
 spl_autoload_register('autoload');
 
-
-/* C. Setup Dependency Injection (with Pimple)
-/* -------------------------------------------------------------------------
- */
-
-$c = new Pimple();
-
-//Paths Configuration
-$c['cache_path']   = BASEPATH . 'cache';
-$c['content_path'] = BASEPATH . 'content';
-
-//Request/Response Objects
-$c['request_obj']  = $c->share(function($c) { return new Requesty\Request(new Browscap($c['cache_path'])); });
-$c['response_obj'] = $c->share(function($c) { return new Requesty\Response(); });
-$c['url_obj']      = $c->share(function($c) { return new Requesty\Uri(); });
-
-//Content Mapper
-$c['content_url'] = $c['url_obj']->get_base_url();
-$c['mapper_obj']  = $c->share(function($c) { return new ContentMapper\Mapper($c['content_path'], $c['content_url']); });
-
-//Renderer
-$c['render_obj'] = $c->share(function($c) { return new Renderlib\Renderlib(); }); 
-
-//Asset Mapper
-$c['asset_obj'] = $c->share(function($c) { return new Assetlib\Assetlib(); });
+//Get Libraries (Pimple DI Container)
+$c = get_libraries();
 
 
 /* GO!!
@@ -111,7 +60,7 @@ $language = $c['request_obj']->negotiate(
 $req_path = $c['url_obj']->get_path_string();
 
 //Build MD5 String for these three things (for cache purposes)
-$request_md5 = md5($req_path . $content_type . $language);
+$request_md5 = md5('content:' . $req_path . $content_type . $language);
 
 
 /* 2. Load cache library and check for cached version
@@ -194,6 +143,64 @@ $c['response_obj']->go();
  */
 
 /**
+ * PSR-0 Autoloader
+ * 
+ * From https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
+ * 
+ * @param string $class_name 
+ */
+function autoload($class_name)
+{ 
+  if (class_exists($class_name))
+    return;
+
+  $class_name = ltrim($class_name, '\\');
+  $basepath   = BASEPATH . 'libs' . DIRECTORY_SEPARATOR;
+  $file_name  = '';
+  $namespace = '';
+  $last_ns_pos = strripos($class_name, '\\');
+  
+  if ($last_ns_pos) {
+    $namespace = substr($class_name, 0, $last_ns_pos);
+    $class_name = substr($class_name, $last_ns_pos + 1);
+    $file_name  = $basepath . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+  }
+  $file_name .= str_replace('_', DIRECTORY_SEPARATOR, $class_name) . '.php';
+  
+  require $file_name;
+}
+
+// -------------------------------------------------------------------------
+
+function get_libraries() {
+
+  $c = new Pimple();
+
+  //Paths Configuration
+  $c['cache_path']   = BASEPATH . 'cache';
+  $c['content_path'] = BASEPATH . 'content';
+
+  //Request/Response Objects
+  $c['request_obj']  = $c->share(function($c) { return new Requesty\Request(new Browscap($c['cache_path'])); });
+  $c['response_obj'] = $c->share(function($c) { return new Requesty\Response(); });
+  $c['url_obj']      = $c->share(function($c) { return new Requesty\Uri(); });
+
+  //Content Mapper
+  $c['content_url'] = $c['url_obj']->get_base_url();
+  $c['mapper_obj']  = $c->share(function($c) { return new ContentMapper\Mapper($c['content_path'], $c['content_url']); });
+
+  //Renderer
+  $c['render_obj'] = $c->share(function($c) { return new Renderlib\Renderlib(); }); 
+
+  //Asset Mapper
+  $c['asset_obj'] = $c->share(function($c) { return new Assetlib\Assetlib(); });
+
+  return $c;
+}
+
+// -------------------------------------------------------------------------
+
+/**
  * Return the basic name for a namespaced class
  * 
  * @param object $obj
@@ -205,5 +212,20 @@ function get_base_class($obj) {
   $arr = explode('\\', $classname);
   return array_pop($arr);  
 }
+
+// -------------------------------------------------------------------------
+
+function load_cache_item($key) {
+  
+}
+
+// -------------------------------------------------------------------------
+
+function create_cache_item($key, $data) {
+  
+}
+
+// -------------------------------------------------------------------------
+
 
 /* EOF: index.php */
