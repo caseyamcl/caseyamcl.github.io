@@ -119,9 +119,12 @@ class Html implements Outputter {
   private function check_required_attrs() {
 
     //Check for template directory
-    if ( ! $this->template_dir OR ! is_readable($this->template_dir))
+    if ( ! $this->template_dir)
       throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a template directory.  Use set_option("template_dir")');
     
+    if ( ! is_readable($this->template_dir))
+      throw new \RuntimeException("Cannot render " . __CLASS__ . ". Template dir does not exist or is not readable: {$this->template_dir}");
+      
     //Check for template directory
     if ( ! $this->template_url)
       throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a template url.  Use set_option("template_url")');    

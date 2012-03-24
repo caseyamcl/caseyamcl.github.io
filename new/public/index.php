@@ -38,7 +38,9 @@ function autoload($class_name)
   $basepath   = BASEPATH . 'libs' . DIRECTORY_SEPARATOR;
   $file_name  = '';
   $namespace = '';
-  if ($last_ns_pos = strripos($class_name, '\\')) {
+  $last_ns_pos = strripos($class_name, '\\');
+  
+  if ($last_ns_pos) {
     $namespace = substr($class_name, 0, $last_ns_pos);
     $class_name = substr($class_name, $last_ns_pos + 1);
     $file_name  = $basepath . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
@@ -108,6 +110,9 @@ $request_md5 = md5($req_path . $content_type . $language);
 //Skip for now
 $cache_data = FALSE;
 
+//@TODO: Write universal cache library and content cache library, and
+//generate $output variable if there is cache data
+
 
 /* 3. No cached version?  Build content item
  * -------------------------------------------------------------------------
@@ -116,26 +121,37 @@ if ( ! $cache_data) {
  
   //Get the object from the path...
   try {
-    
-    //Load the content item
-    $content_item = $c['mapper_obj']->load_content_object($req_path);
-    
+       
     //Pass the content item to the renderer to get the output..
     $renderer = $c['render_obj']->get_outputter_from_mime_type($content_type);
-   
     //@TODO: Improve this and make it automated...
     if ($renderer instanceof Renderlib\Outputters\Html) {
-      $renderer->set_option('template_dir', BASEPATH . 'templates' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR);
+      $renderer->set_option('template_dir', BASEPATH . 'template');
       $renderer->set_option('template_url', $c['url_obj']->get_base_url());
     }
+   
+    //Load the content item
+    $content_item = $c['mapper_obj']->load_content_object($req_path);    
     
+    //Get the output
     $output = $renderer->render_output($content_item);
     
-  } catch (ContentMapper\MapperException $e) {
-    die("YOU SHOULD DO A 404 YO");
+  } 
+  catch (ContentMapper\MapperException $e) {
+    $http_status = 404;
+    
+    if ( ! isset($renderer)) {
+      $renderer = $c['render_obj']->get_outputter_from_mime_type('text/plain');    
+    }
+    
+    $output = $renderer->render_404_output();
   }
   catch (Renderlib\InvalidRenderMimeTypeException $e) {
-    die("YOU SHOULD DO A 415 YO (yeah 415 is Unsupported Media Type");
+    $http_status = 415;
+       
+    //Default to text content type, because we don't know which to use...
+    $renderer = $c['render_obj']->get_outputter_from_mime_type('text/plain');
+    $output = $renderer->render_error_output($http_status, 'Could not negotiate content-type');    
   }
   
 }
@@ -145,6 +161,7 @@ if ( ! $cache_data) {
 /* -------------------------------------------------------------------------
  */
 
+$c['response_obj']->set_http_status(isset($http_status) ? $http_status : 200);
 $c['response_obj']->set_output($output);
 $c['response_obj']->go();
 
