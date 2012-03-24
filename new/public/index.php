@@ -7,13 +7,10 @@
  * @package CaseyMcLaughlin.com
  * @author Casey McLaughlin
  *
- * @TODO: Implement routing rules for asset files (define what assets are)
- *        Whitelist: css, jpg, jpeg, png, gif, css, js
- *
  * @TODO: Add caching library (w/optional drivers for memcache, etc)
  *
  * @TODO: Use that Github library for better universal error handling similar
- * to Laravel
+ *        to Laravel
  */
 
 /* Setup Application
@@ -220,13 +217,15 @@ function negotiate_content_info($c) {
 
   $content_info['content_type'] = $c['request_obj']->negotiate(
     $c['request_obj']->get_accepted_types(TRUE),
-    $c['render_obj']->get_available_content_types(TRUE)
+    $c['render_obj']->get_available_content_types(TRUE),
+    'text/plain'
   );
 
   //Negotiate Language (English is the only language offered)
   $content_info['language'] = $c['request_obj']->negotiate(
     $c['request_obj']->get_languages(TRUE),
-    array('en-us', 'en')
+    array('en-us', 'en'),
+    'en-us'
   );
 
   //Get Path
@@ -234,6 +233,8 @@ function negotiate_content_info($c) {
 
   return $content_info;
 }
+
+// -------------------------------------------------------------------------
 
 /**
  * Load Rendered Content into Output
