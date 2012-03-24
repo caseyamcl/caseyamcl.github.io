@@ -7,6 +7,9 @@ namespace Requesty;
  */
 class Response
 {
+  const CONTENT  = 1;
+  const FILEPATH = 2;
+  
   /**
    * Custom HTTP Headers
    * @var array
@@ -37,6 +40,12 @@ class Response
    */
 	private $output_content = NULL;
 	
+  /**
+   * Output Type (self::CONTENT or self::FILEPATH)
+   * @var int
+   */
+  private $output_type = self::CONTENT;
+  
 	// --------------------------------------------------------------		
 	
 	/**
@@ -143,12 +152,18 @@ class Response
 	/**
 	 * Set Output
 	 * 
-	 * @param string $output 
+	 * @param string $output  Filename or actual content, depending on context
+   * @param int $type (CONTENT or FILEPATH)
 	 * Typically HTML text, but can be any UTF-8 Text
 	 */
-	public function set_output($output)
+	public function set_output($output, $type = self::CONTENT)
 	{		
-		$this->output_content = $output;
+    if ($type == self::FILEPATH)
+      $this->output_content = realpath($output);
+    else
+      $this->output_content = $output;
+    
+    $this->output_type = $type;
 	}
 
 	// --------------------------------------------------------------		
@@ -173,29 +188,45 @@ class Response
 	 */
 	public function go($return = FALSE)
 	{		
-		ob_start();
-		
-		//Output all of the HTTP headers
-		$this->output_http_headers();
-		
-		//@TODO: Do I need to do this, or will Apache?
-		//Also generate a header-length HTTP header
-		//header('Content-Length: ' . $filesize);
-		//header('X-Content-Length: ' . $filesize);
-			
-		echo $this->output_content;		
-		
-		if ($return)
-		{
-			$data = ob_get_contents();
-			ob_end_clean();
-			
-			return $data;
-		}
-		else
-		{
-			ob_end_flush();
-		}
+    switch ($this->output_type) {
+      
+      case self::CONTENT:
+        
+        ob_start();
+
+        $this->output_http_headers();
+        echo $this->output_content;		
+
+        if ($return)
+        {
+          return ob_get_clean();
+        }
+        else
+        {
+          ob_end_flush();
+        }
+      break;
+      case self::FILEPATH:
+        
+        if ($return) {
+          ob_start();
+          $this->output_http_headers();
+          echo file_get_contents($this->output_content);
+          return ob_get_clean();
+        }
+        else {
+          $this->output_http_headers();
+          $ofh = fopen($this->output_content, 'r');
+          while( ! feof($ofh)) {
+            echo fread($ofh, 8192);
+          }
+          fclose($ofh);
+          return;
+        }
+      break;
+      default:
+        throw new \RuntimeException("Invalid output type defined");      
+    }
 	}
 	
 	// --------------------------------------------------------------		
