@@ -53,7 +53,7 @@ class OutputterHtmlTest extends PHPUnit_Framework_TestCase {
 
   // --------------------------------------------------------------
 
-  public function testRenderOutputThrowsExceptionWithoutTemplateDirSet() {
+  public function testRenderOutputThrowsExceptionWithoutAttrsSet() {
     
     $obj = new \Renderlib\Outputters\Html();
     
@@ -69,7 +69,7 @@ class OutputterHtmlTest extends PHPUnit_Framework_TestCase {
   
   // --------------------------------------------------------------
 
-  public function testRenderOutputRendersStringWithTemplateDirSet() {
+  public function testRenderOutputRendersStringWithAttrsSet() {
     
     $obj = new \Renderlib\Outputters\Html();
     $obj->set_option('template_dir', $this->template_dir);

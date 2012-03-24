@@ -30,7 +30,7 @@ require_once(BASEPATH . 'libs/Requesty/Browscap.php');
  * @param string $class_name 
  */
 function autoload($class_name)
-{
+{ 
   if (class_exists($class_name))
     return;
 
@@ -44,7 +44,7 @@ function autoload($class_name)
     $file_name  = $basepath . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
   }
   $file_name .= str_replace('_', DIRECTORY_SEPARATOR, $class_name) . '.php';
-
+  
   require $file_name;
 }
 spl_autoload_register('autoload');
@@ -121,10 +121,15 @@ if ( ! $cache_data) {
     $content_item = $c['mapper_obj']->load_content_object($req_path);
     
     //Pass the content item to the renderer to get the output..
-    $renderer = $c['renderer']->get_outputter_from_mime_type($content_type);
+    $renderer = $c['render_obj']->get_outputter_from_mime_type($content_type);
+   
+    //@TODO: Improve this and make it automated...
+    if ($renderer instanceof Renderlib\Outputters\Html) {
+      $renderer->set_option('template_dir', BASEPATH . 'templates' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR);
+      $renderer->set_option('template_url', $c['url_obj']->get_base_url());
+    }
     
     $output = $renderer->render_output($content_item);
-    
     
   } catch (ContentMapper\MapperException $e) {
     die("YOU SHOULD DO A 404 YO");
@@ -140,7 +145,7 @@ if ( ! $cache_data) {
 /* -------------------------------------------------------------------------
  */
 
-$c['response_obj']->set_output("TEST");
+$c['response_obj']->set_output($output);
 $c['response_obj']->go();
 
 /* EOF: index.php */

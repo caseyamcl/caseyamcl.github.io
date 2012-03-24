@@ -43,9 +43,7 @@ class Html implements Outputter {
    */
   public function render_output($content_item) {
     
-    //Check for template directory
-    if ( ! $this->template_dir OR ! is_readable($this->template_dir))
-      throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a template directory.  Use set_option("template_dir")');
+    $this->check_required_attrs();
     
     //Possibly render with sub-template based on optional 'type' meta property
     if (isset($content_item->meta->type)) {
@@ -70,8 +68,7 @@ class Html implements Outputter {
  
   public function render_404_output() {
     
-    if ( ! $this->template_dir OR ! is_readable($this->template_dir))
-      throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a template directory.  Use set_option("template_dir")');
+    $this->check_required_attrs();
     
     //If a custom 404 file exists, use that; otherwise use a simple default string
     if (is_readable($this->template_dir . DIRECTORY_SEPARATOR . '_404.php'))
@@ -89,8 +86,7 @@ class Html implements Outputter {
  
   public function render_error_output($error, $msg = NULL) {
     
-    if ( ! $this->template_dir OR ! is_readable($this->template_dir))
-      throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a template directory.  Use set_option("template_dir")');
+    $this->check_required_attrs();
     
     //If a custom error file exists, use that; otherwise use a simple default string
     if (is_readable($this->template_dir . DIRECTORY_SEPARATOR . '_error.php'))
@@ -110,7 +106,7 @@ class Html implements Outputter {
     //Local variables to inject
     $template_path = $this->template_dir;
     $template_url = $this->template_url;
-    //$content also...
+    $content = $content . "\n";
     
     //Run the template
     ob_start();
@@ -118,6 +114,19 @@ class Html implements Outputter {
     return ob_get_clean();
   }
 
+  // --------------------------------------------------------------
+
+  private function check_required_attrs() {
+
+    //Check for template directory
+    if ( ! $this->template_dir OR ! is_readable($this->template_dir))
+      throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a template directory.  Use set_option("template_dir")');
+    
+    //Check for template directory
+    if ( ! $this->template_url)
+      throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a template url.  Use set_option("template_url")');    
+  }
+  
 }
 
 /* EOF: Html.php */

@@ -53,8 +53,8 @@ class Renderlib {
       throw new \InvalidRenderMimeTypeException("The mime type '$mime' is not available!");
     
     $filename = $this->outputters_dir . $this->content_types[$mime];
-    $classname = $this->content_types[$mime];
-    
+    $classname = "\\Renderlib\\Outputters\\" . $this->content_types[$mime];
+        
     return new $classname;
   }
   
