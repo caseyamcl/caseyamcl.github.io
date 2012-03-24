@@ -12,6 +12,8 @@
  * 
  * @TODO: Add caching library (w/optional drivers for memcache, etc)
  * 
+ * @TODO: Use that Github library for better universal error handling similar
+ * to Laravel
  */
 
 /* A. Define Constants
@@ -128,18 +130,30 @@ if ( ! $cache_data) {
   //Get the object from the path...
   try {
        
-    //Pass the content item to the renderer to get the output..
+    //Define renderer options for different formatters
+    $render_options = array(
+      'Html' => array(
+        'template_dir' => BASEPATH . 'template',
+        'template_url' => $c['url_obj']->get_base_url()
+      )  
+    );
+    
+    //Load a renderer based on the content-type http header
     $renderer = $c['render_obj']->get_outputter_from_mime_type($content_type);
-    //@TODO: Improve this and make it automated...
-    if ($renderer instanceof Renderlib\Outputters\Html) {
-      $renderer->set_option('template_dir', BASEPATH . 'template');
-      $renderer->set_option('template_url', $c['url_obj']->get_base_url());
+       
+    //Load renderer options
+    if (isset($render_options[get_base_class($renderer)])) {
+      
+      foreach($render_options[get_base_class($renderer)] as $opt_name => $opt_value) {
+        $renderer->set_option($opt_name, $opt_value);
+      }
+      
     }
-   
+        
     //Load the content item
     $content_item = $c['mapper_obj']->load_content_object($req_path);    
     
-    //Get the output
+    //Get the output by sending the content item to the renderer for rendering
     $output = $renderer->render_output($content_item);
     
   } 
@@ -170,5 +184,23 @@ if ( ! $cache_data) {
 $c['response_obj']->set_http_status(isset($http_status) ? $http_status : 200);
 $c['response_obj']->set_output($output);
 $c['response_obj']->go();
+
+
+/* Functions
+ * =========================================================================
+ */
+
+/**
+ * Return the basic name for a namespaced class
+ * 
+ * @param object $obj
+ * @return string
+ */
+function get_base_class($obj) {
+  
+  $classname = get_class($obj);
+  $arr = explode('\\', $classname);
+  return array_pop($arr);  
+}
 
 /* EOF: index.php */
