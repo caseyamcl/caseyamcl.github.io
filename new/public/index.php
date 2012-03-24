@@ -117,6 +117,11 @@ function autoload($class_name)
 
 // -------------------------------------------------------------------------
 
+/**
+ * Get libraries in the form of a Pimple DI Container
+ *
+ * @return Pimple
+ */
 function get_libraries() {
 
   $c = new Pimple();
@@ -167,6 +172,12 @@ function get_base_class($obj) {
 
 // -------------------------------------------------------------------------
 
+/**
+ * Attempt to load an Asset into Output
+ * 
+ * @param Pimple $c
+ * @return boolean 
+ */
 function load_asset($c) {
 
   $mime = $c['asset_obj']->get_asset_mime($c['url_obj']->get_path_string());
@@ -190,7 +201,7 @@ function load_asset($c) {
 // -------------------------------------------------------------------------
 
 /**
- * Load Cached Content into Output
+ * Attempt to load Cached Content into Output
  *
  * @param Pimple $c
  * @return boolean
@@ -237,7 +248,7 @@ function negotiate_content_info($c) {
 // -------------------------------------------------------------------------
 
 /**
- * Load Rendered Content into Output
+ * Attempt to load Rendered Content into Output, or show a 400/500 error
  *
  * @param Pimple $c
  * @return boolean
