@@ -6,6 +6,12 @@
  * 
  * @package CaseyMcLaughlin.com
  * @author Casey McLaughlin
+ * 
+ * @TODO: Implement routing rules for asset files (define what assets are)
+ *        Whitelist: css, jpg, jpeg, png, gif, css, js
+ * 
+ * @TODO: Add caching library (w/optional drivers for memcache, etc)
+ * 
  */
 
 /* A. Define Constants
