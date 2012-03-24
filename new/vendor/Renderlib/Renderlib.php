@@ -63,21 +63,21 @@ class Renderlib {
     //Get all of the outputters that are registered
     foreach(scandir($this->outputters_dir) as $file) {
             
-      //Skip hiddens
-      if ($file{0} == '.' OR ! is_dir($this->outputters_dir. $file))
+      //Skip hiddens and Outputter.php
+      if ($file{0} == '.' OR $file == 'Outputter.php')
         continue;
       
       //If it is an actual outputter
-      $class_file = $this->outputters_dir . $file . DIRECTORY_SEPARATOR . $file . '.php';
+      $class_file = $this->outputters_dir . $file;
             
       if (is_readable($class_file)) {
         
         include_once($class_file);
-        $classname = 'Renderlib\\Outputters\\' . $file;
+        $classname = 'Renderlib\\Outputters\\' . basename($file, '.php');
         $obj = new $classname;
                
         foreach($obj->get_mime_types() as $mtype) {
-          $this->content_types[$mtype] = $file;
+          $this->content_types[$mtype] = basename($file, '.php');
         }        
       }
     }

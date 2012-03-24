@@ -20,7 +20,7 @@ class Xml implements Outputter {
 
   // --------------------------------------------------------------
  
-  public function render_output(Renderlib\Content_item $content_item) {
+  public function render_output($content_item) {
 
     $output = new \SimpleXMLElement("<content></content>");
     $output->addChild("title", $content_item->title);

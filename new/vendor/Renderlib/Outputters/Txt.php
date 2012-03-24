@@ -34,7 +34,7 @@ class Txt implements Outputter {
   
   // --------------------------------------------------------------
    
-  public function render_output(Renderlib\Content_item $content_item) {
+  public function render_output($content_item) {
     
     $output  = $content_item->title;
     $output .= "\n";

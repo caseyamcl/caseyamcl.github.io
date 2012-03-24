@@ -6,7 +6,7 @@ Interface Outputter {
   
   public function __construct();
   
-  public function render_output(Renderlib\Content_item $content_item);
+  public function render_output($content_item);
   
   public function render_404_output();
   

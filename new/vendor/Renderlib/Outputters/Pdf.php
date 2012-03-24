@@ -28,7 +28,7 @@ class Pdf extends Html implements Outputter {
   
   // --------------------------------------------------------------
       
-  public function render_output(Renderlib\Content_item $content_item) {
+  public function render_output($content_item) {
     
     $content = parent::render_output();
   }
