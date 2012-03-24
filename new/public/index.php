@@ -66,7 +66,7 @@ spl_autoload_register('autoload');
 
 $c = new Pimple();
 
-//Paths
+//Paths Configuration
 $c['cache_path']   = BASEPATH . 'cache';
 $c['content_path'] = BASEPATH . 'content';
 
@@ -81,6 +81,9 @@ $c['mapper_obj']  = $c->share(function($c) { return new ContentMapper\Mapper($c[
 
 //Renderer
 $c['render_obj'] = $c->share(function($c) { return new Renderlib\Renderlib(); }); 
+
+//Asset Mapper
+$c['asset_obj'] = $c->share(function($c) { return new Assetlib\Assetlib(); });
 
 
 /* GO!!
