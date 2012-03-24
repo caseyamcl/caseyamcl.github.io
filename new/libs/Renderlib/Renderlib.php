@@ -2,6 +2,8 @@
 
 namespace Renderlib;
 
+class InvalidRenderMimeTypeException extends \InvalidArgumentException { /* ... */ }
+
 class Renderlib {
   
   private $content_types;
@@ -48,7 +50,7 @@ class Renderlib {
   public function get_outputter_from_mime_type($mime) {
     
     if ( ! isset($this->content_types[$mime]))
-      throw new \InvalidArgumentException("The mime type '$mime' is not available!");
+      throw new \InvalidRenderMimeTypeException("The mime type '$mime' is not available!");
     
     $filename = $this->outputters_dir . $this->content_types[$mime];
     $classname = $this->content_types[$mime];

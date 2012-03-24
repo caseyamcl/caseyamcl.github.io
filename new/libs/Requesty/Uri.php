@@ -1,6 +1,6 @@
 <?php
 
-namespace Routely;
+namespace Requesty;
 
 /**
  * URI Class

@@ -80,7 +80,7 @@ class Mapper {
       throw new MapperException("Cannot find content item at " . (($type == self::URLPATH) ? 'url' : 'path') . ": $path");
     }
     
-    return new Content_item($realpath, $this->content_url . $path);
+    return new Contentitem($realpath, $this->content_url . $path);
   }
 
 	// --------------------------------------------------------------	

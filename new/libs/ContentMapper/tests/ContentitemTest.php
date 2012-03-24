@@ -1,8 +1,8 @@
 <?php
 
-require_once(__DIR__ . '/../Content_item.php');
+require_once(__DIR__ . '/../Contentitem.php');
 
-class MapperTest extends PHPUnit_Framework_TestCase {
+class ContentitemTest extends PHPUnit_Framework_TestCase {
   
   private $content_path;
     
@@ -51,8 +51,8 @@ class MapperTest extends PHPUnit_Framework_TestCase {
   
   public function testConstructWorksWithExistentContentPath() {
     
-    $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test/');
-    $this->assertInstanceOf('ContentMapper\Content_item', $obj);
+    $obj = new ContentMapper\Contentitem($this->content_path, 'http://localhost/test/');
+    $this->assertInstanceOf('ContentMapper\Contentitem', $obj);
   }
 
   // --------------------------------------------------------------
@@ -60,7 +60,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
   public function testConstructThrowsExceptionForNonExistentContentPath() {
     
     try {
-      $obj = new ContentMapper\Content_item('/does/not/exist', 'http://localhost/test/');
+      $obj = new ContentMapper\Contentitem('/does/not/exist', 'http://localhost/test/');
     } catch (Exception $e) {
       return;
     }
@@ -73,7 +73,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
   
   public function testExpectedPropertiesExist() {
         
-    $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test/');
+    $obj = new ContentMapper\Contentitem($this->content_path, 'http://localhost/test/');
     
     $expected_props = array('path', 'url', 'title', 'meta', 'content', 'file_urls', 'file_paths');
     $unexpected_props = array('_meta_filename', '_content_filename');
@@ -100,7 +100,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
   public function testPropertiesAreCorrectValues() {
     
     //Notice I left off the trailing slash on the URL. it should still work.
-    $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test');
+    $obj = new ContentMapper\Contentitem($this->content_path, 'http://localhost/test');
     
     $this->assertEquals($obj->path, realpath($this->content_path) . DIRECTORY_SEPARATOR);
     $this->assertEquals($obj->url, 'http://localhost/test/');
@@ -119,7 +119,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $new_file_str = "<p>Front Html</p><p><?php echo \$page_url; ?></p><p><?php echo \$page_path; ?></p><p><?php include(\$page_path . 'arbitrary.txt'); ?></p>";
     file_put_contents($this->content_path . DIRECTORY_SEPARATOR . 'content.php', $new_file_str);   
     
-    $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test/');   
+    $obj = new ContentMapper\Contentitem($this->content_path, 'http://localhost/test/');   
 
     $cp = $this->content_path . DIRECTORY_SEPARATOR;
     $this->assertEquals(
@@ -131,7 +131,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
   // --------------------------------------------------------------
   
   public function testTrailingSlashesAreAutomaticallyAppended() {
-     $obj = new ContentMapper\Content_item($this->content_path, 'http://localhost/test');
+     $obj = new ContentMapper\Contentitem($this->content_path, 'http://localhost/test');
      
      $this->assertEquals($obj->path, $this->content_path . DIRECTORY_SEPARATOR);
      $this->assertEquals($obj->url, 'http://localhost/test/');
@@ -139,4 +139,4 @@ class MapperTest extends PHPUnit_Framework_TestCase {
   }
 }
 
-/* EOF: Content_ItemTest.php */
+/* EOF: ContentitemTest.php */

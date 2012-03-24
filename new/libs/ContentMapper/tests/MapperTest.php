@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../Mapper.php');
-require_once(__DIR__ . '/../Content_item.php');
+require_once(__DIR__ . '/../Contentitem.php');
 
 class MapperTest extends PHPUnit_Framework_TestCase {
 
@@ -138,7 +138,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
     $result = $obj->load_content_object('some_content/subcontent');
     
-    $this->assertInstanceOf('ContentMapper\Content_item', $result);    
+    $this->assertInstanceOf('ContentMapper\Contentitem', $result);    
   }
   
   // --------------------------------------------------------------
@@ -148,7 +148,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
     $result = $obj->load_content_object('');
     
-    $this->assertInstanceOf('ContentMapper\Content_item', $result);     
+    $this->assertInstanceOf('ContentMapper\Contentitem', $result);     
   }
   
   // --------------------------------------------------------------

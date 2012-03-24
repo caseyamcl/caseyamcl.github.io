@@ -81,7 +81,7 @@ class UriTest extends PHPUnit_Framework_TestCase {
       $http_data['REQUEST_URI'] = substr($http_data['REQUEST_URI'], 0, strpos($http_data['REQUEST_URI'], '?'));
     }
     
-    return new Routely\Uri($http_data);
+    return new Requesty\Uri($http_data);
   }
   
   // --------------------------------------------------------------

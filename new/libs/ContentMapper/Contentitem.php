@@ -10,7 +10,7 @@ class Malformed_ContentItem_Exception extends \Exception { /* ... */ }
  * @author Casey McLaughlin
  * @package ContentMapper 
  */
-class Content_item {
+class Contentitem {
   
   /**
    * @var string  The realpath for this content
