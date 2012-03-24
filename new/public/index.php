@@ -8,67 +8,91 @@
  * @author Casey McLaughlin
  *
  * @TODO: Add caching library (w/optional drivers for memcache, etc)
- *
- * @TODO: Use that Github library for better universal error handling similar
- *        to Laravel
  */
 
 /* Setup Application
  * =========================================================================
  */
 
-//Constants
-define('BASEPATH', realpath(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
+try {
 
-//Load Non-PSR Classes that we'll be using no matter what anyway
-require_once(BASEPATH . 'libs/Pimple/Pimple.php');
-require_once(BASEPATH . 'libs/Requesty/Browscap.php');
+  //Constants
+  define('BASEPATH', realpath(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 
-//Register PSR-0 Autoloader
-spl_autoload_register('autoload');
+  //Load Non-PSR Classes that we'll be using no matter what anyway
+  require_once(BASEPATH . 'libs/Pimple/Pimple.php');
+  require_once(BASEPATH . 'libs/Requesty/Browscap.php');
 
-//Get Libraries (Pimple DI Container)
-$c = get_libraries();
+  //Register PSR-0 Autoloader
+  spl_autoload_register('autoload');
+
+  //Get Libraries (Pimple DI Container)
+  $c = get_libraries();
 
 
-/* GO!!
- * =========================================================================
- */
+  /* GO!!
+  * =========================================================================
+  */
 
-// Set Ouptut to FALSE
-$output = FALSE;
+  // Set Ouptut to FALSE
+  $output = FALSE;
 
-// Check if URL is actually an asset, and load that
-if ( ! $output) {
+  // Check if URL is actually an asset, and load that
+  if ( ! $output) {
 
-  $output = load_asset($c);
+    $output = load_asset($c);
+  }
+
+  //Set error wrapper after attempting to load asset
+  $c['error_wrapper']->setup();
+
+  
+  // If Ouptut is False, Negotiate the Request and Attempt to load from Cache
+  if ( ! $output) {
+
+    //Negotiate Content Type
+    $content_info = negotiate_content_info($c);
+
+    //Build MD5 String for these three things (for cache purposes)
+    $output = load_content_from_cache($content_info, $c);
+  }
+
+  // If Output is still False, Try loading the content Item
+  if ( ! $output) {
+
+    $output = load_rendered_content($content_info, $c);
+
+  }
+
+  // Still no Output?  Fail!
+  if ( ! $output) {
+    throw new Exception("No output was generated during application execution!");
+  }
+  
+  throw new Exception("FOO");
+  
+  // Render Output
+  $c['response_obj']->go();
+  
+} catch (Exception $e) {
+
+  //Check for $c, $c['response_obj']
+  if (isset($c) && $c && $c['response_obj']) {
+    
+    //If we can resolve a content-type, use the built-in error template
+    
+    //Elseif we can use text/plain, just use text/plain error template
+    
+    //Else just print some stuff to the screen
+    
+  }
+  else {
+    
+    //Just print some stuff to the screen
+    
+  }
+  
 }
-
-// If Ouptut is False, Negotiate the Request and Attempt to load from Cache
-if ( ! $output) {
-
-  //Negotiate Content Type
-  $content_info = negotiate_content_info($c);
-
-  //Build MD5 String for these three things (for cache purposes)
-  $output = load_content_from_cache($content_info, $c);
-}
-
-// If Output is still False, Try loading the content Item
-if ( ! $output) {
-
-  $output = load_rendered_content($content_info, $c);
-
-}
-
-// Still no Output?  Fail!
-if ( ! $output) {
-  throw new Exception("No output was generated during application execution!");
-}
-
-// Render Output
-$c['response_obj']->go();
-
 
 /* Functions
  * =========================================================================
@@ -135,6 +159,9 @@ function get_libraries() {
     ''         => $c['content_path'],
     'template' => $c['template_path']
   );
+  
+  //Error Wrapper
+  $c['error_wrapper'] = $c->share(function($c) { return new Requesty\ErrorWrapper(); });
 
   //Asset Mapper
   $c['asset_obj'] = $c->share(function($c) { return new Assetlib\Assetlib($c['asset_paths']); });
