@@ -14,7 +14,7 @@
  */
 
 /* Setup Application
-/* -------------------------------------------------------------------------
+ * =========================================================================
  */
 
 //Constants
@@ -35,22 +35,16 @@ $c = get_libraries();
  * =========================================================================
  */
 
-/*
- * Set Ouptut to FALSE
- */
+// Set Ouptut to FALSE
 $output = FALSE;
 
-/*
- * Check if URL is actually an asset, and load that
- */
+// Check if URL is actually an asset, and load that
 if ( ! $output) {
 
   $output = load_asset($c);
 }
 
-/*
- * If Ouptut is False, Negotiate the Request and Attempt to load from Cache
- */
+// If Ouptut is False, Negotiate the Request and Attempt to load from Cache
 if ( ! $output) {
 
   //Negotiate Content Type
@@ -60,26 +54,19 @@ if ( ! $output) {
   $output = load_content_from_cache($content_info, $c);
 }
 
-/*
- * If Output is still False, Try loading the content Item
- */
+// If Output is still False, Try loading the content Item
 if ( ! $output) {
 
   $output = load_rendered_content($content_info, $c);
 
 }
 
-
-/*
- * Still no Output? Fail!
- */
+// Still no Output?  Fail!
 if ( ! $output) {
   throw new Exception("No output was generated during application execution!");
 }
 
-/*
- * Render!
- */
+// Render Output
 $c['response_obj']->go();
 
 
@@ -158,7 +145,7 @@ function get_libraries() {
 // -------------------------------------------------------------------------
 
 /**
- * Return the basic name for a namespaced class
+ * Return the basic name for a namespaced class (helper function)
  *
  * @param object $obj
  * @return string
@@ -168,6 +155,37 @@ function get_base_class($obj) {
   $classname = get_class($obj);
   $arr = explode('\\', $classname);
   return array_pop($arr);
+}
+
+// -------------------------------------------------------------------------
+
+/**
+ * Negotiate content Information
+ *
+ * @param Pimple $c
+ * @return array
+ */
+function negotiate_content_info($c) {
+
+ $content_info = array();
+
+  $content_info['content_type'] = $c['request_obj']->negotiate(
+    $c['request_obj']->get_accepted_types(TRUE),
+    $c['render_obj']->get_available_content_types(TRUE),
+    'text/plain'
+  );
+
+  //Negotiate Language (English is the only language offered)
+  $content_info['language'] = $c['request_obj']->negotiate(
+    $c['request_obj']->get_languages(TRUE),
+    array('en-us', 'en'),
+    'en-us'
+  );
+
+  //Get Path
+  $content_info['req_path'] = $c['url_obj']->get_path_string();
+
+  return $content_info;
 }
 
 // -------------------------------------------------------------------------
@@ -212,37 +230,6 @@ function load_content_from_cache($content_info, $c) {
 
   //@TODO: Write cache library!
   return FALSE;
-}
-
-// -------------------------------------------------------------------------
-
-/**
- * Negotiate content Information
- *
- * @param Pimple $c
- * @return array
- */
-function negotiate_content_info($c) {
-
- $content_info = array();
-
-  $content_info['content_type'] = $c['request_obj']->negotiate(
-    $c['request_obj']->get_accepted_types(TRUE),
-    $c['render_obj']->get_available_content_types(TRUE),
-    'text/plain'
-  );
-
-  //Negotiate Language (English is the only language offered)
-  $content_info['language'] = $c['request_obj']->negotiate(
-    $c['request_obj']->get_languages(TRUE),
-    array('en-us', 'en'),
-    'en-us'
-  );
-
-  //Get Path
-  $content_info['req_path'] = $c['url_obj']->get_path_string();
-
-  return $content_info;
 }
 
 // -------------------------------------------------------------------------
