@@ -29,6 +29,9 @@ try {
   //Get Libraries (Pimple DI Container)
   $c = get_libraries();
 
+  //Set error wrapper after attempting to load asset
+  $c['error_wrapper']->setup();
+
 
   /* GO!!
   * =========================================================================
@@ -42,10 +45,6 @@ try {
 
     $output = load_asset($c);
   }
-
-  //Set error wrapper after attempting to load asset
-  $c['error_wrapper']->setup();
-
   
   // If Ouptut is False, Negotiate the Request and Attempt to load from Cache
   if ( ! $output) {
