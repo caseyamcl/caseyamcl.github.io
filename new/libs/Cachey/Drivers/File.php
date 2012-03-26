@@ -9,10 +9,10 @@ class File extends Cache_driver {
   public function set_option($optname, $optval) {
     
     if ( ! in_array($optname, array('filepath', 'default_expiration'))) {
-      throw new \RuntimeException("invalid option: $optname");
+      throw new \Cachey\Cachey_Exception("invalid option: $optname");
     }
     
-    parent::set_option($optname, $optval);    
+    return parent::set_option($optname, $optval);    
   }
   
   // --------------------------------------------------------------		
@@ -28,13 +28,8 @@ class File extends Cache_driver {
   public function create_cache_item($key, $data, $expire = NULL) {
     
     $expire = time() + $this->compute_expiration($expire);
-    $fp = $this->get_cache_filepath();
-    
-    if (check_cache_version_exists($key)) {
-      throw new Cachey\Cachey_Exception("The cache item with key '$key' already exists!");
-    }
-
-    return @file_put_contents($fp . $key . '.cache', $data);    
+    $fp = $this->get_cache_filepath() . md5($key) . '.cache';
+    return @file_put_contents($fp, $this->encode_filecontents($expire, $data));    
   }
   
   // --------------------------------------------------------------		
@@ -46,18 +41,23 @@ class File extends Cache_driver {
    */
   public function retrieve_cache_item($key) {
     
-    $fp = $this->get_cache_filepath();
+    $fp = $this->get_cache_filepath() . md5($key) . '.cache';
     
-    return @file_get_contents($fp . $key . '.cache');
+    $result = $this->decode_filecontents(@file_get_contents($fp));
+
+    if ($result && $result[0] >= time()) {
+      return $result[1];      
+    }
+    else {
+      $this->clear_cache($key);
+      return FALSE;
+    }
   }
   
   // --------------------------------------------------------------		
 
-  public function check_cache_item_exists($key) {
-    
-    $fp = $this->get_cache_filepath();
-    return is_readable($fp . $key . '.cache');
-    
+  public function check_cache_item_exists($key) {   
+    return ($this->retrieve_cache_item($key)) ? TRUE : FALSE;
   }
   
   // --------------------------------------------------------------		
@@ -67,14 +67,7 @@ class File extends Cache_driver {
     $fp = $this->get_cache_filepath();
     
     if ($key) {
-      
-      if ($this->check_cache_version_exists($key)) {
-        return @unlink($fp . $key . '.cache');
-      }
-      else {
-        return FALSE;
-      }
-      
+      return @unlink($fp . md5($key) . '.cache');
     }
     else {
       
@@ -84,7 +77,7 @@ class File extends Cache_driver {
         
         if (substr($file, -6) == '.cache') {
                     
-          if (@unlink($fp . $file)) {
+          if ( ! @unlink($fp . $file)) {
             $failed_files[] = $file;
           }
         }
@@ -95,7 +88,7 @@ class File extends Cache_driver {
         return TRUE;
       }
       else {
-        throw new Cachey\Cachey_Exception("Error deleting the following cache files: " . implode("; ", $failed_files));
+        throw new \Cachey\Cachey_Exception("Error deleting the following cache files: " . implode("; ", $failed_files));
       }
     }
     
@@ -106,16 +99,55 @@ class File extends Cache_driver {
   private function get_cache_filepath() {
     
     if ( ! isset($this->options['filepath'])) {
-      throw new Cachey\Cachey_Exception("No filepath set for file cache!  Use set_option('filepath') to set it!");
+      throw new \Cachey\Cachey_Exception("No filepath set for file cache!  Use set_option('filepath') to set it!");
     }
     
     $fp = $this->options['filepath'];
     
     if ( ! is_writable($fp)) {
-      throw new Cachey\Cachey_Exception("The filepath does not exist or is not writable for caching: $fp");
+      throw new \Cachey\Cachey_Exception("The filepath does not exist or is not writable for caching: $fp");
     }
     
     return realpath($fp) . DIRECTORY_SEPARATOR;
+  }
+  
+  // --------------------------------------------------------------		
+
+  /**
+   * Encode cache file contents
+   * 
+   * @param int $expiration_timestamp
+   * @param string $file_content
+   * @return string
+   */
+  private function encode_filecontents($expiration_timestamp, $file_content) {
+    return $expiration_timestamp . "\n" . base64_encode($file_content);    
+  }
+  
+  // --------------------------------------------------------------		
+
+  /**
+   * Returns an array with the expiration timestamp and the contents, or FALSE
+   * 
+   * @param string $raw_file_content
+   * @return array|boolean  (FALSE if file was non-readable)
+   * @throws Cachey\Cachey_Exception 
+   */
+  private function decode_filecontents($raw_file_content) {
+
+    if ($raw_file_content === FALSE) {
+      return $raw_file_content;
+    }
+
+    $ret = explode("\n", $raw_file_content, 2);
+    
+    if (count($ret) < 2 OR ! is_numeric($ret[0])) {
+      throw new Cachey\Cachey_Exception("Malformed file content.  Cannot decode");
+    }
+    
+    $ret[1] = base64_decode($ret[1]);
+    
+    return $ret;
   }
 }
 

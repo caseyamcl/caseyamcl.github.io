@@ -8,7 +8,7 @@ abstract class Cache_driver {
   
   // --------------------------------------------------------------		
   
-  private $options = array();
+  protected $options = array();
   
   // --------------------------------------------------------------		
   
@@ -46,11 +46,11 @@ abstract class Cache_driver {
    * @return int
    * @throws Exception 
    */
-  private function compute_expiration($exp) {
+  protected function compute_expiration($exp) {
     
     if (is_null($exp)) {
       
-      $exp (isset($this->options['default_expiration']))
+      $exp = (isset($this->options['default_expiration']))
         ? $this->options['default_expiration'] : self::DEFAULT_EXPIRATION;
     }
    
@@ -84,10 +84,10 @@ abstract class Cache_driver {
   abstract public function retrieve_cache_item($key);
   
   /**
-   * Check cache version exists
+   * Check cache version exists and has not expired
    * 
    * @param string $key
-   * @return boolean 
+   * @return boolean   FALSE if not exists or expired
    */
   abstract public function check_cache_item_exists($key);
   
