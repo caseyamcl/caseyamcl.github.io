@@ -27,7 +27,8 @@ class Assetlib {
     'jpe'  => 'image/jpeg',
     'png'  => 'image/png',
     'css'  => 'text/css',
-    'js'   => 'application/x-javascript'
+    'js'   => 'application/x-javascript',
+    'ico'  => 'image/x-icon'
   );
   
 	// --------------------------------------------------------------	
