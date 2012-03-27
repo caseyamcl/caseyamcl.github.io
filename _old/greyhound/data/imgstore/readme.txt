@@ -1,1 +1,0 @@
-Dynamically resized images for Greyhound CMS go in here.  This folder should be writable
