@@ -45,7 +45,7 @@ try {
 
     $output = load_asset($c);
   }
-  
+    
   // If Ouptut is False, Negotiate the Request and Attempt to load from Cache
   if ( ! $output) {
 
@@ -55,7 +55,7 @@ try {
     //Build MD5 String for these three things (for cache purposes)
     $output = load_content_from_cache($content_info, $c);
   }
-
+  
   // If Output is still False, Try loading the content Item
   if ( ! $output) {
 
@@ -68,13 +68,11 @@ try {
     throw new Exception("No output was generated during application execution!");
   }
   
-  throw new Exception("FOO");
-  
   // Render Output
   $c['response_obj']->go();
   
 } catch (Exception $e) {
-
+  
   //Check for $c, $c['response_obj']
   if (isset($c) && $c && $c['response_obj']) {
     
@@ -140,12 +138,22 @@ function get_libraries() {
   $c['cache_path']    = BASEPATH . 'cache';
   $c['content_path']  = BASEPATH . 'content';
   $c['template_path'] = BASEPATH . 'template';
-
+  
   //Request/Response Objects
   $c['request_obj']  = $c->share(function($c) { return new Requesty\Request(new Browscap($c['cache_path'])); });
   $c['response_obj'] = $c->share(function($c) { return new Requesty\Response(); });
   $c['url_obj']      = $c->share(function($c) { return new Requesty\Uri(); });
 
+  //Cache Configuration and Library
+  $c['cache_driver'] = 'file';
+  $c['cache_driver_opts'] = array(
+    'filepath' => BASEPATH . 'cache',
+    'default_expiration' => 86400
+  );
+  
+  $c['cachey'] = $c->share(function($c) { return new Cachey\Cachey(); }); 
+  $c['cache'] = $c->share(function($c) { return $c['cachey']->factory($c['cache_driver'], $c['cache_driver_opts']); });
+  
   //Content Mapper
   $c['content_url'] = $c['url_obj']->get_base_url();
   $c['mapper_obj']  = $c->share(function($c) { return new ContentMapper\Mapper($c['content_path'], $c['content_url']); });
@@ -193,21 +201,27 @@ function get_base_class($obj) {
  */
 function negotiate_content_info($c) {
 
- $content_info = array();
+  $content_info = array();
 
+  //Allow content_type in query string to override request header
+  $req_type = (isset($_GET['content_type']))
+    ? array('1' => $_GET['content_type']) : $c['request_obj']->get_accepted_types(TRUE);
+
+  //Negotiate content type
   $content_info['content_type'] = $c['request_obj']->negotiate(
-    $c['request_obj']->get_accepted_types(TRUE),
+    $req_type,
     $c['render_obj']->get_available_content_types(TRUE),
     'text/plain'
   );
 
+  //Allow lang in query string to override request header
+  $req_lang = (isset($_GET['lang'])) ? array('1' => $_GET['lang']) : $c['request_obj']->get_languages(TRUE);
+  
   //Negotiate Language (English is the only language offered)
   $content_info['language'] = $c['request_obj']->negotiate(
-    $c['request_obj']->get_languages(TRUE),
-    array('en-us', 'en'),
-    'en-us'
+    $req_lang, array('en-us', 'en'), 'en-us'
   );
-
+  
   //Get Path
   $content_info['req_path'] = $c['url_obj']->get_path_string();
 
@@ -247,15 +261,58 @@ function load_asset($c) {
 /**
  * Attempt to load Cached Content into Output
  *
+ * Also handles cache overrides if defined in the query string
+ * 
  * @param Pimple $c
  * @return boolean
  */
 function load_content_from_cache($content_info, $c) {
+  
+  //Get cache options from query string
+  // can be 'skip', 'clear', 'destroy'
+  //@TODO: Allow custom headers as well
+  $cache_opt = (isset($_GET['cache'])) ? $_GET['cache'] : FALSE;  
 
+  //Build a custom cache key
   $cache_key = md5('content:' . implode('', $content_info));
+  
+  try {
+    switch($cache_opt) {
 
-  //@TODO: Write cache library!
-  return FALSE;
+      case 'skip':
+        return FALSE;
+
+      case 'clear':
+        if ($c['cache']) {
+          $c['cache']->clear_cache($cache_key);
+        }
+        return FALSE;
+
+      case 'destroy':
+        if ($c['cache']) {
+          $c['cache']->clear_cache();
+        }
+        return FALSE;
+
+      default:
+        $result = ($c['cache']) ? $c['cache']->retrieve_cache_item($cache_key) : FALSE;
+        
+        if ($result) {
+          $c['response_obj']->set_http_status(200);
+          $c['response_obj']->set_http_content_type($content_info['content_type']);
+          $c['response_obj']->set_output($result);
+          return TRUE;
+        }
+        else {
+          return FALSE;
+        }
+      break;
+    }
+  } catch (\Cachey\Cachey_Exception $e) {
+    
+    return FALSE;
+    
+  }
 }
 
 // -------------------------------------------------------------------------
@@ -292,10 +349,23 @@ function load_rendered_content($content_info, $c) {
     //Load the content item
     $content_item = $c['mapper_obj']->load_content_object($content_info['req_path']);
 
+    //Render the output
+    $rendered_output = $renderer->render_output($content_item);
+    
+    //If using a cache, attempt to add the item to the cache
+    if ($c['cache']) {
+      try {
+        $cache_key = md5('content:' . implode('', $content_info));
+        $c['cache']->create_cache_item($cache_key, $rendered_output);
+      } catch (\Cachey\Cachy_Exception $e) {
+        //pass...
+      }
+    }
+    
     //Get the output by sending the content item to the renderer for rendering
     $c['response_obj']->set_http_status(200);
     $c['response_obj']->set_http_content_type($content_info['content_type']);
-    $c['response_obj']->set_output($renderer->render_output($content_item));
+    $c['response_obj']->set_output($rendered_output);
   }
   catch (ContentMapper\MapperException $e) {
     $http_status = 404;

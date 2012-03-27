@@ -2,7 +2,7 @@
 
 namespace Cachey\Drivers;
 
-abstract class Cache_driver {
+abstract class Cachedriver {
   
   const DEFAULT_EXPIRATION = 3600;
   

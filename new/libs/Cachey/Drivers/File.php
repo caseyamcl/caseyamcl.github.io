@@ -2,7 +2,7 @@
 
 namespace Cachey\Drivers;
 
-class File extends Cache_driver {
+class File extends Cachedriver {
   
   // --------------------------------------------------------------		
   
@@ -26,10 +26,10 @@ class File extends Cache_driver {
    * @throws Cachey\Cachey_Exception 
    */
   public function create_cache_item($key, $data, $expire = NULL) {
-    
+
     $expire = time() + $this->compute_expiration($expire);
     $fp = $this->get_cache_filepath() . md5($key) . '.cache';
-    return @file_put_contents($fp, $this->encode_filecontents($expire, $data));    
+    return file_put_contents($fp, $this->encode_filecontents($expire, $data));    
   }
   
   // --------------------------------------------------------------		
@@ -42,14 +42,17 @@ class File extends Cache_driver {
   public function retrieve_cache_item($key) {
     
     $fp = $this->get_cache_filepath() . md5($key) . '.cache';
-    
-    $result = $this->decode_filecontents(@file_get_contents($fp));
 
+    $result = (is_readable($fp)) ? $this->decode_filecontents(@file_get_contents($fp)) : FALSE;
+    
     if ($result && $result[0] >= time()) {
-      return $result[1];      
+      return $result[1];     
+    }
+    elseif ($result && $result[0] < time()) {
+      $this->clear_cache($key);
+      return FALSE;
     }
     else {
-      $this->clear_cache($key);
       return FALSE;
     }
   }
@@ -67,7 +70,7 @@ class File extends Cache_driver {
     $fp = $this->get_cache_filepath();
     
     if ($key) {
-      return @unlink($fp . md5($key) . '.cache');
+      return unlink($fp . md5($key) . '.cache');
     }
     else {
       
@@ -77,7 +80,7 @@ class File extends Cache_driver {
         
         if (substr($file, -6) == '.cache') {
                     
-          if ( ! @unlink($fp . $file)) {
+          if ( ! unlink($fp . $file)) {
             $failed_files[] = $file;
           }
         }

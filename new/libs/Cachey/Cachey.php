@@ -12,11 +12,9 @@ class Cachey {
     $ds = DIRECTORY_SEPARATOR;
     $filename = __DIR__ . $ds . 'Drivers' . $ds . ucfirst($cache_driver) . '.php';
     
-    if (@include_once($filename)) {
-      
-      $classname = 'Cachey\\Drivers\\' . ucfirst($cache_driver);
+    if (include_once($filename)) {
+      $classname = 'Cachey\\Drivers\\' . ucfirst($cache_driver);      
       return new $classname($options);
-      
     }
     else {
       throw new \RuntimeException("The cache driver $cache_driver does not exist!");
