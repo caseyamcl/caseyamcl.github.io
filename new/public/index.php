@@ -16,7 +16,8 @@ try {
 
   //Constants
   define('BASEPATH', realpath(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
-
+  define('ENVIRONMENT', 'development');
+  
   //Load Non-PSR Classes that we'll be using no matter what anyway
   require_once(BASEPATH . 'libs/Pimple/Pimple.php');
   require_once(BASEPATH . 'libs/Requesty/Browscap.php');
@@ -56,9 +57,7 @@ try {
   
   // If Output is still False, Try loading the content Item
   if ( ! $output) {
-
     $output = load_rendered_content($content_info, $c);
-
   }
 
   // Still no Output?  Fail!
@@ -70,21 +69,25 @@ try {
   $c['response_obj']->go();
   
 } catch (Exception $e) {
-  
-  //Check for $c, $c['response_obj']
-  if (isset($c) && $c && $c['response_obj']) {
+
+  try {
     
-    //If we can resolve a content-type, use the built-in error template
-    
-    //Elseif we can use text/plain, just use text/plain error template
-    
-    //Else just print some stuff to the screen
-    
+    //@TODO: Fix this to use rendered errors
+    $c['response_obj']->set_http_status(500);
+    $c['response_obj']->set_http_content_type('text/plain');
+    $c['response_obj']->set_output("Whoops.  There was an error."); 
+    $c['response_obj']->go();
   }
-  else {
-    
-    //Just print some stuff to the screen
-    
+  catch (Exception $e) {
+
+    if (ENVIRONMENT != 'development') {
+      header("HTTP/1.0 500 Internal Server Error");    
+      header("Content-type: text/plain");
+      die("Whoops!  Internal Error!  Sorry about that.");
+    }
+    else {
+      throw $e;
+    }
   }
   
 }
@@ -382,9 +385,9 @@ function load_rendered_content($content_info, $c) {
     //Default to text content type, because we don't know which to use...
     $renderer = $c['render_obj']->get_outputter_from_mime_type('text/plain');
     $output = $renderer->render_error_output($http_status, 'Could not negotiate content-type');    
-    $c['response_obj']->set_http_status(404);
+    $c['response_obj']->set_http_status(415);
     $c['response_obj']->set_http_content_type('text/plain');
-    $c['response_obj']->set_output($output);    
+    $c['response_obj']->set_output($output); 
   }
 
   return TRUE;
