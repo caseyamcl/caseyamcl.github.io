@@ -6,8 +6,6 @@
  *
  * @package CaseyMcLaughlin.com
  * @author Casey McLaughlin
- *
- * @TODO: Add caching library (w/optional drivers for memcache, etc)
  */
 
 /* Setup Application
