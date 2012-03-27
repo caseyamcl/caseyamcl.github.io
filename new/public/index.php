@@ -390,6 +390,7 @@ function load_rendered_content($content_info, $c) {
     $c['response_obj']->set_output($output); 
   }
 
+  //Return TRUE if made it here, even if we caught exceptions above.
   return TRUE;
 }
 
