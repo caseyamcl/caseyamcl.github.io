@@ -72,10 +72,18 @@ try {
 
   try {
     
+    $error_output = "Whoops.  There was an error.";
+    
+    if (ENVIRONMENT == 'development') {
+      $error_output .= "\n" . $e->getMessage();
+      $error_output .= "\n" . $e->getFile();
+      $error_output .= "\n" . $e->getLine();
+    }
+    
     //@TODO: Fix this to use rendered errors
     $c['response_obj']->set_http_status(500);
     $c['response_obj']->set_http_content_type('text/plain');
-    $c['response_obj']->set_output("Whoops.  There was an error."); 
+    $c['response_obj']->set_output($error_output); 
     $c['response_obj']->go();
   }
   catch (Exception $e) {

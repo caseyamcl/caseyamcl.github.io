@@ -1,0 +1,61 @@
+.calendar_agenda {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.calendar_agenda .cal_dateline {
+	display: block;
+	margin: 2px 0;
+	padding: 3px;
+	background-color: #E4E4E4;
+	border-radius: 5px;
+}
+
+.calendar_agenda .cal_dateline .cal_dow:after {
+	content: ", ";
+}
+
+.calendar_agenda .cal_dateline .cal_month:after {
+	content: " ";
+}
+
+.calendar_agenda .cal_dateline .cal_year {
+	display: none;
+}
+
+.calendar_agenda .cal_dateitems {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	
+}
+
+.calendar_agenda .cal_dateitems > li {
+	border-top: 1px solid #CCC; 
+	padding: 5px 0;
+}
+
+.calendar_agenda .cal_dateitems > li:first-child {
+	border-top: none;
+}
+
+.calendar_agenda .cal_dateitems .cal_time,
+.calendar_agenda .cal_dateitems .cal_allday {
+	font-weight: bold;
+	font-color: blue;
+	display: block;
+	float: left;
+	width: 90px;
+}
+
+.calendar_agenda .cal_dateitems .cal_title,
+.calendar_agenda .cal_dateitems .cal_loc {
+	margin: 0 0 4px 90px;
+	display: block;
+}
+
+.calendar_agenda .cal_dateitems .cal_loc {
+	font-size: 0.9em;
+	color: #444;
+}
