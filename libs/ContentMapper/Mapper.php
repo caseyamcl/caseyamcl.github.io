@@ -80,7 +80,8 @@ class Mapper {
       throw new MapperException("Cannot find content item at " . (($type == self::URLPATH) ? 'url' : 'path') . ": $path");
     }
     
-    return new Contentitem($realpath, $this->content_url . $path);
+    $subpath = substr($realpath, strlen($this->content_path));
+    return new Contentitem($realpath, $this->content_url . $path, $this->get_sitemap($subpath));
   }
 
 	// --------------------------------------------------------------	
@@ -109,7 +110,7 @@ class Mapper {
 	/**
 	 * Recursive directory to scan pages and return objects 
 	 * 
-	 * @param string $path  If NULL, uses $this->content_dir
+	 * @param string $path  Directory (system path) If NULL, uses $this->content_dir
 	 */
 	private function scan_content_directory($path = NULL)
 	{

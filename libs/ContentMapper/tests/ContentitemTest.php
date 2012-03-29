@@ -75,7 +75,7 @@ class ContentitemTest extends PHPUnit_Framework_TestCase {
         
     $obj = new ContentMapper\Contentitem($this->content_path, 'http://localhost/test/');
     
-    $expected_props = array('path', 'url', 'title', 'meta', 'content', 'file_urls', 'file_paths');
+    $expected_props = array('path', 'url', 'title', 'meta', 'content', 'file_urls', 'file_paths', 'children');
     $unexpected_props = array('_meta_filename', '_content_filename');
     
     foreach($expected_props as $prop) {

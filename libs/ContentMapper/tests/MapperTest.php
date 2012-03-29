@@ -166,6 +166,19 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $this->fail("Mapping a non-existent path should have thrown an exception!");
     
   }
+  
+  // --------------------------------------------------------------
+
+  public function testMapperAssignsChildrenCorrectlyToContentItems() {
+    
+    $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
+    $result = $obj->load_content_object('some_content');
+    
+    $ds = DIRECTORY_SEPARATOR;
+    $expected_key = $this->content_path . "{$ds}some_content{$ds}subcontent{$ds}";
+    $this->assertArrayHasKey($expected_key, $result->children);
+    $this->assertContains('Subcontent', $result->children);
+  }
 }
 
 /* EOF: MapperTest.php */

@@ -48,6 +48,13 @@ class Contentitem {
   private $file_paths = array();
   
   /**
+   * @var type 
+   */
+  private $children = array();
+  
+ 	// --------------------------------------------------------------	
+  
+ /**
    * @var The meta file name to use
    */
   private $_meta_filename = 'meta.json';
@@ -62,11 +69,12 @@ class Contentitem {
   /**
    * Construct a content item
    * 
-   * @param string $path A working path to the content item
-   * @param string $url  The URL is the full URL to the item
-   * @throws Exception   If the path doesn't actually exit
+   * @param string $path    A working path to the content item
+   * @param string $url     The URL is the full URL to the item
+   * @param array $children The children for this content item
+   * @throws Exception      If the path doesn't actually exit
    */
-  public function __construct($path, $url) {
+  public function __construct($path, $url, $children = array()) {
     
     $this->path = realpath($path). DIRECTORY_SEPARATOR;
     
@@ -78,6 +86,8 @@ class Contentitem {
       $url .= '/';
             
     $this->url = $url;
+    
+    $this->children = (array) $children;
     
     //Read meta, content and files
     $this->read_meta();
