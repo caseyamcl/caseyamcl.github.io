@@ -50,12 +50,26 @@ class Renderlib {
   public function get_outputter_from_mime_type($mime) {
     
     if ( ! isset($this->content_types[$mime]))
-      throw new \InvalidRenderMimeTypeException("The mime type '$mime' is not available!");
+      throw new InvalidRenderMimeTypeException("The mime type '$mime' is not available!");
     
     $filename = $this->outputters_dir . $this->content_types[$mime];
     $classname = "\\Renderlib\\Outputters\\" . $this->content_types[$mime];
         
     return new $classname;
+  }
+  
+  // --------------------------------------------------------------		
+  
+  public function get_outputter_from_classname($name) {
+    
+    $name = strtolower($name);
+    $ctypes = array_map('strtolower', $this->content_types);
+    
+    if ( ! in_array($name, $ctypes))
+      throw new InvalidRenderMimeTypeException("The outputter type '$name' is not available!");
+        
+    return ucfirst($name);
+    
   }
   
   // --------------------------------------------------------------		

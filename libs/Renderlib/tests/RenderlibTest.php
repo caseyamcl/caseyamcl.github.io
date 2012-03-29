@@ -65,6 +65,31 @@ class RenderlibTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($match, $obj->get_available_content_types(TRUE));
   }
   
+  // --------------------------------------------------------------
+
+  public function testGetOutputterFromClassNameWorksForValidClassname() {
+
+    $obj = new \Renderlib\Renderlib();   
+        
+    $this->assertEquals('Json', $obj->get_outputter_from_classname('json'));
+    $this->assertEquals('Html', $obj->get_outputter_from_classname('html'));
+    
+  }
+  
+  // --------------------------------------------------------------
+
+  public function testGetOutputterThrowsExceptionForInvalidClassname() {
+    
+    $obj = new \Renderlib\Renderlib();   
+    
+    try {
+      $obj->get_outputter_from_classname('does_not_exist');
+    } catch (Renderlib\InvalidRenderMimeTypeException $e) {
+      return;
+    }
+    
+    $this->fail("In invalid classname should have thrown an Exception!");
+  }
 }
 
 /* EOF: RenderlibTest.php */

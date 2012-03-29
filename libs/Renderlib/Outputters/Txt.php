@@ -49,7 +49,7 @@ class Txt implements Outputter {
       $output .= 'Directory:' . "\n";
 
       foreach($content_item->children as $url => $title) {
-        $output .= "$title\t\t\t$url";
+        $output .= "\t$title - $url\n";
       }
 
       $output .= "\n\n";
