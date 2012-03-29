@@ -213,17 +213,18 @@ function get_base_class($obj) {
 function negotiate_content_info($c) {
 
   $content_info = array();
-
+  
   //Allow content_type in query string to override request header
-  $req_type = (isset($_GET['content_type']))
-    ? array('1' => $_GET['content_type']) : $c['request_obj']->get_accepted_types(TRUE);
-
-  //Negotiate content type
-  $content_info['content_type'] = $c['request_obj']->negotiate(
-    $req_type,
-    $c['render_obj']->get_available_content_types(TRUE),
-    'text/plain'
-  );
+  if (isset($_GET['content_type'])) {
+    $content_info['content_type'] = $_GET['content_type'];
+  }
+  else { //Negotiate content type
+    $content_info['content_type'] = $c['request_obj']->negotiate(
+      $c['request_obj']->get_accepted_types(TRUE),
+      $c['render_obj']->get_available_content_types(TRUE),
+      'text/plain'
+    );
+  }
 
   //Allow lang in query string to override request header
   $req_lang = (isset($_GET['lang'])) ? array('1' => $_GET['lang']) : $c['request_obj']->get_languages(TRUE);
@@ -348,8 +349,13 @@ function load_rendered_content($content_info, $c) {
   try {
     
     //Load a renderer based on the content-type http header
-    $renderer = $c['render_obj']->get_outputter_from_mime_type($content_info['content_type']);
-
+    //Try to do it by MIME-TYPE and then check to see if the header just sent the name
+    try {
+      $renderer = $c['render_obj']->get_outputter_from_mime_type($content_info['content_type']);
+    } catch (Exception $e) {
+      $renderer = $c['render_obj']->get_outputter_from_classname($content_info['content_type']);      
+    }
+      
     //Load renderer options
     if (isset($render_options[get_base_class($renderer)])) {
       foreach($render_options[get_base_class($renderer)] as $opt_name => $opt_value) {
@@ -394,7 +400,7 @@ function load_rendered_content($content_info, $c) {
 
     //Default to text content type, because we don't know which to use...
     $renderer = $c['render_obj']->get_outputter_from_mime_type('text/plain');
-    $output = $renderer->render_error_output($http_status, 'Could not negotiate content-type');    
+    $output = $renderer->render_error_output($http_status, 'Could not negotiate content-type (' . $e->getMessage() . ')');    
     $c['response_obj']->set_http_status(415);
     $c['response_obj']->set_http_content_type('text/plain');
     $c['response_obj']->set_output($output); 
