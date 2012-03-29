@@ -114,7 +114,10 @@ class Request
 	public function get_languages($include_weights = FALSE)
 	{
 		//Get accepted languages from HTTP header
-		$langs = $this->_unserialize_header($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+  		$langs = $this->_unserialize_header($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    else
+      $langs = array();
 				
 		//Return them
 		return ($include_weights) ? $langs : array_keys($langs);
@@ -129,7 +132,10 @@ class Request
 	 */
 	public function get_accepted_encodings()
 	{
-		return array_keys($this->_unserialize_header($_SERVER['HTTP_ACCEPT_ENCODING']));
+    if (isset($_SERVER['HTTP_ACCEPT_ENCODING']))
+      return array_keys($this->_unserialize_header($_SERVER['HTTP_ACCEPT_ENCODING']));
+    else
+      return array();
 	}
 	
 	// --------------------------------------------------------------		
@@ -142,7 +148,10 @@ class Request
 	 */
 	public function get_accepted_charsets($include_weights = FALSE)
 	{
-		$charsets = $this->_unserialize_header($_SERVER['HTTP_ACCEPT_CHARSET']);
+    if (isset($_SERVER['HTTP_ACCEPT_CHARSET']))
+  		$charsets = $this->_unserialize_header($_SERVER['HTTP_ACCEPT_CHARSET']);
+    else
+      $charsets = array();
 		
 		return ($include_weights) ? $charsets : array_keys($charsets);
 	}
@@ -157,7 +166,10 @@ class Request
 	 */
 	public function get_accepted_types($include_weights = FALSE)
 	{
-		$types = $this->_unserialize_header($_SERVER['HTTP_ACCEPT']);
+    if (isset($_SERVER['HTTP_ACCEPT']))
+  		$types = $this->_unserialize_header($_SERVER['HTTP_ACCEPT']);
+    else
+      $types = array();
 		
 		return ($include_weights) ? $types : array_keys($types);
 	}

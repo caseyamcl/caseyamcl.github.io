@@ -192,6 +192,45 @@ class RequestTest extends PHPUnit_Framework_TestCase {
   
   // --------------------------------------------------------------
   
+  public function testGetHeadersReturnsEmptyArrayForIncompleteHttpRequests() {
+
+    //Create custom request
+    $_SERVER = array();
+    $_SERVER['REDIRECT_STATUS'] = "200";
+    $_SERVER['HTTP_0'] = "HTTP_HOST: 192.168.5.5";
+    $_SERVER['HTTP_USER_AGENT'] = "Easy HTTP Client Tester (+http://www.urlhere.com/)";
+    $_SERVER['PATH'] = "/usr/local/bin:/usr/bin:/bin";
+    $_SERVER['SERVER_SIGNATURE'] = "<address>Apache/2.2.20 (Ubuntu) Server at 192.168.5.5 Port 80</address>";
+    $_SERVER['SERVER_SOFTWARE'] = "Apache/2.2.20 (Ubuntu)";
+    $_SERVER['SERVER_NAME'] = "192.168.5.5";
+    $_SERVER['SERVER_ADDR'] = "192.168.5.5";
+    $_SERVER['SERVER_PORT'] = "80";
+    $_SERVER['REMOTE_ADDR'] = "192.168.5.5";
+    $_SERVER['DOCUMENT_ROOT'] = "/home/casey/NetBeansProjects";
+    $_SERVER['SERVER_ADMIN'] = "webmaster@localhost";
+    $_SERVER['SCRIPT_FILENAME'] = "/home/casey/NetBeansProjects/casey-sandbox/projects/testapi/index.php";
+    $_SERVER['REMOTE_PORT'] = "48943";
+    $_SERVER['REDIRECT_URL'] = "/casey-sandbox/projects/testapi/";
+    $_SERVER['GATEWAY_INTERFACE'] = "CGI/1.1";
+    $_SERVER['SERVER_PROTOCOL'] = "HTTP/1.0";
+    $_SERVER['REQUEST_METHOD'] = "GET";
+    $_SERVER['QUERY_STRING'] = "";
+    $_SERVER['REQUEST_URI'] = ' /casey-sandbox/projects/testapi/';
+    $_SERVER['SCRIPT_NAME'] = "/casey-sandbox/projects/testapi/index.php";
+    $_SERVER['PATH_INFO'] = "/";
+    $_SERVER['PATH_TRANSLATED'] = "/home/casey/NetBeansProjects/index.php";
+    $_SERVER['PHP_SELF'] = "/casey-sandbox/projects/testapi/index.php/";
+    $_SERVER['REQUEST_TIME'] = "1333052626";
+    $obj = $this->get_request_obj();  
+    
+    $this->assertEquals(array(), $obj->get_accepted_charsets());
+    $this->assertEquals(array(), $obj->get_accepted_encodings());
+    $this->assertEquals(array(), $obj->get_accepted_types());
+    $this->assertEquals(array(), $obj->get_languages());
+  }
+  
+  // --------------------------------------------------------------
+  
   private function get_request_obj() {
 
     return new \Requesty\Request($this->get_browscap_stub());
@@ -203,11 +242,12 @@ class RequestTest extends PHPUnit_Framework_TestCase {
     
     return (class_exists('BrowscapStub')) ? new BrowscapStub : new Browscap;
   }
-
+  
   // --------------------------------------------------------------
   
   private function override_server_array_http_standard() {
     
+    $_SERVER = array();
     $_SERVER['HTTP_HOST'] = "192.168.5.5";
     $_SERVER['HTTP_USER_AGENT'] = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2";
     $_SERVER['HTTP_ACCEPT'] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
