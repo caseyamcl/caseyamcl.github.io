@@ -15,7 +15,7 @@
 try {
 
   //Constants
-  define('BASEPATH', realpath(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
+  define('BASEPATH', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR);
   define('ENVIRONMENT', 'development');
   
   //Load Non-PSR Classes that we'll be using no matter what anyway
@@ -78,6 +78,8 @@ try {
       $error_output .= "\n" . $e->getMessage();
       $error_output .= "\n" . $e->getFile();
       $error_output .= "\n" . $e->getLine();
+      $error_output .= "\n" . $e->getTraceAsString();
+      
     }
     
     //@TODO: Fix this to use rendered errors
@@ -338,10 +340,10 @@ function load_rendered_content($content_info, $c) {
   $render_options = array(
     'Html' => array(
       'template_dir' => $c['template_path'],
-      'template_url' => $c['url_obj']->get_base_url()
+      'template_url' => $c['url_obj']->get_base_url() . 'template/'
     )
   );
-
+ 
   //Get the object from the path...
   try {
     
@@ -357,7 +359,7 @@ function load_rendered_content($content_info, $c) {
 
     //Load the content item
     $content_item = $c['mapper_obj']->load_content_object($content_info['req_path']);
-
+    
     //Render the output
     $rendered_output = $renderer->render_output($content_item);
     
