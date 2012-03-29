@@ -52,14 +52,22 @@ class Renderlib {
     if ( ! isset($this->content_types[$mime]))
       throw new InvalidRenderMimeTypeException("The mime type '$mime' is not available!");
     
-    $filename = $this->outputters_dir . $this->content_types[$mime];
+    $filename = $this->outputters_dir . $this->content_types[$mime] . '.php';
     $classname = "\\Renderlib\\Outputters\\" . $this->content_types[$mime];
         
+    include_once($filename);
     return new $classname;
   }
   
   // --------------------------------------------------------------		
   
+  /**
+   * Factory method to get an outputter based on its classname (case-insensitive)
+   * 
+   * @param string $name
+   * @return \Renderlib\classname
+   * @throws InvalidRenderMimeTypeException 
+   */
   public function get_outputter_from_classname($name) {
     
     $name = strtolower($name);
@@ -68,8 +76,11 @@ class Renderlib {
     if ( ! in_array($name, $ctypes))
       throw new InvalidRenderMimeTypeException("The outputter type '$name' is not available!");
         
-    return ucfirst($name);
-    
+    $filename = $this->outputters_dir . ucfirst($name) . '.php';
+    $classname = "\\Renderlib\\Outputters\\" . ucfirst($name);
+        
+    include_once($filename);
+    return new $classname;    
   }
   
   // --------------------------------------------------------------		

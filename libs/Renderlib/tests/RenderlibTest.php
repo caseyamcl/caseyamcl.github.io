@@ -71,8 +71,8 @@ class RenderlibTest extends PHPUnit_Framework_TestCase {
 
     $obj = new \Renderlib\Renderlib();   
         
-    $this->assertEquals('Json', $obj->get_outputter_from_classname('json'));
-    $this->assertEquals('Html', $obj->get_outputter_from_classname('html'));
+    $this->assertInstanceOf('\Renderlib\Outputters\Json', $obj->get_outputter_from_classname('json'));
+    $this->assertInstanceOf('\Renderlib\Outputters\Html', $obj->get_outputter_from_classname('html'));
     
   }
   
