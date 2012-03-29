@@ -349,12 +349,7 @@ function load_rendered_content($content_info, $c) {
   try {
     
     //Load a renderer based on the content-type http header
-    //Try to do it by MIME-TYPE and then check to see if the header just sent the name
-    try {
-      $renderer = $c['render_obj']->get_outputter_from_mime_type($content_info['content_type']);
-    } catch (Exception $e) {
-      $renderer = $c['render_obj']->get_outputter_from_classname($content_info['content_type']);      
-    }
+    $renderer = $c['render_obj']->get_outputter_from_mime_type($content_info['content_type']);
       
     //Load renderer options
     if (isset($render_options[get_base_class($renderer)])) {
