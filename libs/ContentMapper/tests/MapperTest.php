@@ -100,9 +100,9 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $obj = new ContentMapper\Mapper($this->content_path, 'http://localhost/content/');
     
     $match_array = array(
-      $this->content_path . '/some_content/' => 'Some Content',
-      $this->content_path . '/some_content/subcontent/' => 'Subcontent',
-      $this->content_path . '/some_other_content/' => 'Some Other Content',
+      'http://localhost/content/some_content/' => 'Some Content',
+      'http://localhost/content/some_content/subcontent/' => 'Subcontent',
+      'http://localhost/content/some_other_content/' => 'Some Other Content',
     );
     
     $this->assertEquals($match_array, $obj->get_sitemap());
@@ -175,7 +175,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
     $result = $obj->load_content_object('some_content');
     
     $ds = DIRECTORY_SEPARATOR;
-    $expected_key = $this->content_path . "{$ds}some_content{$ds}subcontent{$ds}";
+    $expected_key = 'http://localhost/content/some_content/subcontent/';
     $this->assertArrayHasKey($expected_key, $result->children);
     $this->assertContains('Subcontent', $result->children);
   }

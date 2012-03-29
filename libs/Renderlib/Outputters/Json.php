@@ -29,12 +29,16 @@ class Json implements Outputter {
   // --------------------------------------------------------------
  
   public function render_output($content_item) {
-    
+
+    //The primary properties
     $output_array = array(
       'title'        => $content_item->title,
-      'content-type' => 'text/html'
+      'content-type' => 'text/html',
+      'directory'    => $content_item->children,
+      'content'      => $content_item->content,
     );
-    
+        
+    //Add meta as first-class properties
     foreach($content_item->meta as $mname => $mvalue) {
       $output_array[$mname] = $mvalue;
     }

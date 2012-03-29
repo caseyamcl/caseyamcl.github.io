@@ -24,6 +24,15 @@ class Xml implements Outputter {
 
     $output = new \SimpleXMLElement("<content></content>");
     $output->addChild("title", $content_item->title);
+    
+    if (count($content_item->children) > 0) {
+      $children = $output->addChild('directory');
+      foreach($content_item->children as $url => $title) {
+        $c = $children->addChild($title);
+        $c->addAttribute('url', $url);
+      }      
+    }
+    
     $meta = $output->addChild('meta');
     foreach($content_item->meta as $mname => $mvalue) {
       $meta->addChild($mname, $mvalue);

@@ -74,14 +74,14 @@ class Mapper {
    */
   public function load_content_object($path, $type = self::URLPATH) {
     
-    $realpath = ($type == self::URLPATH) ? $this->map_urlpath_to_filepath($path) : $path;
+    $realpath = ($type == self::URLPATH) ? $this->map_urlpath_to_filepath($path) : realpath($path);
+    $relpath = (substr($realpath, strlen($this->content_path. DIRECTORY_SEPARATOR)));
     
     if ($realpath === FALSE) {
       throw new MapperException("Cannot find content item at " . (($type == self::URLPATH) ? 'url' : 'path') . ": $path");
     }
     
-    $subpath = substr($realpath, strlen($this->content_path));
-    return new Contentitem($realpath, $this->content_url . $path, $this->get_sitemap($subpath));
+    return new Contentitem($realpath, $this->content_url . $relpath, $this->get_sitemap($relpath));
   }
 
 	// --------------------------------------------------------------	
@@ -138,7 +138,7 @@ class Mapper {
 			//If so, add it, and see what's underneath
 			if ($item)
 			{			
-				$pagelist[$item->path] = $item->title;
+				$pagelist[$item->url] = $item->title;
 				$pagelist = array_merge($pagelist, $this->scan_content_directory($path . DIRECTORY_SEPARATOR . $file));
 			}
 		}

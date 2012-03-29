@@ -41,6 +41,20 @@ class Txt implements Outputter {
     foreach($content_item->meta as $mname => $mvalue) {
       $output .= $mname . ": " . $mvalue . "\n";
     }
+    
+    if (count($content_item->children) > 0) {
+      $output .= '~~~~~~~~~~~~~~~~~~~~~~~~~~' . "\n\n";
+
+
+      $output .= 'Directory:' . "\n";
+
+      foreach($content_item->children as $url => $title) {
+        $output .= "$title\t\t\t$url";
+      }
+
+      $output .= "\n\n";
+    }
+    
     $output .= '~~~~~~~~~~~~~~~~~~~~~~~~~~' . "\n\n";
     
     if ($this->convert_to_markdown)
