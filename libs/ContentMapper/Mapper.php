@@ -73,14 +73,14 @@ class Mapper {
    * @param int $type     Type of path sent (self::FILEPATH or self::URLPATH)
    */
   public function load_content_object($path, $type = self::URLPATH) {
-    
+
     $realpath = ($type == self::URLPATH) ? $this->map_urlpath_to_filepath($path) : realpath($path);
-    $relpath = (substr($realpath, strlen($this->content_path. DIRECTORY_SEPARATOR)));
+    $relpath = (string) (substr($realpath, strlen($this->content_path. DIRECTORY_SEPARATOR)));
     
     if ($realpath === FALSE) {
       throw new MapperException("Cannot find content item at " . (($type == self::URLPATH) ? 'url' : 'path') . ": $path");
     }
-    
+        
     return new Contentitem($realpath, $this->content_url . $relpath, $this->get_sitemap($relpath));
   }
 
@@ -131,7 +131,7 @@ class Mapper {
 			//See if it's a page
 			try {
 				$item = $this->load_content_object($filepath, self::FILEPATH);
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				$item = FALSE;
 			}
 			
