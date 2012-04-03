@@ -13,7 +13,12 @@
   
   <header class="clearfix">
     <section class="content clearfix">
-      <h1>Casey McLaughlin<span>(dot com)</span></h1>
+      <h1>
+        <a href="#">
+          Casey McLaughlin
+          <span>(dot com)</span>
+        </a>
+      </h1>
 
       <nav role="navigation">
         <ul>
