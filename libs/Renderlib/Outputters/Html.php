@@ -8,6 +8,7 @@ class Html implements Outputter {
   private $template_url = FALSE;
   private $base_url = FALSE;
   private $site_url = FALSE;
+  private $current_url = FALSE;
   
   public function __construct() {
     
@@ -110,6 +111,7 @@ class Html implements Outputter {
     $template_url = $this->template_url;
     $base_url = $this->base_url;
     $site_url = $this->site_url;
+    $current_url = $this->current_url;
     $content = $content . "\n";
     
     //Run the template
@@ -136,6 +138,10 @@ class Html implements Outputter {
     if ( ! $this->base_url OR ! $this->site_url) {
       throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a base_url and site_url.  Use set_option("base_url")');
     }
+    
+    if ( ! $this->base_url OR ! $this->site_url) {
+      throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a current_url.  Use set_option("current_url")');
+    }    
   }
   
 }

@@ -19,10 +19,14 @@
  */
 function build_navigation($nav_array, $base_url, $current_url = NULL) {
 
-  //Append trailing slash to base_url
+  //Append trailing slash to base_url and current_url
   if (substr($base_url, -1) != '/') {
     $base_url .= '/';
   }
+  if (substr($current_url, -1) != '/') {
+    $current_url .= '/';
+  }
+  
     
   $items = array();
   foreach($nav_array as $path => $nav) {
@@ -34,11 +38,24 @@ function build_navigation($nav_array, $base_url, $current_url = NULL) {
     if (isset($nav['description'])) {
       $item_desc .= "<span>" . $nav['description'] . "</span>";
     }
-
-    //@TODO: Match current
-
+    
+    //Determine current URL
+    $current_html = '';
+    if ($current_url) {
+      
+      //If exact match
+      if ($item_url == $current_url) {
+        $current_html = " class='current'";
+      }
+      
+      //If is base match
+      elseif (strlen($item_url >= $current_url) && substr($item_url, 0, strlen($current_url)) == $current_url) {
+        $current_html = (isset($nav['sub'])) ? " class='current_ansecstor'" : " class='current'";
+      }
+    }
+    
     //Build the item HTML
-    $item = "<li><a href='$item_url' title='$item_title'>$item_desc</a></li>";
+    $item = "<li><a href='$item_url' title='$item_title'$current_html>$item_desc</a></li>";
 
     //If there are sub items, add those to the HTML
     if (isset($nav['sub'])) {

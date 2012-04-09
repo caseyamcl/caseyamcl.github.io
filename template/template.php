@@ -45,7 +45,7 @@
             'description' => 'My Schedule'
           );
           
-          echo build_navigation($nav, $site_url);          
+          echo build_navigation($nav, $site_url, $current_url);          
         ?>
       </nav>
     </section>

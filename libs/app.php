@@ -348,7 +348,8 @@ function load_rendered_content($content_info, $c) {
       'template_dir' => $c['template_path'],
       'template_url' => $c['url_obj']->get_base_url() . 'template/',
       'base_url'     => $c['url_obj']->get_base_url_path(),
-      'site_url'     => $c['url_obj']->get_base_url()
+      'site_url'     => $c['url_obj']->get_base_url(),
+      'current_url'  => $c['url_obj']->get_current_url(FALSE)
     )
   );
  
