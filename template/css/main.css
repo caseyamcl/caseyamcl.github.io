@@ -188,7 +188,11 @@ h1, h2 {
 
 /* Layout ---------------------------------------------------------------------*/
 
-body > header,
+body > header {
+  background-color: #F1F1F1;
+  border-bottom: 2px solid #E0E0E0;
+}
+
 body > #main {
   background-color: #FFF;
 }
@@ -260,7 +264,8 @@ body > header nav ul > li a:hover > span {
   padding-bottom: 5px;
 }
 
-body > header h1 a:hover {
+body > header h1 a:hover,
+body > header nav ul > li a:hover {
   color: #990000;
 }
 
