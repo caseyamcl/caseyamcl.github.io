@@ -6,6 +6,8 @@ class Html implements Outputter {
   
   private $template_dir = FALSE;
   private $template_url = FALSE;
+  private $base_url = FALSE;
+  private $site_url = FALSE;
   
   public function __construct() {
     
@@ -106,6 +108,8 @@ class Html implements Outputter {
     //Local variables to inject
     $template_path = $this->template_dir;
     $template_url = $this->template_url;
+    $base_url = $this->base_url;
+    $site_url = $this->site_url;
     $content = $content . "\n";
     
     //Run the template
@@ -128,6 +132,10 @@ class Html implements Outputter {
     //Check for template directory
     if ( ! $this->template_url)
       throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a template url.  Use set_option("template_url")');    
+    
+    if ( ! $this->base_url OR ! $this->site_url) {
+      throw new \RuntimeException("Cannot render " . __CLASS__ . ' without a base_url and site_url.  Use set_option("base_url")');
+    }
   }
   
 }
