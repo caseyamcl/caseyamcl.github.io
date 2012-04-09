@@ -9,6 +9,56 @@
 
 /**
  * Navigation Builder 
+ * 
+ * Recursive function to build HTML navigation menu
+ * 
+ * @param array $nav_array
+ * @param $base_url     Specify the base URL
+ * @param $current_url  Optionally specify the current path
+ * @return string
  */
+function build_navigation($nav_array, $base_url, $current_url = NULL) {
+
+  //Append trailing slash to base_url
+  if (substr($base_url, -1) != '/') {
+    $base_url .= '/';
+  }
+    
+  $items = array();
+  foreach($nav_array as $path => $nav) {
+    
+    //Set item properties
+    $item_url = $base_url . $path . '/';
+    $item_desc = (isset($nav['display'])) ? $nav['display'] : $nav['path'];
+    $item_title = (isset($nav['title'])) ? $nav['title'] : 'Link to' . $item_desc;
+    if (isset($nav['description'])) {
+      $item_desc .= "<span>" . $nav['description'] . "</span>";
+    }
+
+    //@TODO: Match current
+
+    //Build the item HTML
+    $item = "<li><a href='$item_url' title='$item_title'>$item_desc</a></li>";
+
+    //If there are sub items, add those to the HTML
+    if (isset($nav['sub'])) {
+      $item .= build_navigation($nav['sub'], $item_url);
+    }
+    
+    if ( ! empty($item)) {
+      $items[] = $item;
+    }
+  }
+  
+  //Return the finished string
+  if ($items) {
+    return "<ul>\n" . implode("\n", $items) . "\n</ul>";  
+  }
+  else {
+    return NULL;
+  }
+  
+  
+}
 
 /* EOF: helpers.php */

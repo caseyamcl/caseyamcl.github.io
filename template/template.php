@@ -14,19 +14,39 @@
   <header class="clearfix">
     <section class="content clearfix">
       <h1>
-        <a href="#">
+        <a href="<?php echo $site_url; ?>">
           Casey McLaughlin
           <span>(dot com)</span>
         </a>
       </h1>
 
       <nav role="navigation">
-        <ul>
-          <li><a href="#">Articles <span>Stuff I write</span></a></li>
-          <li><a href="#">Code <span>and Resources</span></a></li>
-          <li><a href="#">Work <span>CV and More</span></a></li>
-          <li><a href="calendar">Calendar <span>My Schedule</span></a></li>
-        </ul>
+        
+        <?php        
+          $nav = array();
+          
+          $nav['articles'] = array(
+            'display'     => 'Articles',
+            'description' => 'Stuff I Write'
+          );
+          
+          $nav['code'] = array(
+            'display'     => 'Code',
+            'description' => 'and Resources'
+          );
+          
+          $nav['work'] = array(
+            'display'     => 'Work',
+            'description' => 'CV and More'
+          );
+          
+          $nav['calendar'] = array(
+            'display'     => 'Calendar',
+            'description' => 'My Schedule'
+          );
+          
+          echo build_navigation($nav, $site_url);          
+        ?>
       </nav>
     </section>
   </header>
