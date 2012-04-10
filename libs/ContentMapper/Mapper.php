@@ -53,14 +53,15 @@ class Mapper {
   /**
    * Get a sitemap in array key/value format
    * 
-   * Key is full URL & Value is the Title of the Item
+   * Key is full URL & Value is the Title or Full Details of the Item
    * 
    * @param string $subfolder  If defined, starts at the specified subfolder
+   * @param boolean $details   If TRUE, will return full details for each item
    * @return array
    */
-  public function get_sitemap($subdir = '') {
+  public function get_sitemap($subdir = '', $details = FALSE) {
 
-    return $this->scan_content_directory($subdir);
+    return $this->scan_content_directory($subdir, $details);
     
   }
 	
@@ -81,7 +82,7 @@ class Mapper {
       throw new MapperException("Cannot find content item at " . (($type == self::URLPATH) ? 'url' : 'path') . ": $path");
     }
         
-    return new Contentitem($realpath, $this->content_url . $relpath, $this->get_sitemap($relpath));
+    return new Contentitem($realpath, $this->content_url . $relpath, $this->get_sitemap($relpath, TRUE));
   }
 
 	// --------------------------------------------------------------	
@@ -112,7 +113,7 @@ class Mapper {
 	 * 
 	 * @param string $path  Directory (system path) If NULL, uses $this->content_dir
 	 */
-	private function scan_content_directory($path = NULL)
+	private function scan_content_directory($path = NULL, $full_obj = FALSE)
 	{
 		$pagelist = array();
 		
@@ -138,8 +139,8 @@ class Mapper {
 			//If so, add it, and see what's underneath
 			if ($item)
 			{			
-				$pagelist[$item->url] = $item->title;
-				$pagelist = array_merge($pagelist, $this->scan_content_directory($path . DIRECTORY_SEPARATOR . $file));
+				$pagelist[$item->url] = ($full_obj) ? $item : $item->title;
+				$pagelist = array_merge($pagelist, $this->scan_content_directory($path . DIRECTORY_SEPARATOR . $file, $full_obj));
 			}
 		}
 		
