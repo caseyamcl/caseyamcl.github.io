@@ -74,7 +74,21 @@ function build_navigation($nav_array, $base_url, $current_url = NULL) {
   else {
     return NULL;
   }
+}
+
+// ------------------------------------------------------------------------
+
+function load_page_specific_css($page_files) {
   
+  $out_str = '';
+  
+  foreach($page_files as $pf) {
+    if (substr($pf, -4) == '.css') {
+      $out_str .= "<link rel='stylesheet' type='text/css' href='$pf' />\n";
+    }
+  }
+  
+  return $out_str;
   
 }
 

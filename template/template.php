@@ -1,3 +1,4 @@
+<?php include(__DIR__) . DIRECTORY_SEPARATOR . 'functions.php'; ?>
 <!doctype html>
 <html>
 <head>
@@ -7,6 +8,7 @@
   
   <link rel="stylesheet" type="text/css" href="<?php echo $template_url; ?>css/main.css" />
   
+  <?php echo load_page_specific_css($page_files); ?>
 </head>
 
 <body>

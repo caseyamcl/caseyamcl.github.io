@@ -58,9 +58,6 @@ try {
   // If Output is still False, Try loading the content Item
   if ( ! $output) {
     
-    //Load the helpers
-    include(BASEPATH . 'libs' . DIRECTORY_SEPARATOR . 'helpers.php');
-    
     //Load the rendered content
     $output = load_rendered_content($content_info, $c);
   }
