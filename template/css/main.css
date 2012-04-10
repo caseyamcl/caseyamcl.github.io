@@ -176,17 +176,221 @@ mark {background-color: #fcd700; color: #000; font-style: italic; font-weight: b
 
 
 /* Main Styles ----------------------------------------------------------------*/
-body {
-  font-family: Tahoma, Geneva, sans-serif;
-  font-size: 16px;
-  background-color: #444;
+
+a, a:hover, a:active, a:focus {
+	outline: 0;
 }
 
-h1, h2 {
-  font-family: Vollkorn, serif;
-}
+ body, p {
+	 font-family: Verdana, Geneva, Helvetica, sans-serif;
+	 font-size: 16px;
+	 line-height: 21px;
+ }
+ 
+ hr {
+   clear: both;
+   margin: 20px auto;
+ }
+ 
+ p {
+	 margin-top: 1.2em;
+	 margin-bottom: 1.2em;
+ }
+ 
+ strong {
+	 font-weight: bold;
+ }
+ 
+ em {
+	 font-style: italic;
+ }
+ 
+ address {
+	 font-style: italic;
+ }
+ 
+ pre {
+	 font-size: 0.9em;
+ }
+ 
+ li {
+	 margin: 0.3em auto;
+ }
+
+ ol ol {
+	 list-style-type: lower-alpha;
+ }
+
+ ol ol ol {
+	 list-style-type: lower-roman;
+ }
+
+ h1, h2, h3, h4 {
+	 font-family: Vollkorn, serif;
+	 margin-top: 0.3em;
+	 margin-bottom: 0.3em;
+	 color: #222;
+	 font-weight: normal;
+ }
+ 
+ h1 {
+	 font-size: 1.8em;
+	 line-height: 1.1em;
+ }
+ 
+ h2 {
+	 font-size: 1.5em;
+	 line-height: 1.1em;
+ }
+ 
+ h3 {
+	 font-size: 1.3em;
+	 line-height: 1.1em;
+	 border-bottom: 1px solid #CCC;
+ }
+ 
+ h4 {
+	 font-size: 1.15em;
+	 line-height: 1.1em;
+ }
+ 
+ h5, h6 {
+	 color: #222;
+	 font-size: 1.1em;
+	 font-weight: bold;
+	 line-height: 1.1em;
+ }
+ 
+ h1 > span, h2 > span, h3 > span {
+	 font-family: Verdana, Geneva, Helvetica, sans-serif;
+	 display: block;
+	 font-size: 0.7em;
+ }
+ 
+ kbd {
+	 padding: 1px 4px;
+	 border: 3px outset #999;
+	 background-color: #F9F9F9;
+ }
+ 
+ code {
+	 color: #002534;
+	 background-color: #F5F5F5; 
+ }
+ 
+ pre {
+	 color: #444;
+ }
+ 
+ /* Two different ways to markup sourcecode
+ /* See: http://www.w3.org/TR/html5/text-level-semantics.html#the-code-element */
+ pre,
+ pre.code {
+	 background-color: #2A2925;
+	 margin: 12px 6px;
+	 padding: 12px;
+	 border-radius: 12px;
+	 color: #FFF;
+ }
+ 
+ pre {
+ 	 overflow-x: scroll;
+ }
+ 
+ pre.code {
+	 overflow-x: auto;
+	 border-radius: 12px;
+ }
+
+ pre > code {
+	 background-color: #2A2925;
+	 color: #FFF;
+	 width: 100%;
+	 white-space: pre;
+ }
+ 
+ blockquote {
+	 font-family: serif;
+	 font-style: italic;
+	 margin: 1.4em auto 1.4em .25em;
+	 padding: 8px 10px;
+	 background-color: #F1F1F1;
+	 border-radius: 10px;
+ }
+ 
+ blockquote cite {
+	 font-size: 0.8em;
+	 text-align: right;
+	 display: block;
+	 font-style: normal;
+ }
+ 
+ blockquote cite:before {
+	 content: '--';
+ }
+ 
+ blockquote blockquote {
+	 background-color: #F5F5F5;
+	 color: #555;
+	 margin: 0.5em;
+	 font-size: 0.9em;
+ }
+
+ table {
+	 min-width: 90%;
+	 margin: 1.4em auto;
+	 border: 1px solid #CCC;
+	 border-width: 1px 0;
+	 caption-side: bottom;
+ }
+ 
+ table > thead th {
+	 background-color: #F1F1F1;
+ }
+ 
+ table > tbody tr {
+	 border-bottom: 1px solid #CCC;
+ }
+ 
+ table > caption {
+	 font-size: 0.8em;
+	 color: #333;
+	 font-style: italic;
+ }
+ 
+ img {
+	 margin: 5px auto;
+ }
+ 
+ dl dt {
+	 font-weight: bold;
+ }
+ 
+ dl dd {
+	 list-style-type: disc;
+	 list-style-position: outside;
+	 display: list-item;
+	 margin-left: 2em;
+ }
+ 
+ input[type=text],
+ input[type=password],
+ input[type=email],
+ input[type=date],
+ input[type=url] {
+	 border: 1px solid #CDCDCD;
+	 border-radius: 4px;
+ }
+
+ .underlined {
+	 	 border-bottom: 1px solid #CCC;
+ }
 
 /* Layout ---------------------------------------------------------------------*/
+
+body {
+  background-color: #444;
+}
 
 body > header {
   background-color: #F1F1F1;
@@ -268,6 +472,69 @@ body > header h1 a:hover,
 body > header nav ul > li a:hover {
   color: #990000;
 }
+
+/* Layout Widgets--------------------------------------------------------------*/
+
+.section_intro {
+  clear: both;
+}
+
+.section_intro > .section_intro_blurb {
+  width: 55%;
+  float: left;
+}
+
+.section_intro > .section_auxiliary_info {
+  width: 40%;
+  float: left;
+}
+
+.section_auxiliary_info h3 {
+  border-bottom: none;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.section_auxiliary_info li {
+  float: left;
+  margin: 0 5px;
+  padding: 0 8px;
+  border-radius: 5px;
+}
+
+.section_auxiliary_info li:hover {
+  background-color: #E4E4E4;
+}
+
+.tile_list {
+  margin: 5px auto;
+}
+
+.tile_list > li {
+  width: 45%;
+  float: left;
+  margin: 0 2.5% 2em 2.5%;
+}
+
+.tile_list > li h5 {
+  margin: 2px 0;
+}
+
+.tile_list > li p {
+  margin: 2px 0 0 80px;
+}
+
+.tile_list > li p .more_link {
+  display: block;
+}
+
+.tile_list > li img {
+  float: left;
+  margin: 2px 5px 0 0;
+}
+
+
 
 /* Print styles!
 -------------------------------------------------------------------------------*/
