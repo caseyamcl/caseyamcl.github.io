@@ -153,6 +153,10 @@ class Contentitem {
     //Create local variables from object properties
     $page_url = $this->url;
     $page_path = $this->path;
+    $page_files = $this->file_urls;
+    $page_title = $this->title;
+    $page_meta = $this->meta;
+    $page_children = $this->children;
     
     ob_start();
     include($this->path . $this->_content_filename);
@@ -230,6 +234,7 @@ class Contentitem {
 		
 		return $out_files;
 	}  
+  
 }
 
 /* EOF: Content_item.php */
