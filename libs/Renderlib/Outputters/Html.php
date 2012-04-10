@@ -45,7 +45,7 @@ class Html implements Outputter {
    * @throws \RuntimeException 
    */
   public function render_output($content_item) {
-    
+        
     $this->check_required_attrs();
     
     //Possibly render with sub-template based on optional 'type' meta property
@@ -54,7 +54,7 @@ class Html implements Outputter {
       $template_file = $this->template_dir . 'templates' . DIRECTORY_SEPARATOR . $content_item->meta->type . '.php';
       
       if (is_readable($template_file)) {
-        $content = $this->load_template($template_file, $content_item->content);
+        $content = $this->load_template($template_file, $content_item->content, $content_item);
       }
     }
     
@@ -64,7 +64,7 @@ class Html implements Outputter {
     
     //Main template will be $template_dir/template.php
     $template_file = $this->template_dir . DIRECTORY_SEPARATOR . 'template.php';
-    return $this->load_template($template_file, $content);
+    return $this->load_template($template_file, $content, $content_item);
   }
   
   // --------------------------------------------------------------
@@ -104,8 +104,8 @@ class Html implements Outputter {
   
   // --------------------------------------------------------------
   
-  private function load_template($template_file, $content = NULL) {
-    
+  private function load_template($template_file, $content = NULL, $content_item = NULL) {
+           
     //Local variables to inject
     $template_path = $this->template_dir;
     $template_url = $this->template_url;
@@ -113,6 +113,14 @@ class Html implements Outputter {
     $site_url = $this->site_url;
     $current_url = $this->current_url;
     $content = $content . "\n";
+
+    //If loading an actual page (not an error page)
+    if ($content_item) {
+      $page_files = $content_item->file_urls;
+      $page_children = $content_item->children;
+      $page_meta = $content_item->meta;
+      $page_title = $content_item->title;
+    }
     
     //Run the template
     ob_start();
