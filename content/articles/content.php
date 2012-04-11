@@ -1,9 +1,6 @@
 <h1>Articles</h1>
 
-<p>
-  @TODO: Finish This 
-  Refer to http://192.168.5.5/casey-sandbox/projects/caseyamcl.com/greenandbrown/?page=articles_short_list
-</p>
+<p>Occasionally, I write things :)</p>
 
 <?php 
 
@@ -31,7 +28,7 @@
 ?>
 
 <?php if (count($page_children) > 0): ?>
-<div class="article_list">
+<div class="article_list_area">
   <?php 
     $other = array();
     foreach($page_children as $url => $child): 
@@ -50,14 +47,14 @@
       
       if ( ! isset($curr_year)) {
         $curr_year = $year;
-        echo "<h4>$year</h4>\n";
-        echo "<ul>";
+        echo "<h3 class='article_list_year'>$year</h3>\n";
+        echo "<ul class='article_list'>";
       }
       elseif ($year != $curr_year) {
         $curr_year = $year;
         echo "</ul>";
-        echo "<h4>$year</h4>\n";
-        echo "<ul>\n";
+        echo "<h3 class='article_list_year'>$year</h3>\n";
+        echo "<ul class='article_list'>\n";
       }
     }
     
@@ -66,15 +63,15 @@
   
   <li>
     <a href="<?php echo $url; ?>">
-      <strong>Mon ## -</strong>
+      <strong class="date"><?php echo substr($child->meta->date_published, 5); ?> -</strong>
       <span class="title"><?php echo $child->title; ?></span>
       <span class="summary"><?php echo $child->meta->summary; ?></span>
     </a>
   </li>
   
   <?php
-    echo "</ul>";
     endforeach;
+    echo "</ul>";
   ?>
 </div>
 

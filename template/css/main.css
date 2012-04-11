@@ -534,6 +534,35 @@ body > header nav ul > li a:hover {
   margin: 2px 5px 0 0;
 }
 
+.article_list_year {
+  margin-top: 1em;
+}
+
+.article_list {
+  list-style-type: disc;
+  margin-left: 30px;
+}
+
+.article_list li:hover {
+  background-color: #F1F1F1;
+}
+
+.article_list li:hover a .summary {
+  color: #000;
+}
+
+.article_list a {
+  color: #000;
+  text-decoration: none;
+  display: block;
+  padding: 5px 3px;
+}
+
+.article_list a .summary {
+  color: rgb(85, 85, 85);
+  display: block;
+  font-size: 0.9em;
+}
 
 
 /* Print styles!
