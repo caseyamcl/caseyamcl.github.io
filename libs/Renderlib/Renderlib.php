@@ -5,7 +5,11 @@ namespace Renderlib;
 class InvalidRenderMimeTypeException extends \InvalidArgumentException { /* ... */ }
 
 class Renderlib {
-  
+
+  /**
+   * Available content types in [mime_type] => [Class_name] format
+   * @var array
+   */
   private $content_types;
   private $outputters_dir;
   
