@@ -9,30 +9,23 @@ class Config
 	 * @var array 
 	 */
 	private $config_settings = array();
-	
-  /**
-   * Predefined defaults
-   * 
-   * @var array
-   */
-  private $defaults = array();
   
 	// --------------------------------------------------------------
 	
 	/**
 	 * Config File Constructor
 	 * 
-	 * @param $config_path
-	 * An optional absolute path to the configuration folder
-   * 
    * @param $defaults
    * An optional list of defaults to fall back on, set at instantiation
    * 
+	 * @param $config_path
+	 * An optional absolute path to the configuration folder
+   * 
 	 */
-	public function __construct($config_path = NULL, $defaults = array())
+	public function __construct($defaults = array(), $config_path = NULL)
 	{
     //Set the defaults
-    $this->defaults = $defaults;
+    $this->config_settings = $defaults;
     
     //Load the config files
     if ($config_path) {
@@ -120,8 +113,6 @@ class Config
 		{
 			if (isset($this->config_settings[$item]))
 				return $this->config_settings[$item];
-      elseif (isset($this->defaults[$item]))
-        return $this->defaults[$item];
 			else
 				return $default_value;
 		}
