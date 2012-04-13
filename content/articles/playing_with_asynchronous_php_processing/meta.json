@@ -1,6 +1,6 @@
 {
 	"title": "Playing with Asynchronous PHP Processing",
-	"page_type": "post",
+	"type": "article",
 	"date_published": "2010 Sep 24",
 	"image": "flowchart.jpg",
 	"summary": "In this post, I present a concept for creating a worker-process for asynchronous job queue processing in PHP using CRON",

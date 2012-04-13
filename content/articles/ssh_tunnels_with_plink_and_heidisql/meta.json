@@ -1,6 +1,6 @@
 {
 	"title": "SSH Tunnels with HiediSQL and Plink",
-	"page_type": "post",
+	"type": "article",
 	"date_published": "2010 Nov 5",
 	"date_updated": "2012 Jan 2",
 	"image": "tunnel.jpg",
