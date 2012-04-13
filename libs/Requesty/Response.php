@@ -47,7 +47,35 @@ class Response
   private $output_type = self::CONTENT;
   
 	// --------------------------------------------------------------		
-	
+
+  /**
+   * Constructor
+   * 
+   * Optionally specify output, status, and content type upon construction
+   * 
+   * @param string $output
+   * @param int $status_code
+   * @param string $content_type 
+   * @param int $output_type (defaults to content, not file
+   */
+  public function __construct($output = NULL, $status_code = NULL, $content_type = NULL, $output_type = self::CONTENT) {
+    
+    if ($output) {
+      $this->set_output($output, $output_type);
+    }
+    
+    if ($status_code) {
+      $this->set_http_status($status_code);
+    }
+    
+    if ($content_type) {
+      $this->set_http_content_type($content_type);
+    }
+    
+  }
+  
+	// --------------------------------------------------------------		
+		
 	/**
 	 * Set HTTP Status Header
 	 *
