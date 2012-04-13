@@ -27,13 +27,14 @@ class Assetlib {
     'jpe'  => 'image/jpeg',
     'png'  => 'image/png',
     'css'  => 'text/css',
+    'less' => 'text/css',
     'js'   => 'application/x-javascript',
     'ico'  => 'image/x-icon',
     'eot'  => 'application/vnd.ms-fontobject',
     'svg'  => 'image/svg',
     'ttf'  => 'application/octet-stream',
     'otf'  => 'application/octet-stream',
-    'woff' => 'application/x-font-woff'
+    'woff' => 'application/x-font-woff',
   );
   
 	// --------------------------------------------------------------	
