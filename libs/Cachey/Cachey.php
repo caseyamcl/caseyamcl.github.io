@@ -6,8 +6,26 @@ class Cachey_Exception extends \Exception { /* ... */ }
 
 
 class Cachey {
- 
-  public function factory($cache_driver, $options = array()) {
+
+  // --------------------------------------------------------------		
+
+  /**
+   * Optional static factory method
+   * 
+   * Calls $this->get_driver;
+   * 
+   * @param string $cache_driver
+   * @param array $options
+   */
+  public static function factory($cache_driver, $options = array()) {
+    
+    $that = new Cachey;
+    return $that->get_driver($cache_driver, $options);
+  } 
+  
+  // --------------------------------------------------------------		
+
+  public function get_driver($cache_driver, $options = array()) {
     
     $ds = DIRECTORY_SEPARATOR;
     $filename = __DIR__ . $ds . 'Drivers' . $ds . ucfirst($cache_driver) . '.php';

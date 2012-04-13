@@ -8,406 +8,284 @@
  * @author Casey McLaughlin
  */
 
-/* Setup Application
+//One line to make her run
+App::go();
+
+
+/* Application Class
  * =========================================================================
  */
 
-try {
-
-  //Constants
-  define('BASEPATH', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR);
-  define('ENVIRONMENT', 'development');
+class App {
+   
+  //Services we'll need every time
+  private $req_object;
+  private $url_object;
+  private $cache_driver;
+  private $asset_mapper;
+  private $config;
+  private $error_wrapper;  
   
-  //Load Non-PSR Classes that we'll be using no matter what anyway
-  require_once(BASEPATH . 'libs/Pimple/Pimple.php');
-  require_once(BASEPATH . 'libs/Requesty/Browscap.php');
+  //Services we may not need depending on application execution
+  private $content_mapper;
+  private $render_mapper;
 
-  //Register PSR-0 Autoloader
-  spl_autoload_register('autoload');
-
-  //Get Libraries (Pimple DI Container)
-  $c = get_libraries();
-
-  //Set error wrapper after attempting to load asset
-  $c['error_wrapper']->setup();
-
-
-  /* GO!!
-  * =========================================================================
-  */
-
-  // Set Ouptut to FALSE
-  $output = FALSE;
-
-  // Check if URL is actually an asset, and load that
-  if ( ! $output) {
-
-    $output = load_asset($c);
-  }
-    
-  // If Ouptut is False, Negotiate the Request and Attempt to load from Cache
-  if ( ! $output) {
-
-    //Negotiate Content Type
-    $content_info = negotiate_content_info($c);
-
-    //Build MD5 String for these three things (for cache purposes)
-    $output = load_content_from_cache($content_info, $c);
+  //Calcualted Request Info
+  private $req_content_type;
+  private $req_language;
+  
+  /**
+   * @var \Requesty\Response
+   */
+  private $output = FALSE;
+  
+  // -----------------------------------------------------------------------
+  
+  public static function go() {
+            
+    $that = new App();
+    $that->run();
   }
   
-  // If Output is still False, Try loading the content Item
-  if ( ! $output) {
+  // -----------------------------------------------------------------------
+   
+  /**
+   * Application Constructor
+   * 
+   * Anything that fails during execution here won't throw a friendly error,
+   * so put the bare minimum here. 
+   */
+  public function __construct() {
     
-    //Load the rendered content
-    $output = load_rendered_content($content_info, $c);
-  }
-
-  // Still no Output?  Fail!
-  if ( ! $output) {
-    throw new Exception("No output was generated during application execution!");
+    //Setup Basepath
+    $ds = DIRECTORY_SEPARATOR;
+    define('BASEPATH', realpath(__DIR__ . $ds . '..') . $ds);
+    
+    //Register PSR-0 Autoloader
+    spl_autoload_register('autoload');   
+    
+    //Setup error handling
+    $this->error_wrapper = \Requesty\ErrorWrapper::invoke();
+    
   }
   
-  // Render Output
-  $c['response_obj']->go();
+  // -----------------------------------------------------------------------
   
-} catch (Exception $e) {
-
-  try {
+  /**
+   * Run the Application
+   * 
+   * Produces output
+   */
+  public function run() {
+        
+    //Go!
+    try {
     
-    $error_output = "Whoops.  There was an error.";
-    
-    if (ENVIRONMENT == 'development') {
-      $error_output .= "\n" . $e->getMessage();
-      $error_output .= "\n" . $e->getFile();
-      $error_output .= "\n" . $e->getLine();
-      $error_output .= "\n" . $e->getTraceAsString();
       
+      //Convenient helper
+      $ds = DIRECTORY_SEPARATOR;
+      
+      //Require the only non-PSR-0 library
+      require_once(BASEPATH . "libs{$ds}Requesty{$ds}Browscap.php");
+
+      //Setup Configuration
+      $this->load_configuration();
+      
+      //Load the cache library
+      if ($this->config->cache_driver) {
+        $cache_opts = $this->config->cache_options[$this->config->cache_driver] ?: array();
+        $this->cache_driver = \Cachey::factory($this->config->cache_driver, $cache_opts);
+      }
+      
+      //Load some prerequisite libraries
+      $this->url_object = new \Requesty\Uri();
+            
+      //Load Content or throw an exception
+      if ($this->load_content() === FALSE) {
+        throw new Exception("No output was generated during application execution!");        
+      }
+      
+      
+    } catch (Exception $e) {
+      return $this->fail($e);
     }
     
-    //@TODO: Fix this to use rendered errors
-    $c['response_obj']->set_http_status(500);
-    $c['response_obj']->set_http_content_type('text/plain');
-    $c['response_obj']->set_output($error_output); 
-    $c['response_obj']->go();
   }
-  catch (Exception $e) {
+  
+  // -----------------------------------------------------------------------
+ 
+  /**
+   * Load Default Configuration and Configuration Object 
+   */
+  private function load_configuration() {
 
-    if (ENVIRONMENT != 'development') {
-      header("HTTP/1.0 500 Internal Server Error");    
-      header("Content-type: text/plain");
-      die("Whoops!  Internal Error!  Sorry about that.");
+    $defaults = array();
+    $defaults['content_path']          = BASEPATH . 'content';
+    $defaults['template']              = BASEPATH . 'template';
+    $defaults['environment']           = 'production';
+    $defaults['cache_method']          = FALSE;
+    $defaults['cache_options']['file'] = array(
+      'filepath'           => BASEPATH . 'cache',
+      'default_expiration' => 86400
+    );
+        
+    $this->config = new Configurator\Config($defaults);
+  }
+ 
+  // -----------------------------------------------------------------------
+ 
+  /**
+   * Attempt to load content
+   * 
+   * @return boolean 
+   */
+  private function load_content() {
+         
+    //1. Attempt to load the content as an asset
+    if ($this->output === FALSE) {
+      $this->output = $this->load_content_asset();
+    }
+    
+    //If not an asset, we'll need to load some info about the request
+    $this->negotiate_request();
+    
+    //2. Attempt to load the content from cache
+    if ($this->output === FALSE) {
+      $this->output = $this->load_content_item_from_cache();
+    }
+    
+    //3. Attempt to load the content by rendering it through the system
+    if ($this->output === FALSE) {
+      $this->ouptut = $this->render_content();
+    }
+    
+    return (boolean) $this->output;
+  }
+  
+  // -----------------------------------------------------------------------
+
+  private function negotiate_request() {
+
+    //Load the request object
+    $cache_dir = $this->config->cache_options['file']['filepath'] ?: sys_get_temp_dir();
+    $this->req_object = new Requesty\Request(new Browscap($cache_dir));
+
+    //LEFT OFF HERE FIRST!
+    
+    //Content type -- override with:
+    // - content_type in GET (corresponds to content_type - priority)
+    // - format in GET (corresponds to classname of content types)
+    
+    //Language
+    // - lang in GET
+  }
+  
+  /**
+   * Load Content Asset
+   * 
+   * @return \Requesty\Response|boolean 
+   * FALSE if no asset could be found at that URL
+   */
+  private function load_content_asset() {
+    
+    //Get the mappings to which folders things go
+    $asset_path_mappings = array(
+      ''         => $this->config->content_path,
+      'template' => $this->config->template_path
+    );
+    
+    //Load the asset loader
+    $asset_loader = new Assetlib\Assetlib($asset_path_mappings);
+    
+    //Get the path string
+    $path_string = $this->url_object->get_path_string();
+
+    //See if the object is associated with a mime
+    $mime = $asset_loader->get_asset_mime($path_string);
+    
+    if ($mime) {
+
+      $file = $asset_loader->get_asset_filepath($path_string);
+      if ($file) {
+        //Return content
+        return new Requesty\Response($file, 200, $mime, Requesty\Response::FILEPATH);
+      }
+    }
+    
+    //If made it here...
+    return FALSE;
+  }
+  
+  // -----------------------------------------------------------------------
+
+  private function load_content_item_from_cache() {
+    
+    //If no cache enabled, do nothing
+    if ( ! $this->cache_driver) {
+      return FALSE;
+    }
+    
+    //If pragma: no-cache set, then skip caching
+    if ($this->req_object->get_header('Pragma') == 'no-cache') {
+      return FALSE;
+    }
+    
+    //If query string specifies no cache, then skip caching
+    if (isset($_GET['cache']) && $_GET['cache'] == FALSE) {
+      return FALSE;
     }
     else {
-      throw $e;
-    }
-  }
-  
-}
-
-/* Functions
- * =========================================================================
- */
-
-/**
- * PSR-0 Autoloader
- *
- * From https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
- *
- * @param string $class_name
- */
-function autoload($class_name)
-{
-  if (class_exists($class_name))
-    return;
-
-  $class_name = ltrim($class_name, '\\');
-  $basepath   = BASEPATH . 'libs' . DIRECTORY_SEPARATOR;
-  $file_name  = '';
-  $namespace = '';
-  $last_ns_pos = strripos($class_name, '\\');
-
-  if ($last_ns_pos) {
-    $namespace = substr($class_name, 0, $last_ns_pos);
-    $class_name = substr($class_name, $last_ns_pos + 1);
-    $file_name  = $basepath . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-  }
-  $file_name .= str_replace('_', DIRECTORY_SEPARATOR, $class_name) . '.php';
-
-  require $file_name;
-}
-
-// -------------------------------------------------------------------------
-
-/**
- * Get libraries in the form of a Pimple DI Container
- *
- * @return Pimple
- */
-function get_libraries() {
-
-  $c = new Pimple();
-
-  //Paths Configuration
-  $c['cache_path']    = BASEPATH . 'cache';
-  $c['content_path']  = BASEPATH . 'content';
-  $c['template_path'] = BASEPATH . 'template';
-  
-  //Request/Response Objects
-  $c['request_obj']  = $c->share(function($c) { return new Requesty\Request(new Browscap($c['cache_path'])); });
-  $c['response_obj'] = $c->share(function($c) { return new Requesty\Response(); });
-  $c['url_obj']      = $c->share(function($c) { return new Requesty\Uri(); });
-
-  //Cache Configuration and Library
-  $c['cache_driver'] = 'file';
-  $c['cache_driver_opts'] = array(
-    'filepath' => BASEPATH . 'cache',
-    'default_expiration' => 86400
-  );
-  
-  $c['cachey'] = $c->share(function($c) { return new Cachey\Cachey(); }); 
-  $c['cache'] = $c->share(function($c) { return $c['cachey']->factory($c['cache_driver'], $c['cache_driver_opts']); });
-  
-  //Content Mapper
-  $c['content_url'] = $c['url_obj']->get_base_url();
-  $c['mapper_obj']  = $c->share(function($c) { return new ContentMapper\Mapper($c['content_path'], $c['content_url']); });
-
-  //Renderer
-  $c['render_obj'] = $c->share(function($c) { return new Renderlib\Renderlib(); });
-
-  //Asset Mapper path configuration
-  $c['asset_paths'] = array(
-    ''         => $c['content_path'],
-    'template' => $c['template_path']
-  );
-  
-  //Error Wrapper
-  $c['error_wrapper'] = $c->share(function($c) { return new Requesty\ErrorWrapper(); });
-
-  //Asset Mapper
-  $c['asset_obj'] = $c->share(function($c) { return new Assetlib\Assetlib($c['asset_paths']); });
-
-  return $c;
-}
-
-// -------------------------------------------------------------------------
-
-/**
- * Return the basic name for a namespaced class (helper function)
- *
- * @param object $obj
- * @return string
- */
-function get_base_class($obj) {
-
-  $classname = get_class($obj);
-  $arr = explode('\\', $classname);
-  return array_pop($arr);
-}
-
-// -------------------------------------------------------------------------
-
-/**
- * Negotiate content Information
- *
- * @param Pimple $c
- * @return array
- */
-function negotiate_content_info($c) {
-
-  $content_info = array();
-  
-  //Allow content_type in query string to override request header
-  if (isset($_GET['content_type'])) {
-    $content_info['content_type'] = $_GET['content_type'];
-  }
-  else { //Negotiate content type
-    $content_info['content_type'] = $c['request_obj']->negotiate(
-      $c['request_obj']->get_accepted_types(TRUE),
-      $c['render_obj']->get_available_content_types(TRUE),
-      'text/plain'
-    );
-  }
-
-  //Allow lang in query string to override request header
-  $req_lang = (isset($_GET['lang'])) ? array('1' => $_GET['lang']) : $c['request_obj']->get_languages(TRUE);
-  
-  //Negotiate Language (English is the only language offered)
-  $content_info['language'] = $c['request_obj']->negotiate(
-    $req_lang, array('en-us', 'en'), 'en-us'
-  );
-  
-  //Get Path
-  $content_info['req_path'] = $c['url_obj']->get_path_string();
-
-  return $content_info;
-}
-
-// -------------------------------------------------------------------------
-
-/**
- * Attempt to load an Asset into Output
- * 
- * @param Pimple $c
- * @return boolean 
- */
-function load_asset($c) {
-
-  $mime = $c['asset_obj']->get_asset_mime($c['url_obj']->get_path_string());
-
-  if ($mime) {
-    $file = $c['asset_obj']->get_asset_filepath($c['url_obj']->get_path_string());
-
-    if ($file) {
-      $c['response_obj']->set_http_status(200);
-      $c['response_obj']->set_http_content_type($mime);
-      $c['response_obj']->set_output($file, $c['response_obj']::FILEPATH);
-      return TRUE;
-    }
-  }
-
-  //If made it here...
-  return FALSE;
-
-}
-
-// -------------------------------------------------------------------------
-
-/**
- * Attempt to load Cached Content into Output
- *
- * Also handles cache overrides if defined in the query string
- * 
- * @param Pimple $c
- * @return boolean
- */
-function load_content_from_cache($content_info, $c) {
-  
-  //Get cache options from query string
-  // can be 'skip', 'clear', 'destroy'
-  //@TODO: Allow custom headers as well
-  $cache_opt = (isset($_GET['cache'])) ? $_GET['cache'] : FALSE;  
-
-  //Build a custom cache key
-  $cache_key = md5('content:' . implode('', $content_info));
-  
-  try {
-    switch($cache_opt) {
-
-      case 'skip':
-        return FALSE;
-
-      case 'clear':
-        if ($c['cache']) {
-          $c['cache']->clear_cache($cache_key);
-        }
-        return FALSE;
-
-      case 'destroy':
-        if ($c['cache']) {
-          $c['cache']->clear_cache();
-        }
-        return FALSE;
-
-      default:
-        $result = ($c['cache']) ? $c['cache']->retrieve_cache_item($cache_key) : FALSE;
-        
-        if ($result) {
-          $c['response_obj']->set_http_status(200);
-          $c['response_obj']->set_http_content_type($content_info['content_type']);
-          $c['response_obj']->set_output($result);
-          return TRUE;
-        }
-        else {
-          return FALSE;
-        }
-      break;
-    }
-  } catch (\Cachey\Cachey_Exception $e) {
-    
-    return FALSE;
-    
-  }
-}
-
-// -------------------------------------------------------------------------
-
-/**
- * Attempt to load Rendered Content into Output, or show a 400/500 error
- *
- * @param Pimple $c
- * @return boolean
- */
-function load_rendered_content($content_info, $c) {
-
-  //Define renderer options for different formatters
-  $render_options = array(
-    'Html' => array(
-      'template_dir' => $c['template_path'],
-      'template_url' => $c['url_obj']->get_base_url() . 'template/',
-      'base_url'     => $c['url_obj']->get_base_url_path(),
-      'site_url'     => $c['url_obj']->get_base_url(),
-      'current_url'  => $c['url_obj']->get_current_url(FALSE)
-    )
-  );
- 
-  //Get the object from the path...
-  try {
-    
-    //Load a renderer based on the content-type http header
-    $renderer = $c['render_obj']->get_outputter_from_mime_type($content_info['content_type']);
-      
-    //Load renderer options
-    if (isset($render_options[get_base_class($renderer)])) {
-      foreach($render_options[get_base_class($renderer)] as $opt_name => $opt_value) {
-        $renderer->set_option($opt_name, $opt_value);
-      }
-    }
-
-    //Load the content item
-    $content_item = $c['mapper_obj']->load_content_object($content_info['req_path']);
-    
-    //Render the output
-    $rendered_output = $renderer->render_output($content_item);
-    
-    //If using a cache, attempt to add the item to the cache
-    if ($c['cache']) {
-      try {
-        $cache_key = md5('content:' . implode('', $content_info));
-        $c['cache']->create_cache_item($cache_key, $rendered_output);
-      } catch (\Cachey\Cachy_Exception $e) {
-        //pass...
-      }
+       $result = ($c['cache']) ? $c['cache']->retrieve_cache_item($cache_key) : FALSE;
+       
+       //LEFT OFF HERE SECOND!
     }
     
-    //Get the output by sending the content item to the renderer for rendering
-    $c['response_obj']->set_http_status(200);
-    $c['response_obj']->set_http_content_type($content_info['content_type']);
-    $c['response_obj']->set_output($rendered_output);
   }
-  catch (ContentMapper\MapperException $e) {
-    $http_status = 404;
+  
+  // -----------------------------------------------------------------------
 
-    if ( ! isset($renderer)) {
-      $renderer = $c['render_obj']->get_outputter_from_mime_type('text/plain');
+  /**
+   * Fail Method
+   * 
+   * Attempts to show a pretty failure message, and if that fails, then
+   * shows a generic error message
+   * 
+   * @param Exception $e 
+   */
+  private function fail($e) {
+    
+  }
+  
+  // -----------------------------------------------------------------------
+
+  /**
+   * PSR-0 Autoloader
+   *
+   * From https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
+   *
+   * @param string $class_name
+   */
+  public function autoload($class_name)
+  {
+    if (class_exists($class_name))
+      return;
+
+    $class_name = ltrim($class_name, '\\');
+    $basepath   = BASEPATH . 'libs' . DIRECTORY_SEPARATOR;
+    $file_name  = '';
+    $namespace = '';
+    $last_ns_pos = strripos($class_name, '\\');
+
+    if ($last_ns_pos) {
+      $namespace = substr($class_name, 0, $last_ns_pos);
+      $class_name = substr($class_name, $last_ns_pos + 1);
+      $file_name  = $basepath . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
     }
+    $file_name .= str_replace('_', DIRECTORY_SEPARATOR, $class_name) . '.php';
 
-    $c['response_obj']->set_http_status(404);
-    $c['response_obj']->set_http_content_type($content_info['content_type'] ?: 'text/plain');
-    $c['response_obj']->set_output($renderer->render_404_output());
-  }
-  catch (Renderlib\InvalidRenderMimeTypeException $e) {
-    $http_status = 415;
-
-    //Default to text content type, because we don't know which to use...
-    $renderer = $c['render_obj']->get_outputter_from_mime_type('text/plain');
-    $output = $renderer->render_error_output($http_status, 'Could not negotiate content-type (' . $e->getMessage() . ')');    
-    $c['response_obj']->set_http_status(415);
-    $c['response_obj']->set_http_content_type('text/plain');
-    $c['response_obj']->set_output($output); 
-  }
-
-  //Return TRUE if made it here, even if we caught exceptions above.
-  return TRUE;
+    require $file_name;
+  }  
 }
+
 
 /* EOF: app.php */

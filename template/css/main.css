@@ -564,6 +564,14 @@ body > header nav ul > li a:hover {
   font-size: 0.9em;
 }
 
+.article .article_content {
+  float: left;
+  width: 580px;
+}
+
+.article . article_meta {
+  float: left;
+}
 
 /* Print styles!
 -------------------------------------------------------------------------------*/

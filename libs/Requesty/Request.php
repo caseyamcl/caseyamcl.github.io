@@ -14,6 +14,11 @@ class Request
 	 */
 	private $browscap;
 	
+  /**
+   * @var array $http_req_headers 
+   */
+  private $http_req_headers = array();
+  
 	// --------------------------------------------------------------		
 
 	/**
@@ -25,6 +30,9 @@ class Request
 	{
 		//Load dependencies
 		$this->browscap = $browscap;
+    
+    //Load custom headers
+    $this->http_req_headers = $this->parse_request_headers();
 	}
 	
 	// --------------------------------------------------------------		
@@ -63,6 +71,20 @@ class Request
 		return (float) $this->get_user_agent()->Version;
 	}
 
+	// --------------------------------------------------------------		
+  
+  /**
+   * Get the request header or the default (if the header is not set)
+   * 
+   * @param string $header_key 
+   * @return string|null
+   */
+  public function get_header($header_key, $default = NULL) {
+    
+    return (isset($this->http_req_headers[$header_key]))
+      ? $this->http_req_headers[$header_key] : $default;
+  }
+  
 	// --------------------------------------------------------------		
 	
 	/**
@@ -217,6 +239,22 @@ class Request
       return $default;
     }
   }  
+  	
+  // --------------------------------------------------------------		
+  
+  private function parse_request_headers() {
+    
+    $headers = array();
+    
+    foreach($_SERVER as $key => $value) {
+      if (substr($key, 0, 5) == 'HTTP_') {
+        $header = str_replace(' ', '-', ucwords(str_replace('_'. ' ', strtolower(substr($key, 5)))));
+        $headers[$header] = $value;
+      }
+    }
+    
+    return $headers;    
+  }
   
 	// --------------------------------------------------------------		
   
