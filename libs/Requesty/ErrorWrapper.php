@@ -6,7 +6,24 @@ namespace Requesty;
  * ErrorWrapper Class converts PHP errors into exceptions 
  */
 class ErrorWrapper {
-   
+
+  // --------------------------------------------------------------		
+
+  /**
+   * Statically invoke the ErrorWrapper
+   */
+  public static function invoke() {
+    $that = new ErrorWrapper();
+    return $that->setup();
+  }
+  
+  // --------------------------------------------------------------		
+
+  /**
+   * Setup the error handling
+   * 
+   * @return \Requesty\ErrorWrapper 
+   */
   public function setup() {
 
     //Set it up
@@ -19,6 +36,7 @@ class ErrorWrapper {
     //Register a shutdown function
     register_shutdown_function(array($this, 'handle_shutdown'));
     
+    return $this;
   }
 
 	// --------------------------------------------------------------		
