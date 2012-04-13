@@ -51,7 +51,7 @@ class Html implements Outputter {
     //Possibly render with sub-template based on optional 'type' meta property
     if (isset($content_item->meta->type)) {
       
-      $template_file = $this->template_dir . 'templates' . DIRECTORY_SEPARATOR . $content_item->meta->type . '.php';
+      $template_file = $this->template_dir . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $content_item->meta->type . '.php';
       
       if (is_readable($template_file)) {
         $content = $this->load_template($template_file, $content_item->content, $content_item);
