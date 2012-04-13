@@ -23,15 +23,21 @@ class Config
 	 * Config File Constructor
 	 * 
 	 * @param $config_path
-	 * An absolute path to the configuration folder
+	 * An optional absolute path to the configuration folder
    * 
    * @param $defaults
    * An optional list of defaults to fall back on, set at instantiation
    * 
 	 */
-	public function __construct($config_path, $defaults = array())
+	public function __construct($config_path = NULL, $defaults = array())
 	{
-		$this->load_config($config_path);
+    //Set the defaults
+    $this->defaults = $defaults;
+    
+    //Load the config files
+    if ($config_path) {
+      $this->load_config($config_path); 
+    }
 	}
 	
 	// --------------------------------------------------------------
@@ -59,7 +65,7 @@ class Config
 		
 		//Path good?
 		if ( ! is_readable($config_path))
-			throw new Exception("Cannot read from config path!  Does it exist?  Is it readable?");
+			throw new \Exception("Cannot read from config path!  Does it exist?  Is it readable?");
 		
 		//Scan the directory for any files ending in .php (but not .local.php)
 		foreach(scandir($config_path) as $filename)
