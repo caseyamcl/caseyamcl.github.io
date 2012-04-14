@@ -151,6 +151,9 @@ function get_libraries() {
   $c['cache_path']    = BASEPATH . 'cache';
   $c['content_path']  = BASEPATH . 'content';
   $c['template_path'] = BASEPATH . 'template';
+
+  //Config
+  $c['config'] = $c->share(function($c) { return new Configurator\Config(array(), BASEPATH .'config'); });
   
   //Request/Response Objects
   $c['request_obj']  = $c->share(function($c) { return new Requesty\Request(new Browscap($c['cache_path'])); });
@@ -158,14 +161,16 @@ function get_libraries() {
   $c['url_obj']      = $c->share(function($c) { return new Requesty\Uri(); });
 
   //Cache Configuration and Library
-  $c['cache_driver'] = 'file';
+  $c['cache_driver'] = $c['config']->cache_method ?: FALSE;
   $c['cache_driver_opts'] = array(
     'filepath' => BASEPATH . 'cache',
     'default_expiration' => 86400
   );
   
-  $c['cachey'] = $c->share(function($c) { return new Cachey\Cachey(); }); 
-  $c['cache'] = $c->share(function($c) { return $c['cachey']->factory($c['cache_driver'], $c['cache_driver_opts']); });
+  if ($c['cache_driver']) {
+    $c['cachey'] = $c->share(function($c) { return new Cachey\Cachey(); }); 
+    $c['cache'] = $c->share(function($c) { return $c['cachey']->factory($c['cache_driver'], $c['cache_driver_opts']); });
+  }
   
   //Content Mapper
   $c['content_url'] = $c['url_obj']->get_base_url();
@@ -282,6 +287,11 @@ function load_asset($c) {
  */
 function load_content_from_cache($content_info, $c) {
   
+  //Skip cache if disabled
+  if ( ! $c['cache_driver']) {
+    return FALSE;
+  }
+  
   //Get cache options from query string
   // can be 'skip', 'clear', 'destroy'
   //@TODO: Allow custom headers as well
@@ -370,7 +380,7 @@ function load_rendered_content($content_info, $c) {
     $rendered_output = $renderer->render_output($content_item);
     
     //If using a cache, attempt to add the item to the cache
-    if ($c['cache']) {
+    if ($c['cache_driver']) {
       try {
         $cache_key = md5('content:' . implode('', $content_info));
         $c['cache']->create_cache_item($cache_key, $rendered_output);
