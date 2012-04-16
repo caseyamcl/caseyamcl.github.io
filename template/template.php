@@ -6,9 +6,8 @@
   <title>Casey McLaughlin.com</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   
-  <link rel="stylesheet" type="text/css" href="<?php echo $template_url; ?>css/main.css" />
-  
-  <?php echo load_page_specific_css($page_files); ?>
+  <?php echo load_less_css($template_path, $template_url); ?>
+  <?php /* echo load_page_specific_css($page_files);*/ ?>
 </head>
 
 <body>

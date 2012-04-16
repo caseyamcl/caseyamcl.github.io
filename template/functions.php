@@ -88,7 +88,42 @@ function load_page_specific_css($page_files) {
     }
   }
   
-  return $out_str;
+  return $out_str;  
+}
+
+// ------------------------------------------------------------------------
+
+/**
+ * Checks for a compiled version of the LESS CSS code and falls back on slow
+ * manual compilation
+ * 
+ * @param $template_dir The Template Directory
+ * @param $template_url The Template URL
+ */
+function load_less_css($template_dir, $template_url) {
+
+  //Slashes
+  if (substr($template_dir, -1) != DIRECTORY_SEPARATOR)
+    $template_dir .= DIRECTORY_SEPARATOR;
+  if (substr($template_url, -1) != '/')
+    $template_url .= DIRECTORY_SEPARATOR;
+  
+  if (is_readable($template_dir . 'css/main.css')) {
+    
+    $ss_url = $template_url . 'css/main.css';
+    return "<link rel='stylesheet' type='text/css' url='$ss_url' />";
+    
+  }
+  elseif (is_readable($template_dir . 'css/main.less')) {
+    
+    $js_url = $template_url . 'js/less.js';
+    $ss_url = $template_url . 'css/main.less';
+
+    $str  = "<link rel='stylesheet/less' type='text/css' href='$ss_url' />";
+    $str .= "<script type='text/javascript' src='$js_url'></script>";
+
+    return $str;
+  }
   
 }
 
