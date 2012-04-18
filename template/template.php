@@ -12,8 +12,8 @@
 
 <body>
   
-  <header class="clearfix">
-    <section class="content clearfix">
+  <header>
+    <section class="content">
       <h1>
         <a href="<?php echo $site_url; ?>">
           Casey McLaughlin
@@ -52,14 +52,14 @@
     </section>
   </header>
   
-  <div id="main" class="clearfix">
-    <section class="content clearfix">
+  <div id="main">
+    <section class="content">
       <?php echo $content; ?>
     </section>
   </div>
   
-  <footer class="clearfix">
-    <section class="content clearfix">
+  <footer>
+    <section class="content">
       cc Casey McLaughlin
     </section>
   </footer>
