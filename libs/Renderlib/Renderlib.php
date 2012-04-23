@@ -4,6 +4,11 @@ namespace Renderlib;
 
 class InvalidRenderMimeTypeException extends \InvalidArgumentException { /* ... */ }
 
+/**
+ * Render Library for Content Items
+ * 
+ * @author Casey McLaughlin 
+ */
 class Renderlib {
 
   /**

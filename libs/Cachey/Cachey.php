@@ -4,7 +4,11 @@ namespace Cachey;
 
 class Cachey_Exception extends \Exception { /* ... */ }
 
-
+/**
+ * Cachey - A Cache Library
+ *  
+ * @author Casey McLaughlin
+ */
 class Cachey {
 
   // --------------------------------------------------------------		

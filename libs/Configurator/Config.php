@@ -2,6 +2,14 @@
 
 namespace Configurator;
 
+/**
+ * Confurator Configuration Class
+ * 
+ * Loads configuration settings from PHP files, and
+ * makes them available through a simple OOP interface
+ * 
+ * @author Casey McLaughlin 
+ */
 class Config
 {
 	/**

@@ -5,6 +5,11 @@ namespace Assetlib;
 class InvalidURLMappingException extends \RuntimeException { /* ... */ }
 class UnmappedMimeTypeException extends \RuntimeException { /* ... */ }
 
+/**
+ * Asset Loader and Mime-Type Mapper
+ * 
+ * @author Casey McLaughlin 
+ */
 class Assetlib {
   
   /**

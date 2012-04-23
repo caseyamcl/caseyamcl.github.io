@@ -4,6 +4,11 @@ namespace ContentMapper;
 
 class MapperException extends \Exception { /* ... */ }
 
+/**
+ * Content Mapper Class
+ * 
+ *  
+ */
 class Mapper {
 
   const FILEPATH = 1;
