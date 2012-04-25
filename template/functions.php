@@ -32,12 +32,20 @@ function build_navigation($nav_array, $base_url, $current_url = NULL) {
   foreach($nav_array as $path => $nav) {
     
     //Set item properties
-    $item_url = $base_url . $path . '/';
-    $item_desc = (isset($nav['display'])) ? $nav['display'] : $nav['path'];
-    $item_title = (isset($nav['title'])) ? $nav['title'] : 'Link to' . $item_desc;
+    $item_url = (strlen($path) > 0) ? $base_url . $path . '/' : $base_url;
+    $item_disp = (isset($nav['display'])) ? $nav['display'] : $nav['path'];
+    
     if (isset($nav['description'])) {
-      $item_desc .= "<span>" . $nav['description'] . "</span>";
+      $item_disp .= "<span>" . $nav['description'] . "</span>";
+      $item_title = $nav['description'];
     }
+    elseif (isset($nav['title'])) {
+      $item_title = $nav['title'];
+    }
+    else {
+      $item_title =  'Link to ' . $item_disp;
+    }
+
     
     //Determine current URL
     $current_html = '';
@@ -55,7 +63,7 @@ function build_navigation($nav_array, $base_url, $current_url = NULL) {
     }
     
     //Build the item HTML
-    $item = "<li><a href='$item_url' title='$item_title'$current_html>$item_desc</a></li>";
+    $item = "<li><a href='$item_url' title='$item_title'$current_html>$item_disp</a></li>";
 
     //If there are sub items, add those to the HTML
     if (isset($nav['sub'])) {

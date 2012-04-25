@@ -16,8 +16,9 @@
     <section class="content">
       <h1>
         <a href="<?php echo $site_url; ?>">
-          Casey McLaughlin
-          <span>(dot com)</span>
+          <span class="fname">Casey</span>
+          <span class="lname">McLaughlin</span>
+          <span class="dotcom">(dot com)</span>
         </a>
       </h1>
 
@@ -25,6 +26,11 @@
         
         <?php        
           $nav = array();
+          
+          $nav[''] = array(
+            'display'     => 'Home',
+            'description' => 'Home Page'
+          );
           
           $nav['articles'] = array(
             'display'     => 'Articles',
@@ -60,7 +66,21 @@
   
   <footer>
     <section class="content">
-      cc Casey McLaughlin
+        
+      <img src="<?php echo $template_url; ?>images/headshot.jpg" alt="Picture of Casey" />
+
+      <ul>
+        <li>
+          <a class="cc_footer_link" href="http://creativecommons.org" title="Creative Commons License">(cc) Casey McLaughlin</a>
+        </li>
+        <li>
+          <a class="fb_footer_link" href="http://facebook.com" title="My Facebook Page">I'm on Facebook</a>
+        </li>
+        <li>
+          <a class="tw_footer_link" href="http://twitter.com/caseyamcl" title="My Twitter Profile">I'm on Twitter</a>
+        </li>
+      </ul>
+
     </section>
   </footer>
   
