@@ -474,10 +474,30 @@ body > footer > .content {
   margin-right: 0;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 620px) {
 
   .twocol-left-main,
   .twocol-right-sidebar {
+    width: 100% - 6px;
+  }
+  
+}
+
+
+/* Article Template -----------------------------------------------------------*/
+
+.article_content {
+  .twocol-left-main;
+}
+
+.article_meta {
+  .twocol-right-sidebar;
+}
+
+@media screen and (max-width: 620px) {
+
+  .article_content,
+  .article_meta {
     width: 100% - 6px;
   }
   
