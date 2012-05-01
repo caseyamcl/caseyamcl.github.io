@@ -48,22 +48,26 @@ function build_navigation($nav_array, $base_url, $current_url = NULL) {
 
     
     //Determine current URL
-    $current_html = '';
+    $class_html = '';
     if ($current_url) {
       
       //If exact match
       if ($item_url == $current_url) {
-        $current_html = " class='current'";
+        $class_html = " class='current'";
+      }
+      
+      elseif($path == '') {
+        $class_html = '';
       }
       
       //If is base match
-      elseif (strlen($item_url >= $current_url) && substr($item_url, 0, strlen($current_url)) == $current_url) {
-        $current_html = (isset($nav['sub'])) ? " class='current_ansecstor'" : " class='current'";
+      elseif (strlen($item_url <= $current_url) && substr($current_url, 0, strlen($item_url)) == $item_url) {
+        $class_html = (isset($nav['sub'])) ? " class='current_ansecstor'" : " class='current'";
       }
     }
     
     //Build the item HTML
-    $item = "<li><a href='$item_url' title='$item_title'$current_html>$item_disp</a></li>";
+    $item = "<li><a href='$item_url' title='$item_title'$class_html>$item_disp</a></li>";
 
     //If there are sub items, add those to the HTML
     if (isset($nav['sub'])) {
