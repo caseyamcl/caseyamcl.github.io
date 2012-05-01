@@ -363,11 +363,12 @@ body > header > .content {
         }
         
         a.current {
-          background-color: #990000;
+          background-color: #FFF;
+          color: #990000;
         }
         
         a:hover {
-          color: #990000;
+          text-decoration: underline;
         }
         
         a.current:hover {
@@ -486,8 +487,17 @@ body > footer > .content {
 
 /* Article Template -----------------------------------------------------------*/
 
+.article > h1 {
+  .column(12);
+}
+
 .article_content {
   .twocol-left-main;
+
+  img {
+    max-width: 90%;
+    margin: 5px auto;
+  }
 }
 
 .article_meta {
@@ -499,6 +509,39 @@ body > footer > .content {
   .article_content,
   .article_meta {
     width: 100% - 6px;
+  }
+  
+}
+
+/* Article List----------------------------------------------------------------*/
+
+.article_list_container {
+  .twocol-left-main;
+}
+
+.article_list_meta {
+  .twocol-right-sidebar;
+}
+
+.article_list {
+  li a {
+    color: @main-text-color;
+    text-decoration: none;
+    display: block;
+    padding: 2px;
+
+    .summary {
+      display: block;
+      color: #555;
+      font-size: 0.9em;
+    }
+  }
+
+  li a:hover {
+    background-color: #F1F1F1;
+    .summary {
+      color: @main-text-color;
+    }
   }
   
 }

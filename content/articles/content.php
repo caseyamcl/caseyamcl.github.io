@@ -1,3 +1,5 @@
+<div class="article_list_container">
+
 <h1>Articles</h1>
 
 <p>Occasionally, I write things :)</p>
@@ -30,7 +32,6 @@
 <?php if (count($page_children) > 0): ?>
 <div class="article_list_area">
   <?php 
-    $other = array();
     foreach($page_children as $url => $child): 
   ?>
   
@@ -45,16 +46,16 @@
       
       $year = substr($child->meta->date_published, 0, 4);
       
-      if ( ! isset($curr_year)) {
+      if ( ! isset($curr_year) OR $year != $curr_year) {
+        
+        if (isset($curr_year)) {
+          echo "</ul>";
+        }
+        
         $curr_year = $year;
-        echo "<h3 class='article_list_year'>$year</h3>\n";
+        $years[] = $curr_year;
+        echo "<h3 class='article_list_year' id='year_{$year}'>$year</h3>\n";
         echo "<ul class='article_list'>";
-      }
-      elseif ($year != $curr_year) {
-        $curr_year = $year;
-        echo "</ul>";
-        echo "<h3 class='article_list_year'>$year</h3>\n";
-        echo "<ul class='article_list'>\n";
       }
     }
     
@@ -80,3 +81,19 @@
 <p>Hmm. There don't seem to be any articles here.  Odd.</p>
 
 <?php endif; ?>
+
+</div>
+
+
+<div class="article_list_meta">
+  
+  <?php if (isset($years) && count($years) > 0): ?>
+  <h2>Jump To&hellip;</h2>
+    <ul>
+      <?php foreach($years as $year): ?>
+        <li><a href="#year_<?php echo $year; ?>"><?php echo $year; ?></a></li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; ?>
+  
+</div>
