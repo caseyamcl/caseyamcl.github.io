@@ -111,7 +111,7 @@ a, a:hover, a:active, a:focus {
  }
 
  h1, h2, h3, h4 {
-	 font-family: Vollkorn, serif;
+	 font-family: 'Puritan20Bold';
 	 margin-top: 0.3em;
 	 margin-bottom: 0.3em;
 	 color: #222;
@@ -171,11 +171,11 @@ a, a:hover, a:active, a:focus {
  /* See: http://www.w3.org/TR/html5/text-level-semantics.html#the-code-element */
  pre,
  pre.code {
-	 background-color: #2A2925;
+   font-family: monospace;
+	 background-color: #333;
 	 margin: 12px 6px;
 	 padding: 12px;
-	 border-radius: 12px;
-	 color: #FFF;
+	 color: #99D16F;
  }
  
  pre {
@@ -184,12 +184,12 @@ a, a:hover, a:active, a:focus {
  
  pre.code {
 	 overflow-x: auto;
-	 border-radius: 12px;
  }
 
  pre > code {
-	 background-color: #2A2925;
-	 color: #FFF;
+  font-family: monospace;
+	 background-color: #333;
+	 color: #99D16F;
 	 width: 100%;
 	 white-space: pre;
  }
@@ -271,7 +271,7 @@ a, a:hover, a:active, a:focus {
 	 	 border-bottom: 1px solid #CCC;
  }
 
-/* Main Layout-----------------------------------------------------------------*/
+/* Colors----------------------------------------------------------------------*/
 
 @body-bgcolor: #CCC;
 @head-bgcolor: #F1F1F1;
@@ -279,6 +279,9 @@ a, a:hover, a:active, a:focus {
 
 @main-text-color: #000;
 @footer-text-color: #333;
+
+
+/* Main Layout-----------------------------------------------------------------*/
 
 body {
   margin: 0;
@@ -423,15 +426,6 @@ body > header > .content {
   
 }
 
-/* Main -----------------------------------------------------------------------*/
-
-body > #main > .content {
-  
-  padding: 10px 0;
-  
-}
-
-
 /* Footer ---------------------------------------------------------------------*/
 
 body > footer > .content {
@@ -463,36 +457,49 @@ body > footer > .content {
   
 }
 
-/* Two Column Layout ----------------------------------------------------------*/
+/* Site Menu-------------------------------------------------------------------*/
 
-.twocol-left-main {  
-  .column(8);
-}
-
-.twocol-right-sidebar {
+.menu-row {
   
-  .column(4);
-  margin-right: 0;
-}
+  width: 100%;
+  .clearfix;
 
-@media screen and (max-width: 620px) {
-
-  .twocol-left-main,
-  .twocol-right-sidebar {
-    width: 100% - 6px;
+  .menu-meta {
+    float: left;
+    width: 250px;    
   }
-  
+
+  .menu-content {
+    float: left;
+    margin-left: 5px;
+    padding-left: 1.5%;
+    border-left: 1px dashed #CCC;
+  }
+
 }
 
+
+
+/* Main -----------------------------------------------------------------------*/
+
+body > #main > .content {
+  
+  padding: 20px 0;
+  
+}
 
 /* Article Template -----------------------------------------------------------*/
+
+.article {
+  .row;
+}
 
 .article > h1 {
   .column(12);
 }
 
 .article_content {
-  .twocol-left-main;
+  .column(8);
 
   img {
     max-width: 90%;
@@ -501,7 +508,11 @@ body > footer > .content {
 }
 
 .article_meta {
-  .twocol-right-sidebar;
+  .column(4);
+
+  .article_picture img {
+    max-width: 90%;
+  }
 }
 
 @media screen and (max-width: 620px) {
@@ -509,39 +520,6 @@ body > footer > .content {
   .article_content,
   .article_meta {
     width: 100% - 6px;
-  }
-  
-}
-
-/* Article List----------------------------------------------------------------*/
-
-.article_list_container {
-  .twocol-left-main;
-}
-
-.article_list_meta {
-  .twocol-right-sidebar;
-}
-
-.article_list {
-  li a {
-    color: @main-text-color;
-    text-decoration: none;
-    display: block;
-    padding: 2px;
-
-    .summary {
-      display: block;
-      color: #555;
-      font-size: 0.9em;
-    }
-  }
-
-  li a:hover {
-    background-color: #F1F1F1;
-    .summary {
-      color: @main-text-color;
-    }
   }
   
 }

@@ -7,10 +7,13 @@
   </section>
   
   <section class="article_meta">
+
+    <?php if (isset($page_meta->image)): ?>
+      <p class="article_picture">
+        <img src="<?php echo $current_url . '/' . $page_meta->image; ?>" alt="Article Img" />
+      </p>
+    <?php endif; ?>
     
-    <p class="article_picture">
-      <img src="http://dummyimage.com/225x225/999/fff" alt="Article Img" />
-    </p>
     <p class="article_summary">
       <strong>Summary</strong>
       <span>
