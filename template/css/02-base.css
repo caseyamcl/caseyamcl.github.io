@@ -1,36 +1,6 @@
-/* Main CSS Stylesheet
- *
- * Casey McLaughlin.com
- */
-
-/* Imports -------------------------------------------------------------------*/
-
-@import url("reset.css");
-@import url("print.css");
-
-/* Variables -----------------------------------------------------------------*/
-
-@fgcolor:    #F5F5F5;
-@bgcolor:    #E1E1E1;
-@textcolor:  #000;
-@linkcolor:  blue;
-@vlinkcolor: green;
-
-@highlightcolor:  blue;
-@navcurrentcolor: red;
-
-@bodyfont: "Verdana";
-@headfont: "Serif";
-@quotefont: @bodyfont;
-
-a, a:hover, a:active, a:focus {
-	outline: 0;
-}
-
 /* Primary Styles ------------------------------------------------------------*/
 
  body, p {
-	 font-family: @bodyfont;
 	 font-size: 16px;
 	 line-height: 1.5;
  }
@@ -74,7 +44,6 @@ a, a:hover, a:active, a:focus {
  }
 
  h1, h2, h3, h4 {
-	 font-family: @headfont;
 	 margin-top: 0.3em;
 	 margin-bottom: 0.3em;
 	 color: #222;
@@ -84,20 +53,17 @@ a, a:hover, a:active, a:focus {
  h1 {
 	 font-size: 1.8em;
 	 line-height: 1.1em;
-   font-family: @headfont;
  }
  
  h2 {
 	 font-size: 1.5em;
 	 line-height: 1.1em;
-   font-family: @headfont;
  }
  
  h3 {
 	 font-size: 1.3em;
 	 line-height: 1.1em;
 	 border-bottom: 1px solid #CCC;
-   font-family: @headfont;
  }
  
  h4 {
@@ -113,7 +79,6 @@ a, a:hover, a:active, a:focus {
  }
  
  h1 > span, h2 > span, h3 > span {
-	 font-family: @bodyfont;
 	 display: block;
 	 font-size: 0.7em;
  }
@@ -152,7 +117,6 @@ a, a:hover, a:active, a:focus {
  }
   
  blockquote {
-	 font-family: @quotefont;
 	 font-style: italic;
 	 margin: 1.4em auto 1.4em .25em;
 	 padding: 8px 10px;
