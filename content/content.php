@@ -1,27 +1,26 @@
-<div class="menu">
-  <section class="menu-row">
+<div class='front'>
 
-    <div class="menu-meta">
-      <h2>Some Title</h2>
-    </div>
+  <p class='intro'>
+    I am an IT Administrator, Instructor, and Application Developer in Tallahassee, Florida.
+  </p>
 
-    <div class="menu-content">
-      <p class="site-header">
-        I am a developer and IT Administrator in Tallahassee, Florida. This is my personal site. 
-      </p>
-    </div>
+  <ul>
+    <li>My CV</li>
+  </ul>
 
-  </section>
+  <h2>Articles</h2>
+  <ul>
+    <li>Article 1 - Summary - Title, etc</li>
+    <li>Arte 2 - Summary - Title, asdf</li>
+    <li>Aasdf asdf - Summary - Title, asdf</li>
+  </ul>
 
-  <section class="menu-row">
-
-    <div class="menu-meta">
-      <h2>Content Title</h2>
-    </div>
-
-    <div class="menu-content">
-      <p>Hi</p>
-    </div>
-
-  </section>
+  <h2>Code</h2>
+  <ul>
+    <li>Projects on Github &raquo;</li>
+    <li>Code Project One - Some Summary and Description</li>
+    <li>Code Project One - Some Summary and Description</li>
+    <li>Code Project One - Some Summary and Description</li>
+    <li>Code Project One - Some Summary and Description</li>
+  </ul>
 </div>

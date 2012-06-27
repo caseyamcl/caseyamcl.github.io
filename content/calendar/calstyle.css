@@ -1,3 +1,5 @@
+/* Agenda Styles ------------------------------------------------------------*/
+
 .calendar_agenda {
 	margin: 0;
 	padding: 0;
@@ -34,6 +36,7 @@
 .calendar_agenda .cal_dateitems > li {
 	border-top: 1px solid #CCC; 
 	padding: 5px 0;
+	list-style-type: none;
 }
 
 .calendar_agenda .cal_dateitems > li:first-child {
@@ -58,4 +61,41 @@
 .calendar_agenda .cal_dateitems .cal_loc {
 	font-size: 0.9em;
 	color: #444;
+}
+
+/* Responsive Behavior ------------------------------------------------------*/
+
+/* All Big Monitors */
+@media only screen and (min-width: 960px)  {
+	.big-calendar-container.columns {
+		display: block;
+	}
+	.medium-calendar-container.columns,
+	.little-calendar-container.columns {
+		display: none;
+	}
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	.medium-calendar-container.columns {
+		display: block;
+	}
+	.big-calendar-container.columns,
+	.little-calendar-container.columns {
+		display: none;
+	}
+
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 767px) {
+	.little-calendar-container.columns {
+		display: block;
+	}
+	.big-calendar-container.columns,
+	.medium-calendar-container.columns {
+		display: none;
+	}
+
 }

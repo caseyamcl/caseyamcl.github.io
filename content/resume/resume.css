@@ -23,6 +23,10 @@
 	margin: 5px 0;
 }
 
+.hresume > section > ul {
+	list-style-type: none;
+}
+
 /* -- Personal and Contact Information ----------------------- */
 .hresume address.vcard {
 	font-style: normal;
@@ -148,4 +152,7 @@
 		font-size: 0.9em;
 	}
 	
+	.hresume .description {
+		font-size: 0.9em;
+	}
 }

@@ -16,7 +16,7 @@ class Contentitem {
    * @var string  The realpath for this content
    */
   private $path;
-  
+ 
   /**
    * @var string  The URL for this content
    */

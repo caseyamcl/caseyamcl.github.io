@@ -420,4 +420,34 @@ function load_rendered_content($content_info, $c) {
   return TRUE;
 }
 
+// -------------------------------------------------------------------------
+
+/**
+ * Simple helper function for development
+ *
+ * Prints out a dump
+ *
+ * @param mixed $content
+ */
+function dump($content) {
+
+  ob_start();
+  echo var_dump($content);
+  $content = ob_get_clean();
+
+  if (php_sapi_name() != 'cli') {
+
+    if (is_string($content)) {
+      $content = htmlentities($content);
+    }
+    printf("<pre class='dump'>%s</pre>", $content);
+  }
+  else {
+    echo $content;
+  }
+
+
+}
+
+
 /* EOF: app.php */

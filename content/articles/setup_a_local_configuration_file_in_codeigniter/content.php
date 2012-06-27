@@ -42,9 +42,9 @@
 			Create a local configuration file, and add certain configuration settings
 			that you want to override.  You can put it in your document root folder, 
 			and name it <var>config.local.php</var>. For example:
-			<pre><code>
+			<pre class='code'>
 &lt;?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
- 
+
 /* Local Configuration Options */
 $config["base_url"] = "http://localhost/projects/my_project/";
 $config["index_page"] = "index.php";
@@ -59,7 +59,7 @@ $config["smtp_timeout"] = "5";
 $config['log_threshold'] = 4;
 //..and whatever else you want to override..
  
-/* EOF */</code></pre>
+/* EOF */</pre>
 	</li>
 	
 	<li>
@@ -75,7 +75,7 @@ $config['log_threshold'] = 4;
 		file after reading the default one every time.  To do this, create the
 		file <var>application/core/MY_Config.php</var> in your application folder, and add
 		the following code inside that file:
-		<pre class="code"><code>
+		<pre class="code">
 &lt;?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  
 class MY_Config extends CI_Config
@@ -97,7 +97,7 @@ class MY_Config extends CI_Config
 	}
 }
  
-/* EOF: MY_Config */</code></pre>
+/* EOF: MY_Config */</pre>
 	</li>
 </ol>
 
@@ -131,14 +131,13 @@ $config["db"]["db_debug"] = "TRUE";
 	<li>
 		Add the following code at the end of your <var>application/config/database.php</var>
 		file to read those settings after reading your default database settings:
-		<pre>
-			<code>//If there is a local config file, overwrite the settings with that..
+		<pre class='code'>//If there is a local config file, overwrite the settings with that..
 if (is_readable(FCPATH . 'config.local.php'))
 {
 	include_once(FCPATH . 'config.local.php');
 	foreach($db['default'] as $key => $val)
 		$db['default'][$key] = (isset($config['db'][$key])) ? $config['db'][$key] : $val;
-}</code></pre>
+}</pre>
 	</li>
 </ol>
 

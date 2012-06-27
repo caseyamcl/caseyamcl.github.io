@@ -1,12 +1,21 @@
-<?php /*@TODO: Use schema.org vocabulary here! */ ?>
-<article class="article">
-  <h1><?php echo $page_title; ?></h1>
+<?php
 
-  <section class="article_content">
+  /*@TODO: Use schema.org vocabulary here! */ 
+?>
+<article class="article">
+
+  <section class="article-title sixteen columns">
+    <h1><?php echo $page_title; ?></h1>
+    <time pubdate="pubdate" datetime="XX">
+      <?php echo (isset($page_meta->date_updated)) ? $page_meta->date_updated : $page_meta->date_published; ?>
+    </time>
+  </section>
+
+  <section class="article-content twelve columns">
     <?php echo $content; ?>
   </section>
   
-  <section class="article_meta">
+  <section class="article-meta four columns">
 
     <?php if (isset($page_meta->image)): ?>
       <p class="article_picture">
@@ -31,15 +40,6 @@
         Revised: <?php echo $page_meta->date_updated; ?>
       </p>
     <?php endif; ?>
-    
-    <p class="article_discuss_link">Discussion (via Disqus)</p>
-    
-    <p class="article_stats">
-      <strong>Statistics</strong>
-      <ul>
-        <li>(from Piwik? - only include with pagehits)</li>
-      </ul>
-    </p>
     
     <p class="article_versions">
       <strong>Other Formats</strong>

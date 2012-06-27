@@ -62,12 +62,13 @@ function build_navigation($nav_array, $base_url, $current_url = NULL) {
       
       //If is base match
       elseif (strlen($item_url <= $current_url) && substr($current_url, 0, strlen($item_url)) == $item_url) {
-        $class_html = (isset($nav['sub'])) ? " class='current_ansecstor'" : " class='current'";
+        $class_html = (isset($nav['sub'])) ? " class='current_ancestor'" : " class='current'";
       }
     }
     
     //Build the item HTML
-    $item = "<li><a href='$item_url' title='$item_title'$class_html>$item_disp</a></li>";
+    $item_class = strtolower(preg_replace('/[^a-zA-Z0-9-_]/', '', $item_disp));
+    $item = sprintf("<li class='%s'><a href='%s' title='%s'%s>%s</a></li>", $item_class, $item_url, $item_title, $class_html, $item_disp);
 
     //If there are sub items, add those to the HTML
     if (isset($nav['sub'])) {
@@ -90,6 +91,12 @@ function build_navigation($nav_array, $base_url, $current_url = NULL) {
 
 // ------------------------------------------------------------------------
 
+/**
+ * Load the CSS that is specific to the page as HTML
+ *
+ * @param array $page_files
+ * @return string
+ */
 function load_page_specific_css($page_files) {
   
   $out_str = '';
@@ -109,6 +116,8 @@ function load_page_specific_css($page_files) {
  * Checks for a compiled version of the LESS CSS code and falls back on slow
  * manual compilation
  * 
+ * Only useful if using LESS CSS
+ *
  * @param $template_dir The Template Directory
  * @param $template_url The Template URL
  */
