@@ -25,7 +25,7 @@
 
 <p>
 	It is possible to make some configuration directives consistent across 
-	environments and some variables unique.
+	environments and some directives unique.
 </p>
 
 <h3>Making a <em>local.config.php</em> file in CodeIgniter</h3>
@@ -63,11 +63,11 @@ $config['log_threshold'] = 4;
 	</li>
 	
 	<li>
-		Set your version control system to ignore this file.  If you’re using
-		Mercurial, simply add a line to the .hgignore file:
-		<pre class="code">^config\.local\.php$</pre>
-		If you're on GIT, just add this:
+		Set your version control system to ignore this file. 
+		If you're using GIT, just add a line to the <var>.gitignore</var> file:
 		<pre class="code">config.local.php</pre>
+		If you’re using Mercurial, add this line to the <var>.hgignore</var> file:
+		<pre class="code">^config\.local\.php$</pre>
 	</li>
 	
 	<li>

@@ -1,8 +1,6 @@
-<div class="article_list_container">
+<div class="article-list-container twelve columns">
 
 <h1>Articles</h1>
-
-<p>Occasionally, I write things :)</p>
 
 <?php 
 
@@ -30,7 +28,7 @@
 ?>
 
 <?php if (count($page_children) > 0): ?>
-<div class="article_list_area">
+<div class="article-list-area">
   <?php 
     foreach($page_children as $url => $child): 
   ?>
@@ -54,8 +52,8 @@
         
         $curr_year = $year;
         $years[] = $curr_year;
-        echo "<h3 class='article_list_year' id='year_{$year}'>$year</h3>\n";
-        echo "<ul class='article_list'>";
+        echo "<h3 class='article-list-year' id='year_{$year}'>$year</h3>\n";
+        echo "<ul class='article-list'>";
       }
     }
     
@@ -85,7 +83,7 @@
 </div>
 
 
-<div class="article_list_meta">
+<div class="article-list-meta four columns">
   
   <?php if (isset($years) && count($years) > 0): ?>
   <h2>Jump To&hellip;</h2>

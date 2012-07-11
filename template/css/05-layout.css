@@ -110,3 +110,79 @@ body > footer ul li {
 	font-size: 0.9em;
 	color: #444;
 }
+
+.article-meta * {
+	font-size: 0.9em;
+}
+
+.article-meta .article-picture img {
+	max-width: 98%;
+}
+
+/* Article List --------------------------------------------------------------*/
+
+.article-list-area h3 {
+	margin-top: 1em;
+}
+
+.article-list li {
+	list-style-position: outside;
+	margin-bottom: 20px;
+}
+
+.article-list li a {
+	display: block;
+	color: #000;
+	text-decoration: none;
+	padding: 1px 3px;
+}
+
+.article-list li a:hover {
+	background-color: #F1F1F1;
+}
+
+.article-list li .summary {
+	display: block;
+	font-size: 0.9em;
+	color: #555;
+}
+
+.article-list li a:hover .summary {
+	color: #333;
+}
+
+/* Code List ----------------------------------------------------------------*/
+
+.code-list {
+	list-style-type: none;
+	clear: both;
+	margin: 10px 0;
+	padding: 0;
+}
+
+.code-list li {
+	margin: 1px 1px 1.5em 1px;
+	padding: 5px;
+	display: block;
+	float: left;
+	max-width: 465px;
+}
+
+.code-list li > img {
+	float: left;
+	margin-top: 0;
+}
+
+.code-list li > h5,
+.code-list li > p {
+	margin: 0 0 10px 85px;
+}
+
+.code-list li > p {
+	font-size: 0.9em;
+	color: #555;
+}
+
+.code-list .more-link {
+	display: block;
+}

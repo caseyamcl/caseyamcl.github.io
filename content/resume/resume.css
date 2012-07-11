@@ -32,23 +32,35 @@
 	font-style: normal;
 	text-align: center;
 	border-bottom: 1px solid #333;
-	margin-bottom: 2em;
+	margin-bottom: 1.5em;
 }
 
 .hresume address.vcard .adr {
 	margin-top: 0px;
+	margin-bottom: 0px;
 	font-size: 0.9em;
 }
 
+.hresume address.vcard .contact_info {
+	margin-top: 0.5em;
+}
 
 .hresume address.vcard .contact_info > span {
-	margin: 0 30px;
+	display: block;
 }
 
 .hresume address.vcard .contact_info abbr {
 	border: none;
 	font-style: italic;
 	font-size: 0.9em;
+}
+
+.hresume address.vcard a {
+	color: #444;
+}
+
+.resume address.vcard a:hover {
+	color: #000;
 }
 
 /* -- Education, Experience, and Projects -------------------------- */
@@ -110,7 +122,7 @@
 
 /* -- Research Participation -------------------------------- */
 
-.hresume .hcitation .author.firstauthor {
+.hresume .hcitation .author.self {
 	text-transform: uppercase;
 	font-weight: bold;
 }
