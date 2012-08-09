@@ -7,18 +7,20 @@
 /* Header --------------------------------------------------------------------*/
 
 body > header {
-	background-color: #CCC;
+	background-color: #2C2C2C;
 	border-bottom: 2px solid #111;
 	font-size: 1.2em;
 }
 
 body > header h1 {
+	font-family: DroidSans;
 	font-size: 1em;
+	margin-left: 0 !important;
 }
 
 body > header h1 > a,
 body > header h1 > a:visited {
-	color: #990000;
+	color: #FFF;
 	text-decoration: none;
 }
 
@@ -38,9 +40,21 @@ body > header nav ul > li {
 
 body > header > nav ul a,
 body > header > nav ul a:visited {
-	color: #000;
+	display: block;
+	color: #BBB;
 	text-decoration: none;
-	font-family: DroidSansBold;
+	font-family: DroidSans;
+}
+
+body > header > nav ul a:hover {
+	color: #E4E4E4;
+	background-color: #242424;
+}
+
+body > header > nav ul a.current,
+body > header > nav ul a.current:hover {
+	color: #fff;
+	background-color: #131313;
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */

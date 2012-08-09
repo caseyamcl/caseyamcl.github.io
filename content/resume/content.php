@@ -232,6 +232,16 @@
         
         <ul class="hcitation">
             
+            <li class="presentation">
+                <span class="author firstuathor fn">Garcia-Castro, L.J.</span>,
+                <span class="author fn">Flager, S.</span>,
+                <span class="author fn self">McLaughlin, C.</span>,
+                &amp; <span class="author fn">Garcia, A.</span>
+                (<span class="year">2012</span>)
+                <span class="title">Semantic Enrichment of Biomedical Literature, RDF for full text PubMed Central</span>
+                <span class="description">Presentation at the VIVO 2012 Conference, Miami, Florida</span>
+            </li>
+
         	<li class="presentation">
         		<span class="author firstauthor fn">Mardis, M.A.</span>,
         		<span class="author fn self">McLaughlin, C.</span>,
