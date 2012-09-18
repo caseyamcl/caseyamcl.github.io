@@ -8,9 +8,9 @@
  * @author Casey McLaughlin
  */
 
-//Load the application
-$ds = DIRECTORY_SEPARATOR;
-require_once(realpath(__DIR__ . $ds . '..' . $ds . 'libs') . $ds . 'app.php');
+require(__DIR__ . '/../src/bootstrap.php');
 
+//Away we go
+\Caseyamcl\WebApp::main();
 
 /* EOF: index.php */

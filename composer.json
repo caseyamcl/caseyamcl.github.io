@@ -1,0 +1,16 @@
+{
+  "require": {
+    "firephp/firephp-core":      "dev-master",
+    "eloquent/asplode":          "dev-master",
+    "caseyamcl/goldenretriever": "dev-master",
+    "symfony/http-foundation":   ">=2.1.0",
+    "symfony/class-loader":      ">=2.1.1",
+    "pimple/pimple":             ">=1.0.0"
+ },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "http://github.com/caseyamcl/goldenretriever"
+    }
+  ]
+}

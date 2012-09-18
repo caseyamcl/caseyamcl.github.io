@@ -23,7 +23,7 @@ Options All -Indexes
 # CMCL:[REDIRECT]
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	RewriteCond $1 !^(index\.php|robots\.txt|humans\.txt)
+	RewriteCond $1 !^(index\.php|robots\.txt|dev\.php|humans\.txt)
 	RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 

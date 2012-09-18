@@ -1,3 +1,2 @@
-/nbproject/private/
-/cache/*.cache
-/config/config.local.php
+/vendor
+composer.phar
