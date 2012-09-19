@@ -1,7 +1,7 @@
 <p>
 	It's the perfect time to think about it.  With
 	<a href="http://en.wikipedia.org/wiki/2010_Haiti_earthquake" title="&hellip;and subsequent media frenzy">disaster</a>
-	on everybody's mind,	and this being the season of resolutions, it's time to 
+	on everybody's mind, and this being the season of resolutions, it's time to
 	think about your disaster recovery strategy.  You do have one, right?
 </p>
 
@@ -14,7 +14,7 @@
 
 <p>
 	I’m absolutely sure they’ll be super-prepared next time, but <span style="text-decoration: underline"><em>you</em></span>
-	don’t have to wait until something tragic happens to be prepared!	
+	don’t have to wait until something tragic happens to be prepared!
 </p>
 
 <h3>Disaster Recovery Enterprise Planning = Big Words (Scary!)</h3>
@@ -30,7 +30,7 @@
 
 <p>
 	In the meantime, while I was being intimidated by all this “enterprise” stuff,
-	we went without reliable backups.  We would have been up sh--ahem, in a bit of trouble 
+	we went without reliable backups.  We would have been up sh--ahem, in a bit of trouble
 	if something happened.
 </p>
 
@@ -41,7 +41,7 @@
 <h4>1. Embrace Common Sense</h4>
 
 <p>
-		Okay, just ignore all that business-speak.  Let’s start with the basics: 
+		Okay, just ignore all that business-speak.  Let’s start with the basics:
 		If you’re not backing up your data, put down the big ugly DR books right
 		now and go setup a backup.
 </p>
@@ -74,12 +74,12 @@
 	easier by automating your backups.  If you’re not excited about doing a bunch
 	of geeky tech stuff to get your automated backups working, go convince your
 	boss to spend a few bucks a month on a <a href="http://mozy.com" title="Mozy">cheap</a>,
-	<a href="http://www.idrive.com/" title="iDrive">easy-to-setup</a> <a href="http://box.net" title="Another good one">online backup</a> <a href="http://dropbox.com" title="Dropbox Pro!">service</a>.	
+	<a href="http://www.idrive.com/" title="iDrive">easy-to-setup</a> <a href="http://box.net" title="Another good one">online backup</a> <a href="http://dropbox.com" title="Dropbox Pro!">service</a>.
 </p>
 
 <p>
 	If he or she doesn’t want to spend the money, you can <del>scare</del> enlighten
-	him with 
+	him with
 	<a href="http://www.codinghorror.com/blog/2009/12/international-backup-awareness-day.html" title="Jeff Atwood Knows...">many</a>
 	<a href="http://blog.jquery.com/2011/12/08/what-is-happening-to-the-jquery-plugins-site/" title="Jquery Knows...">horrifying</a>
 	<a href="http://www.usatoday.com/tech/news/computersecurity/2006-06-11-lost-data_x.htm" title="Yep.  Here's an old article">stories</a>
@@ -102,7 +102,7 @@
 	<li>“The building could burn down”</li>
 	<li>“We could get robbed”</li>
 	<li>“An employee could go apeshit and format the C: drive of the server”</li>
-	<li>"The servers could get flooded"</li>	
+	<li>"The servers could get flooded"</li>
 	<li><em>keep going&hellip;</em></li>
 </ol>
 

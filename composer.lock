@@ -1,5 +1,5 @@
 {
-    "hash": "056d80cd21e4920f44fd47c4f5b7b18c",
+    "hash": "6775e47a32cbbbcd71a68cb810cd2d8d",
     "packages": [
         {
             "name": "caseyamcl/goldenretriever",
@@ -124,7 +124,7 @@
             "require-dev": {
                 "phake/phake": "1.*"
             },
-            "time": "2012-08-12 22:37:39",
+            "time": "2012-08-13 02:37:39",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -150,7 +150,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-05-08 17:57:24",
+            "time": "2012-05-08 21:57:24",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -185,7 +185,7 @@
             "require-dev": {
                 "symfony/finder": "2.1.*"
             },
-            "time": "2012-09-01 19:02:36",
+            "time": "2012-09-01 23:02:36",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -217,7 +217,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-09-05 00:24:42",
+            "time": "2012-09-05 04:24:42",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -250,7 +250,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-08-23 01:48:41",
+            "time": "2012-08-23 05:48:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -263,6 +263,55 @@
                     "Symfony\\Component\\Yaml": ""
                 }
             }
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.9.2",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/fabpot/Twig.git",
+                "reference": "v1.9.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fabpot/Twig/zipball/v1.9.2",
+                "reference": "v1.9.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "time": "2012-08-25 17:32:57",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "license": [
+                "BSD-3"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ]
         }
     ],
     "packages-dev": null,

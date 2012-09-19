@@ -5,7 +5,8 @@
     "caseyamcl/goldenretriever": "dev-master",
     "symfony/http-foundation":   ">=2.1.0",
     "symfony/class-loader":      ">=2.1.1",
-    "pimple/pimple":             ">=1.0.0"
+    "pimple/pimple":             ">=1.0.0",
+    "twig/twig":                 "1.*"
  },
   "repositories": [
     {
