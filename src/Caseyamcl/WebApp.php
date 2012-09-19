@@ -97,7 +97,7 @@ class WebApp extends Pimple
         catch (ContentNotFoundException $e) {
             $this->error(404, 'Content Not Found');
         }
-        catch (ContentTypeNontAvailableException $e) {
+        catch (ContentTypeNotAvailableException $e) {
             $this->error(415, 'Could not Negotiate Content Type');
         }
         catch (Exception $e) {
