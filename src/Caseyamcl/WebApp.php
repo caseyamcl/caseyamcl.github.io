@@ -29,6 +29,11 @@ class WebApp extends Pimple
 
     // --------------------------------------------------------------
 
+    /**
+     * Static Initiator
+     *
+     * @param int $mode
+     */
     public static function main($mode = self::PRODUCTION)
     {
         $that = new WebApp($mode);
@@ -37,6 +42,11 @@ class WebApp extends Pimple
 
     // --------------------------------------------------------------
 
+    /**
+     * Constructor
+     *
+     * @param int $mode
+     */
     public function __construct($mode = self::PRODUCTION)
     {
         assert($mode == self::PRODUCTION OR $mode == self::DEVELOPMENT);
@@ -46,6 +56,9 @@ class WebApp extends Pimple
 
     // --------------------------------------------------------------
 
+    /**
+     * Run
+     */
     public function run()
     {
         try {
@@ -70,24 +83,22 @@ class WebApp extends Pimple
                 return $v / 10;
             }, $aTypes);
 
-            //Send info to GoldenRetriever
-            $this['contentMapper'] = $this->loadContentMapper();
-            $this['contentObject'] = $this['contentMapper']->retrieveContent(
+            //Load the GoldenRetriever
+            $this['goldenRetriever'] = $this->loadContentMapper();
+
+            //Get the content object
+            $contentObject = $this['goldenRetriever']->retrieveContent(
                 $path, $this['acceptableTypes']
             );
 
-            //Use HTTP Foundation to deliver response
-            $this['response']->setStatusCode(200);
-            $this['response']->headers->set('Content-Type', $this['contentObject']->getContent());
-            $this['response']->setContent($this['contentObject']->getContent());
-            $this['response']->prepare($this['request']);
-            $this['response']->send();
+            //Send it
+            $this->send($contentObject, 200);
         }
         catch (ContentNotFoundException $e) {
-            $this->abort(404, 'Content Not Found');
+            $this->error(404, 'Content Not Found');
         }
         catch (ContentTypeNontAvailableException $e) {
-            $this->abort(415, 'Could not Negotiate Content Type');
+            $this->error(415, 'Could not Negotiate Content Type');
         }
         catch (Exception $e) {
 
@@ -95,48 +106,64 @@ class WebApp extends Pimple
                 throw $e;
             }
             else {
-                $this->abort(500, 'Internal Server Error Occured');
+                $this->error(500, 'Internal Server Error Occured');
             }
         }
     }
 
     // --------------------------------------------------------------
 
-    protected function abort($code, $msg = null)
+    /**
+     * Handle errors
+     *
+     * @param int $code
+     * @param string $msg
+     */
+    protected function error($code, $msg = null)
     {
-        //Start with null errorOutput
-        $errorOutput = null;
-
         //Try to get error code to match the content type
         if (isset($this['contentMapper']) && $this['acceptableTypes']) {
-            $errorOutput = $this['contentMapper']->retrieveError(
+
+            $errorContentObject = $this['contentMapper']->retrieveError(
                 $code, $this['acceptableTypes'], $msg
             );
         }
 
-        //Fall back on simple text error
-        if ( ! $errorOutput) {
+        if (isset($errorContentObject) && $this['response']) {
+            $this->send($errorContentObject, $code);
+        }
+        else { //Fall back on simple text error
             $errorOutput = sprintf("Error (%d): %s", $code, $msg);
-        }
-
-        if ($this['response']) {
-            $this['response']->setStatusCode($code);
-            $this['response']->setContent($errorOutput);
-            //@TODO: $response->headers->set('Content-Type', 'text/plain');
-
-            $this['response']->prepare($this['request']);
-            $this['response']->send();
-        }
-        else {
             header("Content-type: text/plain");
-            echo $errorOutput;
+            die($errorOutput);
         }
-
-        die();
     }
 
     // --------------------------------------------------------------
 
+    /**
+     * Send content
+     *
+     * @param ContentObject $contentObject
+     * @param int $httpCode
+     */
+    protected function send($contentObject, $httpCode = 200)
+    {
+        //Use HTTP Foundation to deliver response
+        $this['response']->setStatusCode((int) $httpCode);
+        $this['response']->headers->set('Content-Type', $contentObject->getContent());
+        $this['response']->setContent($contentObject->getContent());
+        $this['response']->prepare($this['request']);
+        $this['response']->send();
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Load Content Mapper
+     *
+     * @return \GoldenRetriever\Mapper
+     */
     protected function loadContentMapper()
     {
         //Load the contentTypes
@@ -156,4 +183,4 @@ class WebApp extends Pimple
     }
 }
 
-/* EOF: App.php */
+/* EOF: WebApp.php */
