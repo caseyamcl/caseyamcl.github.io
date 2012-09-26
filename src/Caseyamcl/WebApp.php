@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use GoldenRetriever\ContentTypeNotAvailableException;
 use GoldenRetriever\ContentNotFoundException;
+use GoldenRetriever\TemplateEngine\TwigEngine;
 use Pimple;
 use Exception;
 
@@ -20,7 +21,6 @@ class WebApp extends Pimple
      * @var string
      */
     private $basepath;
-
 
     /**
      * @var int
@@ -83,8 +83,11 @@ class WebApp extends Pimple
                 return $v / 10;
             }, $aTypes);
 
+            //Setup templateEngine
+            $this['templateEngine'] = new TwigEngine();
+
             //Load GoldenRetriever
-            $this['goldenRetriever'] = $this->loadContentMapper();
+            $this['goldenRetriever'] = $this->loadGoldenRetriever();
 
             //Build some context data to send to the content
             $contentData = array();
@@ -156,51 +159,71 @@ class WebApp extends Pimple
      */
     protected function send($contentObject, $httpCode = 200)
     {
+        //Get the content body
+        $contentBody = $contentObject->getContent();
+        $mimeType    = $contentObject->getMimeType();
+
+        //Perform some last minute template goodness for specific types
+        switch ($mimeType) {
+            case 'text/html':
+
+            break;
+            case 'application/pdf':
+
+            break;
+        }
+
+
         //Use HTTP Foundation to deliver response
         $this['response']->setStatusCode((int) $httpCode);
-        $this['response']->headers->set('Content-Type', $contentObject->getContent());
-        $this['response']->setContent($contentObject->getContent());
+        $this['response']->headers->set('Content-Type', $mimeType);
+        $this['response']->setContent($contentBody);
         $this['response']->prepare($this['request']);
         $this['response']->send();
     }
 
     // --------------------------------------------------------------
 
-    /**
-     * Load Content Mapper
+    /** 
+     * Apply a template to ouptput content
      *
-     * @return \GoldenRetriever\Mapper
+     * @param string $templateFile
+     * @param string $content
+     * @param array  $meta
+     *
+     * @return string
      */
-    protected function loadContentMapper()
+    protected function applyTemplate($templateFile, $content, $meta)
+    {
+
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Load Golden Retriever Content Mapper
+     *
+     * @return \GoldenRetriever\Retriever
+     */
+    protected function loadGoldenRetriever()
     {
         //Load the contentTypes into an array
         $contentTypes = array();
-
-        //Twig Content Type
-        if ($this->mode == self::DEVELOPMENT) {
-
-            $twigObj = new \Twig_Environment(
-                new \Twig_Loader_String(),
-                array('debug' => true)
-            );
-            $twigObj->addExtension(new \Twig_Extension_Debug());
-            $contentTypes[] = new \GoldenRetriever\ContentType\Twig($twigObj);
-
-        }
-        else {
-            $contentTypes[] = new \GoldenRetriever\ContentType\Twig();            
-        }
+        $contentTypes[] = new \GoldenRetriever\ContentType\Html();            
 
         //Load the desired driver
         $contentPath = $this->basepath . 'content/';
         $parser = new \Symfony\Component\Yaml\Parser();
         $driver = new \GoldenRetriever\Driver\FlatFile($contentTypes, $parser, $contentPath);
 
+        //Set the template engine
+        $driver->setTemplateEngine($this['templateEngine']);
+
         //Load the negotiator
         $negotiator = new \GoldenRetriever\Negotiator();
 
         //Load the mapper
-        return new \GoldenRetriever\Mapper($driver, $negotiator);
+        return new \GoldenRetriever\Retriever($driver, $negotiator);
     }
 }
 
