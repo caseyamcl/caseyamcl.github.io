@@ -95,6 +95,7 @@ class WebApp extends Pimple
                 $this['request']->getBaseUrl();
             $contentData['page_url'] = $contentData['base_url'] . 
                 $this['request']->getPathInfo();
+            $contentData['asset_url'] = dirname($contentData['base_url']);
 
             //Get the content object
             $contentObject = $this['goldenRetriever']->retrieveContent(
@@ -166,13 +167,12 @@ class WebApp extends Pimple
         //Perform some last minute template goodness for specific types
         switch ($mimeType) {
             case 'text/html':
-
+                $contentBody = $this->applyTemplate('html.twig', $contentBody, $contentObject->getMeta());
             break;
             case 'application/pdf':
-
+                $contentBody = $this->applyTemplate('pdf.twig', $contentBody, $contentObject->getMeta());
             break;
         }
-
 
         //Use HTTP Foundation to deliver response
         $this['response']->setStatusCode((int) $httpCode);
@@ -195,7 +195,20 @@ class WebApp extends Pimple
      */
     protected function applyTemplate($templateFile, $content, $meta)
     {
+        $templateFile = $this->basepath . 'templates/' . $templateFile;
 
+        if (is_readable($templateFile)) {
+
+            //Template Contents
+            $templateContent = file_get_contents($templateFile);
+
+            //Add content to meta
+            $meta['_content'] = $content;
+            return $this['templateEngine']->render($templateContent, $meta);
+        }
+        else {
+            $this->error('500', "Could not load expected template: " . $templateFile);
+        }
     }
 
     // --------------------------------------------------------------
