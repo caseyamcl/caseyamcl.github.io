@@ -4,7 +4,7 @@ namespace Caseyamcl;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use GoldenRetriever\ContentTypeNontAvailableException;
+use GoldenRetriever\ContentTypeNotAvailableException;
 use GoldenRetriever\ContentNotFoundException;
 use Pimple;
 use Exception;
@@ -83,12 +83,19 @@ class WebApp extends Pimple
                 return $v / 10;
             }, $aTypes);
 
-            //Load the GoldenRetriever
+            //Load GoldenRetriever
             $this['goldenRetriever'] = $this->loadContentMapper();
+
+            //Build some context data to send to the content
+            $contentData = array();
+            $contentData['base_url'] = $this['request']->getSchemeAndHttpHost() . 
+                $this['request']->getBaseUrl();
+            $contentData['page_url'] = $contentData['base_url'] . 
+                $this['request']->getPathInfo();
 
             //Get the content object
             $contentObject = $this['goldenRetriever']->retrieveContent(
-                $path, $this['acceptableTypes']
+                $path, $this['acceptableTypes'], $contentData
             );
 
             //Send it
@@ -166,9 +173,23 @@ class WebApp extends Pimple
      */
     protected function loadContentMapper()
     {
-        //Load the contentTypes
+        //Load the contentTypes into an array
         $contentTypes = array();
-        $contentTypes[] = new \GoldenRetriever\ContentType\Html();
+
+        //Twig Content Type
+        if ($this->mode == self::DEVELOPMENT) {
+
+            $twigObj = new \Twig_Environment(
+                new \Twig_Loader_String(),
+                array('debug' => true)
+            );
+            $twigObj->addExtension(new \Twig_Extension_Debug());
+            $contentTypes[] = new \GoldenRetriever\ContentType\Twig($twigObj);
+
+        }
+        else {
+            $contentTypes[] = new \GoldenRetriever\ContentType\Twig();            
+        }
 
         //Load the desired driver
         $contentPath = $this->basepath . 'content/';
