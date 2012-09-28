@@ -84,7 +84,9 @@ class WebApp extends Pimple
             }, $aTypes);
 
             //Setup templateEngine
-            $this['templateEngine'] = new TwigEngine();
+            $twig = new TwigEngine();
+            $twig->addGlobal('tools', new TemplateTools());
+            $this['templateEngine'] = $twig;
 
             //Load GoldenRetriever
             $this['goldenRetriever'] = $this->loadGoldenRetriever();
