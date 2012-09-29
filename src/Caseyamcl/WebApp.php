@@ -97,7 +97,8 @@ class WebApp extends Pimple
                 $this['request']->getBaseUrl();
             $contentData['page_url'] = $contentData['base_url'] . 
                 $this['request']->getPathInfo();
-            $contentData['asset_url'] = dirname($contentData['base_url']);
+            $contentData['asset_url'] = (strcmp($this['request']->getBaseUrl(), $this['request']->getScriptName()) == 0)
+                ? dirname($this['request']->getBaseUrl()) : $this['request']->getBaseUrl();
 
             //Get the content object
             $contentObject = $this['goldenRetriever']->retrieveContent(
@@ -240,6 +241,7 @@ class WebApp extends Pimple
         //Load the mapper
         return new \GoldenRetriever\Retriever($driver, $negotiator);
     }
+
 }
 
 /* EOF: WebApp.php */
