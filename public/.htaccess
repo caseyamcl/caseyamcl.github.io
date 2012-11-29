@@ -5,19 +5,19 @@ Options All -Indexes
 
 # CMCL:[HIDE HIDDEN AND PROJECT FILES]
 <FilesMatch "^((\.(.)+$)|nbproject)">
- Order Allow,Deny
- Deny from all
+    Order Allow,Deny
+    Deny from all
 </FilesMatch>
 
 # CMCL:[SPELLING]
 <IfModule mod_speling.c>
- CheckSpelling On
+    CheckSpelling On
 </IfModule>
 
 # CMCL:[ALLOW ONLY GET REQUESTS]
 <LimitExcept GET HEAD>
-  Order Allow,Deny
-  Deny from all
+    Order Allow,Deny
+    Deny from all
 </LimitExcept>
 
 # CMCL:[REDIRECT]

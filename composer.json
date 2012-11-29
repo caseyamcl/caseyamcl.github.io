@@ -1,17 +1,32 @@
 {
-  "require": {
-    "firephp/firephp-core":      "dev-master",
-    "eloquent/asplode":          "dev-master",
-    "caseyamcl/goldenretriever": "dev-master",
-    "symfony/http-foundation":   ">=2.1.0",
-    "symfony/class-loader":      ">=2.1.1",
-    "pimple/pimple":             ">=1.0.0",
-    "twig/twig":                 "1.*"
- },
-  "repositories": [
+    "name": "caseyamcl.com",
+    "type": "library",
+    "description": "Casey McLaughlin's Personal Website",
+    "homepage": "http://caseymclaughlin.com",
+    "authors": [
+        {
+            "name":     "Casey McLaughlin",
+            "email":    "caseyamcl@gmail.com",
+            "homepage": "http://caseymclaughlin.com",
+            "role":     "Developer"
+        }
+    ],    
+    "require": {
+        "firephp/firephp-core":      "dev-master",
+        "eloquent/asplode":          "dev-master",
+        "symfony/http-foundation":   ">=2.1.0",
+        "pimple/pimple":             ">=1.0.0",
+        "twig/twig":                 "1.*",
+        "kriswallsmith/assetic":     "v1.0.4",
+        "caseyamcl/goldenretriever": "dev-master"
+    },    
+    "repositories": [
     {
-      "type": "vcs",
-      "url": "http://github.com/caseyamcl/goldenretriever"
+        "type": "vcs",
+        "url": "http://github.com/caseyamcl/goldenretriever"
     }
-  ]
+    ],
+    "autoload": {
+        "psr-0": { "Caseyamcl": "src/" }
+    }
 }

@@ -1,5 +1,5 @@
 {
-    "hash": "6775e47a32cbbbcd71a68cb810cd2d8d",
+    "hash": "3ac69751a465aeda607692270baacd35",
     "packages": [
         {
             "name": "caseyamcl/goldenretriever",
@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/caseyamcl/goldenretriever",
-                "reference": "a96d42b4dfcedc67cf0bbe100439ae5b9ff6efcd"
+                "reference": "2201b1c2e22a8c5a70c05a23a1b2a3317d81c440"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/caseyamcl/goldenretriever/zipball/a96d42b4dfcedc67cf0bbe100439ae5b9ff6efcd",
-                "reference": "a96d42b4dfcedc67cf0bbe100439ae5b9ff6efcd",
+                "url": "https://github.com/caseyamcl/goldenretriever/archive/2201b1c2e22a8c5a70c05a23a1b2a3317d81c440.zip",
+                "reference": "2201b1c2e22a8c5a70c05a23a1b2a3317d81c440",
                 "shasum": ""
             },
             "require": {
@@ -20,7 +20,11 @@
                 "symfony/yaml": ">=2.1.0",
                 "twig/twig": "1.*"
             },
-            "time": "1348673836",
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "davedevelopment/hamcrest-php": "dev-master"
+            },
+            "time": "2012-11-29 21:44:42",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -72,7 +76,7 @@
             "require-dev": {
                 "phake/phake": "1.*"
             },
-            "time": "1344216273",
+            "time": "2012-08-06 01:24:33",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -116,7 +120,7 @@
                 "reference": "c26d972dcb28fd483fa193512091df7b3c85e450",
                 "shasum": ""
             },
-            "time": "1338250094",
+            "time": "2012-05-29 00:08:14",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -158,7 +162,7 @@
             "require-dev": {
                 "phake/phake": "1.*"
             },
-            "time": "2012-08-13 18:37:39",
+            "time": "2012-08-12 03:37:39",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -187,6 +191,49 @@
             ]
         },
         {
+            "name": "kriswallsmith/assetic",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/kriswallsmith/assetic.git",
+                "reference": "v1.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/kriswallsmith/assetic/zipball/v1.0.4",
+                "reference": "v1.0.4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "time": "2012-08-28 05:18:28",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Assetic": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Asset Management for PHP",
+            "homepage": "https://github.com/kriswallsmith/assetic",
+            "keywords": [
+                "assets",
+                "compression",
+                "minification"
+            ]
+        },
+        {
             "name": "pimple/pimple",
             "version": "1.0.0",
             "source": {
@@ -203,7 +250,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-05-09 21:57:24",
+            "time": "2012-05-08 06:57:24",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -233,74 +280,24 @@
             ]
         },
         {
-            "name": "symfony/class-loader",
-            "version": "v2.1.2",
-            "target-dir": "Symfony/Component/ClassLoader",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/ClassLoader",
-                "reference": "v2.1.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/symfony/ClassLoader/zipball/v2.1.2",
-                "reference": "v2.1.2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "symfony/finder": "2.1.*"
-            },
-            "time": "2012-09-02 15:02:36",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\ClassLoader": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony ClassLoader Component",
-            "homepage": "http://symfony.com"
-        },
-        {
             "name": "symfony/http-foundation",
-            "version": "v2.1.2",
+            "version": "v2.1.3",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "v2.1.2"
+                "reference": "v2.1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/zipball/v2.1.2",
-                "reference": "v2.1.2",
+                "url": "https://github.com/symfony/HttpFoundation/zipball/v2.1.3",
+                "reference": "v2.1.3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-09-20 00:09:52",
+            "time": "2012-10-20 00:10:30",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -332,23 +329,23 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.1.2",
+            "version": "v2.1.3",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml",
-                "reference": "v2.1.0-RC2"
+                "reference": "v2.1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Yaml/zipball/v2.1.0-RC2",
-                "reference": "v2.1.0-RC2",
+                "url": "https://github.com/symfony/Yaml/zipball/v2.1.3",
+                "reference": "v2.1.3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-08-23 21:48:41",
+            "time": "2012-10-29 04:15:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -379,26 +376,26 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.9.2",
+            "version": "v1.11.1",
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "v1.9.2"
+                "reference": "v1.11.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/v1.9.2",
-                "reference": "v1.9.2",
+                "url": "https://github.com/fabpot/Twig/archive/v1.11.1.zip",
+                "reference": "v1.11.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-08-27 01:32:57",
+            "time": "2012-11-11 17:17:59",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.9-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "installation-source": "dist",

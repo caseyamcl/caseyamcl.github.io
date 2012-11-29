@@ -4,15 +4,21 @@ namespace Caseyamcl;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use GoldenRetriever\ContentTypeNotAvailableException;
-use GoldenRetriever\ContentNotFoundException;
-use GoldenRetriever\TemplateEngine\TwigEngine;
+use Eloquent\Asplode\Asplode;
 use Pimple;
 use Exception;
 
+use GoldenRetriever\ContentTypeNotAvailable as ContentTypeNotAvailableException,
+    GoldenRetriever\ContentNotFound as ContentNotFoundException,
+    GoldenRetriever\Parser\TwigEngine,
+    GoldenRetriever\ContentObject;
+
+/**
+ * Main Web App File
+ */
 class WebApp extends Pimple
 {
-    const PRODUCTION = 1;
+    const PRODUCTION  = 1;
     const DEVELOPMENT = 2;
 
     // --------------------------------------------------------------
@@ -50,7 +56,7 @@ class WebApp extends Pimple
     public function __construct($mode = self::PRODUCTION)
     {
         assert($mode == self::PRODUCTION OR $mode == self::DEVELOPMENT);
-        $this->basepath = realpath(__DIR__ . '/../../') . '/';
+        $this->basepath = realpath(__DIR__ . '/../../') . DIRECTORY_SEPARATOR;
         $this->mode = $mode;
     }
 
@@ -61,6 +67,9 @@ class WebApp extends Pimple
      */
     public function run()
     {
+        //Register error handler
+        Asplode::instance()->install();
+
         try {
 
             //Load request
@@ -83,27 +92,22 @@ class WebApp extends Pimple
                 return $v / 10;
             }, $aTypes);
 
+            //Get the base and current URL
+            $appUrl     = $this['request']->getSchemeAndHttpHost() . $this['request']->getBaseUrl();
+            $currentUrl = $appUrl . $this['request']->getPathInfo();
+            $baseUrl    = $this['request']->getSchemeAndHttpHost() . $this['request']->getBasePath();
+
             //Setup templateEngine
-            $twig = new TwigEngine();
-            $twig->addGlobal('tools', new TemplateTools());
-            $this['templateEngine'] = $twig;
+            $this['templateEngine'] = new TwigEngine();
+            $this['templateEngine']->addGlobal('app_url', $appUrl);
+            $this['templateEngine']->addGlobal('base_url', $baseUrl);
+            $this['templateEngine']->addGlobal('current_url', $currentUrl);
 
             //Load GoldenRetriever
             $this['goldenRetriever'] = $this->loadGoldenRetriever();
 
-            //Build some context data to send to the content
-            $contentData = array();
-            $contentData['base_url'] = $this['request']->getSchemeAndHttpHost() . 
-                $this['request']->getBaseUrl();
-            $contentData['page_url'] = $contentData['base_url'] . 
-                $this['request']->getPathInfo();
-            $contentData['asset_url'] = (strcmp($this['request']->getBaseUrl(), $this['request']->getScriptName()) == 0)
-                ? dirname($this['request']->getBaseUrl()) : $this['request']->getBaseUrl();
-
             //Get the content object
-            $contentObject = $this['goldenRetriever']->retrieveContent(
-                $path, $this['acceptableTypes'], $contentData
-            );
+            $contentObject = $this['goldenRetriever']->retrieveContent($path, $this['acceptableTypes']);
 
             //Send it
             $this->send($contentObject, 200);
@@ -161,13 +165,13 @@ class WebApp extends Pimple
      * @param ContentObject $contentObject
      * @param int $httpCode
      */
-    protected function send($contentObject, $httpCode = 200)
+    protected function send(ContentObject $contentObject, $httpCode = 200)
     {
         //Get the content body
         $contentBody = $contentObject->getContent();
-        $mimeType    = $contentObject->getMimeType();
+        $mimeType    = $contentObject->getRepresentation()->getKey();
 
-        //Perform some last minute template goodness for specific types
+        //Wrap the HTML and PDF versions of the content with a template
         switch ($mimeType) {
             case 'text/html':
                 $contentBody = $this->applyTemplate('html.twig', $contentBody, $contentObject->getMeta());
@@ -223,17 +227,17 @@ class WebApp extends Pimple
      */
     protected function loadGoldenRetriever()
     {
-        //Load the contentTypes into an array
-        $contentTypes = array();
-        $contentTypes[] = new \GoldenRetriever\ContentType\Html();            
+        //Driver
+        $yaml = new \Symfony\Component\Yaml\Parser();
+        $path = $this->basepath . 'content' . DIRECTORY_SEPARATOR;
+        $driver = new \GoldenRetriever\Driver\FlatFile($path, $yaml);
 
-        //Load the desired driver
-        $contentPath = $this->basepath . 'content/';
-        $parser = new \Symfony\Component\Yaml\Parser();
-        $driver = new \GoldenRetriever\Driver\FlatFile($contentTypes, $parser, $contentPath);
+        //Content Representations
+        $driver->registerRepresentation(new \GoldenRetriever\Representation\Html());
 
-        //Set the template engine
-        $driver->setTemplateEngine($this['templateEngine']);
+        //Parsers
+        $driver->registerParser('twig', $this['templateEngine']);
+        $driver->registerParser('php', new \GoldenRetriever\Parser\PhpEngine());
 
         //Load the negotiator
         $negotiator = new \GoldenRetriever\Negotiator();
@@ -241,7 +245,7 @@ class WebApp extends Pimple
         //Load the mapper
         return new \GoldenRetriever\Retriever($driver, $negotiator);
     }
-
+   
 }
 
 /* EOF: WebApp.php */

@@ -8,7 +8,8 @@
  * @author Casey McLaughlin
  */
 
-require(__DIR__ . '/../src/bootstrap.php');
+//Autoloader
+require(__DIR__ . '/../vendor/autoload.php');
 
 //Away we go
 \Caseyamcl\WebApp::main();

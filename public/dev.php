@@ -15,9 +15,11 @@ if (substr($_SERVER['HTTP_HOST'], 0, strlen('localhost')) != 'localhost') {
     die("Nope");
 }
 
-require(__DIR__ . '/../src/bootstrap.php');
+
+//Autoloader
+require(__DIR__ . '/../vendor/autoload.php');
 
 //Away we go
-WebApp::main(WebApp::DEVELOPMENT);
+\Caseyamcl\WebApp::main(WebApp::DEVELOPMENT);
 
 /* EOF: php.php */
