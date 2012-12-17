@@ -23,7 +23,7 @@ abstract class ControllerAbstract implements ControllerProviderInterface
     /**
      * @var Silex\ControllerCollection
      */
-    private $routes;
+    protected $routes;
 
     // --------------------------------------------------------------
 
@@ -189,6 +189,31 @@ abstract class ControllerAbstract implements ControllerProviderInterface
     // --------------------------------------------------------------
 
     /**
+     * Get a library from the DiC
+     *
+     * @param string $name
+     * @return object
+     */
+    public function getLibrary($name)
+    {
+        return $this->app[$name];
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Get the path requested
+     *
+     * @return string
+     */
+    protected function getPath()
+    {
+        return $this->app['request']->getPathInfo();
+    }
+
+    // --------------------------------------------------------------
+
+    /**
      * Redirect to another path in the app
      *
      * @param   string $path
@@ -244,6 +269,23 @@ abstract class ControllerAbstract implements ControllerProviderInterface
             return count(array_intersect($expected, $accepted)) > 0 OR in_array('*/*', $accepted);
         }
     }
+
+    // --------------------------------------------------------------    
+
+    /**
+     * Streaming Download
+     *
+     * @param string $data      Streamable data
+     * @param string $mime      Mime-type
+     */
+    protected function stream($callback, $mime = 'application/octet-stream')
+    {
+        //Download headers
+        $headers = array();
+        $headers['Content-type'] = $mime;
+        
+        return $this->app->stream($callback, 200, $headers); 
+    }        
 }
 
 /* EOF: ControllerAbstract.php */

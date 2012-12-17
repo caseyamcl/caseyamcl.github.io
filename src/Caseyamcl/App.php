@@ -3,12 +3,16 @@
 namespace Caseyamcl;
 
 use Silex\Application as SilexApplication;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Silex\Provider\UrlGeneratorServiceProvider;
+use Silex\Provider\TwigServiceProvider;
 use RuntimeException, Exception;
 
 /**
  * Main DL2SL Application Library
  */
-abstract class App extends SilexApplication
+class App extends SilexApplication
 {
     const DEVELOPMENT = 1;
     const PRODUCTION  = 2;
@@ -20,11 +24,13 @@ abstract class App extends SilexApplication
      * Static entry point for application
      *
      * Will run CLI or web dependening on if running CLI mode or not
+     *
+     * @param int $mode
      */
-    public static function main()
+    public static function main($mode = self::PRODUCTION)
     {
         $className = get_called_class();
-        $that = new $className;
+        $that = new $className($mode);
         $that->run();
     }
 
@@ -32,11 +38,13 @@ abstract class App extends SilexApplication
 
     /**
      * Constructor
+     *
+     * @param int $mode
      */
-    public function __construct()
+    public function __construct($mode = self::PRODUCTION)
     {
         //Construct the parent
-        parent::__construct($mode == self::PRODUCTION);
+        parent::__construct();
 
         //Set Basepath and appath
         $this['basepath'] = realpath(__DIR__ . '/../../');
@@ -68,13 +76,17 @@ abstract class App extends SilexApplication
         if ($this['site_mode'] == self::MAINTENANCE) {
             $this->doMaintenance();
         }
-        else {
+        else {            
 
-            //Load the controllers
-            $this['controller_front']  = new Controller\Front();
-            
-            //Mount the controllers
-            $this->mount('', $this['controller_front']); 
+            //Load controllers
+            $this['controller_general']  = new Controller\General();
+            $this['controller_calendar'] = new Controller\Calendar($this['calendar']);
+
+            //Mount controllers
+            $this->mount('', $this['controller_calendar']);
+
+            //Mount general controller LAST!
+            $this->mount('', $this['controller_general']);
         }
 
         //Go
@@ -93,9 +105,26 @@ abstract class App extends SilexApplication
         //Pointer for anonymous functions
         $app =& $this;
 
-        //Guzzle Library
+        //Guzzle Library (for external content)
         $this['guzzle'] = $this->share(function() {
             return new \Guzzle\Http\Client();
+        });
+
+        $this['content'] = $this->share(function() use ($app) {
+            return new ContentRetriever\ContentMap($app['basepath'] . '/content');
+        });
+
+        $this['pages'] = $this->share(function() use ($app) {
+            $yaml = new \Symfony\Component\Yaml\Yaml();
+            return new ContentRetriever\Page($app['content'], $yaml);
+        });
+
+        $this['assets'] = $this->share(function() use ($app) {
+            return new ContentRetriever\Asset($app['content']);
+        });
+
+        $this['calendar'] = $this->share(function() use ($app) {
+            return new GoogleCalendar\Scraper($app['guzzle']);
         });
     }
 
@@ -106,6 +135,13 @@ abstract class App extends SilexApplication
      */
     public function loadWebLibraries()
     {
+        //Some additional info about the path at runtime
+        $this['url.base']     = $this['request']->getSchemeAndHttpHost() . $this['request']->getBasePath();
+        $this['url.app']      = $this['request']->getSchemeAndHttpHost() . $this['request']->getBaseUrl();
+        $this['url.current']  = $this['url.app'] . $this['request']->getPathInfo();
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         //Pointer for lexical functions
         $app =& $this;
 
@@ -116,14 +152,9 @@ abstract class App extends SilexApplication
 
         //$this['twig']
         $this->register(new TwigServiceProvider(), array(
-            'twig.path'           => $this['srcpath'] . '/Views',
+            'twig.path'           => $this['basepath']  . '/templates',
             'twig.form.templates' => array('form_div_layout.html.twig', 'forms.html.twig')
         ));
-
-        //Some additional info about the path at runtime
-        $this['url.base']     = $this['request']->getSchemeAndHttpHost() . $this['request']->getBasePath();
-        $this['url.app']      = $this['request']->getSchemeAndHttpHost() . $this['request']->getBaseUrl();
-        $this['url.current']  = $this['url.app'] . $this['request']->getPathInfo();
 
         //Add additional information to Twig
         $this['twig'] = $this->share($this->extend('twig', function($twig, $app) {
@@ -170,7 +201,7 @@ abstract class App extends SilexApplication
                     return;
                 }
                 elseif (isset($this['twig'])) { //If we've loaded twig...
-                    return new Response($this['twig']->render('Views/error.html.twig'));
+                    return new Response($this['twig']->render('error.html.twig'));
                 }
                 else {
                     return new Response(

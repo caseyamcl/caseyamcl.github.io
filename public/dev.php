@@ -8,7 +8,7 @@
  * @author Casey McLaughlin
  */
 
-use Caseyamcl\WebApp;
+use Caseyamcl\App;
 
 if (substr($_SERVER['HTTP_HOST'], 0, strlen('localhost')) != 'localhost') {
     header("HTTP/1.1 403 Forbidden");
@@ -20,6 +20,6 @@ if (substr($_SERVER['HTTP_HOST'], 0, strlen('localhost')) != 'localhost') {
 require(__DIR__ . '/../vendor/autoload.php');
 
 //Away we go
-\Caseyamcl\WebApp::main(WebApp::DEVELOPMENT);
+App::main(App::DEVELOPMENT);
 
 /* EOF: php.php */

@@ -1,13 +1,13 @@
 <?php
 
-namespace Caseyamcl\Library;
+namespace Caseyamcl\GoogleCalendar;
 
 use \Guzzle\Http\Client;
 use Guzzle\Common\GuzzleException;
 use Guzzle\Http\Exception\BadResponseException;
 use QueryPath;
 
-class GoogleCalendarScraper
+class Scraper
 {
     /**
      * @var Guzzle\Http\Client
@@ -42,7 +42,13 @@ class GoogleCalendarScraper
             $calendarId, $timezone
         );  
 
+        $req  = $this->guzzle->get($url);
+        $resp = $req->send();
+
+        var_dump((string) $resp->getBody());
+
         //LEFT OFF HERE -- Catch a 404 ERROR or a 400 Error with Guzzle
+        //dev.php/calendar URL
         //Google will send a 400 for invalid calendarId format or Timezone Format
         //Google will send a 404 for a non-existent calendat
     }
