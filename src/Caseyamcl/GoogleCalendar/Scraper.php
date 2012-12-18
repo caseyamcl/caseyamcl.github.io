@@ -37,20 +37,37 @@ class Scraper
      */
     public function getCalendar($calendarId, $timezone = 'America/New_York')
     {
+        //Build the URL
         $url = sprintf(
             'https://www.google.com/calendar/htmlembed?src=%s&ctz=%s&mode=AGENDA',
             $calendarId, $timezone
         );  
 
+        //Do the request
         $req  = $this->guzzle->get($url);
         $resp = $req->send();
-
-        var_dump((string) $resp->getBody());
-
-        //LEFT OFF HERE -- Catch a 404 ERROR or a 400 Error with Guzzle
-        //dev.php/calendar URL
         //Google will send a 400 for invalid calendarId format or Timezone Format
         //Google will send a 404 for a non-existent calendat
+
+
+        //Build a querypath object from the response
+        //LEFT OFF HERE LEFT OFF HERE - WORKING!!
+        $dateSecs = QueryPath::withHTML((string) $resp->getBody(), 'div.date-section');
+
+        foreach($dateSecs as $row) {
+            $date = $row->find('div.date');
+            var_dump($date->text());
+
+            foreach($row->find('tr.event') as $event) {
+                
+                var_dump($event->text());
+
+            }
+
+        }
+
+        die();
+
     }
 }
 
