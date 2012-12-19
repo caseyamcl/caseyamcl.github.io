@@ -3,8 +3,8 @@
 # CMCL:[NO INDEXES]
 Options All -Indexes
 
-# CMCL:[HIDE HIDDEN AND PROJECT FILES]
-<FilesMatch "^((\.(.)+$)|nbproject)">
+# CMCL:[HIDE HIDDEN]
+<FilesMatch "^((\.(.)+$))">
     Order Allow,Deny
     Deny from all
 </FilesMatch>
@@ -20,13 +20,12 @@ Options All -Indexes
     Deny from all
 </LimitExcept>
 
-# CMCL:[REDIRECT]
+# CMCL:[RESTRICTIVE REWRITE RULES]
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	RewriteCond $1 !^(index\.php|robots\.txt|dev\.php|humans\.txt|fonts\/(.+?)\.(ttf|svg|woff|eot)|images\/(.+?)\.(jpg|png|gif|jpeg|svg)$|css\/(.+?)\.css$|js\/(.+?)\.js)
+	RewriteCond $1 !^(index\.php|robots\.txt|dev\.php|humans\.txt|assets\/fonts\/(.+?)\.(ttf|svg|woff|eot)|assets\/images\/(.+?)\.(jpg|png|gif|jpeg|svg)$|assets\/css\/(.+?)\.css$|assets\/js\/(.+?)\.js)
 	RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
-
 
 # 5G FIREWALL from PerishablePress.com
 

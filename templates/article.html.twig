@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+<article class='row-fluid'>
+
+    <header class='span12'>
+        <h1>{{ title }}</h1>
+        <p class='article-info'>
+            Published <time pubdate="pubdate" datetime="XX">{{ date_published }}</time>
+            {% if date_updated is defined %}
+            and revised <time pubdate="pubdate" datetime="XX">{{ date_updated }}</time>
+            {% endif %}
+            by <span class='author'>Casey McLaughlin</span>
+        </p>
+    </header>
+
+    <section class='article-content span8 offset2'>
+        {{ content | raw }}
+    </section>
+
+    <footer class='span12'>
+        <hr />
+        <p>
+            This article was published on {{ date_published }}
+            {% if date_updated is defined %} 
+            and updated on {{ date_updated }}
+            {% endif %}
+            by Casey McLaughlin.
+        </p>
+        <p>
+            You can find more <a href='{{ site_url }}/articles' title='Articles'>articles</a> and other 
+            stuff on my <a href='{{ site_url }}' title='My Website'>website</a>.
+        </p>
+    </footer>
+
+</article>
+{% endblock %}

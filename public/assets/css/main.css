@@ -27,6 +27,7 @@ body > .container {
 
 .bigtext {
     font-size: 1.3em;
+    margin-bottom: 1em;
 }
 
 pre.code {
@@ -36,8 +37,8 @@ pre.code {
 /* Big Shiny Link --------------------------- */
 
 .big-shiny-link {
-    border-radius: 15px;
-    margin: 0 0.5em 0 0;
+    border-radius: 12px;
+    margin: 0 1em 0 0;
     padding: 0.3em 0.2em 0.3em 1em;
     background-color: #F1F1F1;
 }
@@ -101,7 +102,7 @@ article section.article-content ol {
 
 .itemlist > li.highlight {
     color: #990000;
-    font-weight: bold;
+    border-bottom: 1px dotted #CCC;
 }
 
 .itemlist > li > * {
@@ -111,6 +112,14 @@ article section.article-content ol {
 .itemlist > li.item > a {
     color: #333;
     display: block;
+}
+
+.itemlist > li.item.highlight > a:hover .title {
+    color: #0088cc;
+}
+
+.itemlist > li.item > a > i {
+    margin-top: 3px;
 }
 
 .itemlist > li.item span.title {
@@ -162,7 +171,7 @@ article section.article-content ol {
 }
 
 .frontpage > section {
-    margin-top: 2em;
+    margin-top: 2.5em;
 }
 
 .frontpage > section:first-child {
