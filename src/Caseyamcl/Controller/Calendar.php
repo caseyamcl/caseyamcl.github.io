@@ -2,6 +2,7 @@
 
 namespace Caseyamcl\Controller;
 use Caseyamcl\GoogleCalendar\Scraper;
+use Guzzle\Http\Exception\BadResponseException;
 
 /**
  * Calendar Controller
@@ -28,35 +29,23 @@ class Calendar extends General
 
     // --------------------------------------------------------------
 
-    public function init()
+    protected function loadRoutes()
     {
-        $this->addRoute('/calendar', 'getContent');
+        $this->addRoute('/calendar', 'index');
     }
 
     // --------------------------------------------------------------
 
-    public function getContent()
+    public function index()
     {
         try {
             $calObj = $this->calendar->getCalendar($this->calendarId);
         }
-        catch (ClientErrorResponseException $err) {
-            //404 usually means bad ID - Do something with it
+        catch (BadResponseException $err) {
+            $this->abort(500, "Error retrieving Google Calendar");
         }
-        catch (ClientErrorResponseException $err) {
-            //400 means bad time-zone or other thing - Do something with it
-        }
-    }
 
-    // --------------------------------------------------------------
-
-    protected function parseCalendarHtml($responseBody)
-    {
-        //LEFT OFF HERE - Got a response; now need to process it
-        
-        //
-        $title = QueryPath::withHTML($pageContent, 'div.date-section')->text();
-
+        return $this->loadPage('/calendar', array('calendar' => $calObj), 'calendar');
     }
 }
 

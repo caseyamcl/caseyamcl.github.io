@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block page_headers %}
+<style type='text/css'>
+    .frontpage .right .itemlist {
+    margin-top: -5px;
+}
+
+    .frontpage .left {
+        text-align: right;
+        vertical-align: top;
+    }
+
+    .frontpage .right {
+        padding-top: 0.6em;
+    }
+
+    .frontpage > section {
+        margin-top: 2.5em;
+    }
+
+    .frontpage > section:first-child {
+        margin-top: 0;
+    }
+
+    .frontpage .left h1,
+    .frontpage .left h2 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .frontpage .left h1 {
+        font-size: 1.8em;
+    }
+
+    .frontpage .left h2 {
+        font-size: 1.6em;
+    }
+
+    @media (max-width: 767px) {
+        .frontpage .left {
+            text-align: left;
+            border-bottom: 1px solid #CCC;
+        }
+    }
+
+
+    @media (max-width: 480px) {
+        .frontpage .left {
+            text-align: left;
+            border-bottom: 1px solid #CCC;
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+    {{ content | raw }}
+{% endblock %}

@@ -67,27 +67,6 @@ pre.code {
     }
 }
 
-/* Article ---------------------------------- */
-
-article > header {
-    text-align: center;
-    border-bottom: 1px solid #CCC;
-    margin-bottom: 2em;
-}
-
-article > footer {
-    text-align: center;
-    font-size: 0.9em;
-    color: #666;
-}
-
-article section.article-content p,
-article section.article-content ul,
-article section.article-content ol {
-    line-height: 1.5em;
-    margin-bottom: 1.3em;
-}
-
 /* ItemList --------------------------------- */
 
 .itemlist {
@@ -152,57 +131,5 @@ article section.article-content ol {
         display: block;
         float: none;
         margin-left: 20px;
-    }
-}
-
-/* Front Page ------------------------------- */
-
-.frontpage .right .itemlist {
-    margin-top: -5px;
-}
-
-.frontpage .left {
-    text-align: right;
-    vertical-align: top;
-}
-
-.frontpage .right {
-    padding-top: 0.6em;
-}
-
-.frontpage > section {
-    margin-top: 2.5em;
-}
-
-.frontpage > section:first-child {
-    margin-top: 0;
-}
-
-.frontpage .left h1,
-.frontpage .left h2 {
-    margin: 0;
-    padding: 0;
-}
-
-.frontpage .left h1 {
-    font-size: 1.8em;
-}
-
-.frontpage .left h2 {
-    font-size: 1.6em;
-}
-
-@media (max-width: 767px) {
-    .frontpage .left {
-        text-align: left;
-        border-bottom: 1px solid #CCC;
-    }
-}
-
-
-@media (max-width: 480px) {
-    .frontpage .left {
-        text-align: left;
-        border-bottom: 1px solid #CCC;
     }
 }

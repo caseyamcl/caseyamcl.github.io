@@ -80,10 +80,12 @@ class App extends SilexApplication
 
             //Load controllers
             $this['controller_general']  = new Controller\General();
+            $this['controller_front']    = new Controller\Front();
             $this['controller_calendar'] = new Controller\Calendar($this['calendar']);
 
             //Mount controllers
             $this->mount('', $this['controller_calendar']);
+            $this->mount('', $this['controller_front']);
 
             //Mount general controller LAST!
             $this->mount('', $this['controller_general']);
