@@ -7,7 +7,7 @@ use Guzzle\Http\Exception\BadResponseException;
 /**
  * Calendar Controller
  */
-class Calendar extends General
+class Calendar extends ControllerAbstract
 {
     /**
      * @var Caseyamcl\GoogleCalendar\Scraper
@@ -29,7 +29,7 @@ class Calendar extends General
 
     // --------------------------------------------------------------
 
-    protected function loadRoutes()
+    protected function init()
     {
         $this->addRoute('/calendar', 'index');
     }
@@ -39,13 +39,18 @@ class Calendar extends General
     public function index()
     {
         try {
-            $calObj = $this->calendar->getCalendar($this->calendarId);
+            $calEvents = $this->calendar->getEvents($this->calendarId);
         }
         catch (BadResponseException $err) {
-            $this->abort(500, "Error retrieving Google Calendar");
+            return $this->abort(500, "Error retrieving Google Calendar");
         }
 
-        return $this->loadPage('/calendar', array('calendar' => $calObj), 'calendar');
+        $data = array(
+            'events'        => $calEvents,
+            'calendar_link' => $this->calendar->getLink($this->calendarId)
+        );
+
+        return $this->render('calendar', $data);
     }
 }
 

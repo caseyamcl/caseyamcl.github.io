@@ -11,7 +11,17 @@ class Event
     /**
      * @var DateTime
      */
-    private $startTime;
+    private $beginTimestamp;
+
+    /**
+     * @var DateTime|null
+     */
+    private $endTimestamp;
+
+    /**
+     * @var DateTime  Derived from beginTimestamp
+     */
+    private $date;
 
     /**
      * @var string
@@ -30,24 +40,76 @@ class Event
 
     // --------------------------------------------------------------
 
-    public function __construct(DateTime $startTime, $summary)
+    public function __construct(DateTime $beginTimestamp, $summary, DateTime $endTimestamp = null)
     {
-        $this->setStartTime($startTime);
+        $this->setStartTime($beginTimestamp);
         $this->setSummary($summary);
+
+        if ($endTimestamp) {
+            $this->setEndTime($endTimestamp);
+        }
+    }
+
+    // --------------------------------------------------------------
+
+    public function __get($item)
+    {
+        switch ($item) {
+            case 'beginTime':
+                $item = 'beginTimestamp';
+            break;
+            case 'endTime':
+                $item = 'endTimestamp';
+            break;
+        }
+
+        return $this->$item;
+    }
+
+    // --------------------------------------------------------------
+
+    public function __isset($item)
+    {
+        if (in_array($item, array('beginTime', 'endTime'))) {
+            return true;
+        }
+        else {
+            return (in_array($item, array_keys(get_object_vars($this))));    
+        }
+
+        
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Get frmatted time for short calendar
+     *
+     * e.g. (9am or 9:30am or 9:41am)
+     *
+     * @return string
+     */
+    public formattedTime()
+    {
+        //LEFT OFF HERE LEFT OFF HERE LEFT OFF HERE
+        return null;
     }
 
     // --------------------------------------------------------------
 
     public function setStartTime(DateTime $dateTime)
     {
-        $this->startTime = $dateTime;
+        $this->beginTimestamp = $dateTime;
+
+        //Also set date..
+        $this->date = DateTime::createFromFormat('Y M d', $dateTime->format('Y M d'));
     }
 
     // --------------------------------------------------------------
 
-    public function getStartTime()
+    public function setEndTime(DateTime $dateTime)
     {
-        return $This->startTime;
+        $this->endTimestamp;
     }
 
     // --------------------------------------------------------------
@@ -59,13 +121,6 @@ class Event
 
     // --------------------------------------------------------------
 
-    public function getSummary()
-    {
-        return $this->summary;
-    }
-
-    // --------------------------------------------------------------
-
     public function setLocation($location)
     {
         $this->location = $location;
@@ -73,23 +128,9 @@ class Event
 
     // --------------------------------------------------------------
 
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    // --------------------------------------------------------------
-
     public function setAllDay($allDay)
     {
         $this->allDay = (boolean) $allDay;
-    }
-
-    // --------------------------------------------------------------
-
-    public function getAllDay()
-    {
-        return $this->allDay;
     }
 }
 

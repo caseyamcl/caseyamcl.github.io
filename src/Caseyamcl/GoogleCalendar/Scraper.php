@@ -33,13 +33,13 @@ class Scraper
     // --------------------------------------------------------------
 
     /**
-     * Get a calendar from a URL
+     * Get a calendar events from a Google Calendar ID
      *
      * @param string $calendarId  User email address or Calendar ID
      * @param string $timezone    Must be a valid timezone
-     * @return array
+     * @return EventList
      */
-    public function getCalendar($calendarId, $timezone = 'America/New_York')
+    public function getEvents($calendarId, $timezone = 'America/New_York')
     {
         //Build the URL
         $url = sprintf(
@@ -58,7 +58,7 @@ class Scraper
         $dateSecs = QueryPath::withHTML((string) $resp->getBody(), 'div.date-section');
 
         //Setup Events
-        $events = array();
+        $eventList = new EventList();
 
         //Populate Events Array
         foreach($dateSecs as $row) {
@@ -83,14 +83,32 @@ class Scraper
                 //Build Object
                 $eventObj = new Event($dateTime, $summary);
                 $eventObj->setAllDay($allDay);
-                $events[] = $eventObj;
+                $eventList->addEvent($eventObj);
                 unset($eventObj);
             }
 
         }
 
         //Return events list
-        return $events;
+        return $eventList;
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Get a calendar link for a Google Calendar
+     *
+     * @param string $calendarId  User email address or Calendar ID
+     * @param string $timezone    Must be a valid timezone
+     * @return EventList
+     */
+    public function getLink($calendarId, $timezone = 'America/New_York')
+    {
+        return (sprintf(
+            'https://www.google.com/calendar/embed?src=%s&ctz=%s',
+            $calendarId,
+            $timezone
+        ));
     }
 
     // --------------------------------------------------------------
@@ -116,6 +134,8 @@ class Scraper
         $dateTime = $date . ', ' . $fixtime . ' ' . strtolower($ampm);
         return DateTime::createFromFormat('D M j, Y, H:i a', $dateTime);
     }
+
+
 }
 
 /* EOF: GoogleCalendarScraper.php */
