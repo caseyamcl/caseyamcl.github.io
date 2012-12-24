@@ -2,6 +2,11 @@
 {% block page_headers %}
     <style type='text/css'>
 
+        .calendar {
+            text-align: center;
+            margin: 0 auto;
+        }
+
         .calendar_agenda {
             margin: 0;
             padding: 0;
@@ -11,9 +16,10 @@
         .calendar_agenda .cal_dateline {
             display: block;
             margin: 2px 0;
-            padding: 3px;
+            padding: 4px 8px;
             background-color: #E4E4E4;
             border-radius: 5px;
+            text-align: left;
         }
 
         .calendar_agenda .cal_dateline .cal_dow:after {
@@ -104,6 +110,7 @@
     </style>
 {% endblock %}
 {% block content %}
+<div class='calendar'>
     <div class="big-calendar-container row-fluid span12">
         <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=caseyamcl%40gmail.com&amp;color=%232952A3&amp;ctz=America%2FNew_York" style=" border-width:0 " width="940" height="600" frameborder="0" scrolling="no"></iframe>
     </div>
@@ -130,7 +137,7 @@
                                 {% if event.allDay == true %}
                                     <span class='cal_allday'>All Day</span>
                                 {% else %}
-                                    <span class='cal_time'>{{ event.beginTime | date('H:ia') }}</span>
+                                    <span class='cal_time'>{{ event.formattedTime }}</span>
                                 {% endif %}
 
                                 <span class='cal_title'>{{ event.summary }}</span>
@@ -147,4 +154,5 @@
             <a href="{{ calendar_link }}" title="My Calendar at Google.com">View More</a>
         </p>        
     </div>
+</div>
 {% endblock %}

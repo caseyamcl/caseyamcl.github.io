@@ -1,0 +1,38 @@
+# Resume Meta
+name:        Casey A. McLaughlin
+locality:    Tallahassee
+region:      Florida
+postal-code: 32303
+email:       caseyamcl@gmail.com
+website:     http://caseymclaughlin.com
+phone:       (850) 284-7271
+
+education:
+    - institution:  Florida State University
+      location:     'Tallahassee, Florida'
+      summary:      'MS, Library Science and Information Studies'
+      description:  'Focus: Information Technology Management'
+      duration:
+        start:      2004-06-01
+        end:        2009-05-01
+
+    - institution:  Florida State University
+      location:     'Tallahassee, Florida'
+      summary:      'BS, Information Studies'
+      description:  'Honors: Cum Laude, Academic Leadership Award'
+      duration:
+        start:      2002-08-24
+        end:        2004-05-04
+
+teaching:
+    - organization: Florida State University College of Communication and Information
+      title:        'Adjunct Instructor - Web Development with PHP'
+      description:
+        - 'Develop syllabus, learning objectives, course structure and curriculum'
+        - 'Deliver lectures, and administer all grades'
+        - 'Work with faculty to ensure the course fits strategic goals of the program curriculum'
+      duration:
+        start:      2008-05-01
+        end:        current
+
+# TODO: Finish this...

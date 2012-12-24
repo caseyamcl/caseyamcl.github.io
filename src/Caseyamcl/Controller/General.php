@@ -48,6 +48,18 @@ class General extends ControllerAbstract
 
     // --------------------------------------------------------------
 
+    /** 
+     * Get the template Name
+     *
+     * @return string
+     */
+    protected function getTemplateName()
+    {
+        return 'general';
+    }
+
+    // --------------------------------------------------------------
+
     /**
      * Default route for everything
      */
@@ -58,7 +70,7 @@ class General extends ControllerAbstract
 
         //Is content a page?  Great - Load page
         if ($this->pageLoader->pageExists($path)) {
-            return $this->loadPage($path);
+            return $this->renderPage($path);
         }
 
         //Is content an asset?  Stream that shtuff
@@ -81,28 +93,49 @@ class General extends ControllerAbstract
      * @param string $data
      * @param string $template
      */
-    protected function loadPage($path, array $data = array(), $template = 'default')
+    protected function renderPage($path, array $data = array())
     {
-        $data = array();
-        $data['content'] = $this->pageLoader->getContent($path);
+        $data = array('content' => $this->getPageContent($path));
 
-        $data = array_merge($data, $this->getData($path));
+        //Also get page data
+        $data = array_merge($data, $this->getMeta($path));
 
         //Load it
-        return $this->render($template, $data);
+        return $this->render($this->getTemplateName(), $data);
     }
 
     // --------------------------------------------------------------
 
     /**
-     * Get data for the page
+     * Render the page using TWIG
+     *
+     * @param  string $path
+     * @return string
+     */
+    protected function getPageContent($path)
+    {
+        $raw  = $this->pageLoader->getContent($path);
+        $data = array('page_url' => $this->getCurrentUrl());
+
+        if ($path) {
+            return $this->renderString($raw, $data);
+        }
+        else {
+            return null;
+        }
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Get meta-data for the page
      *
      * Meant to be overridden depending on the page type
      *
      * @param  string 
      * @return array
      */
-    protected function getData($path)
+    protected function getMeta($path)
     {
         return $this->pageLoader->getMeta($path);
     }
@@ -116,12 +149,12 @@ class General extends ControllerAbstract
      */
     protected function loadAsset($path)
     {
-        $mime  = $this->assetLoader->getMime($path);
-
+        $assetLoader = $this->assetLoader;
         $callback = function() use ($assetLoader, $path) {
-            $this->assetLoader->streamAsset($path);
+            $assetLoader->streamAsset($path);
         };
 
+        $mime  = $this->assetLoader->getMime($path);
         return $this->stream($callback, $mime);
     }
 }

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use RuntimeException, Exception;
+use \Symfony\Component\Yaml\Yaml;
 
 /**
  * Main DL2SL Application Library
@@ -78,17 +79,14 @@ class App extends SilexApplication
         }
         else {            
 
-            //Load controllers
-            $this['controller_general']  = new Controller\General();
-            $this['controller_front']    = new Controller\Front();
-            $this['controller_calendar'] = new Controller\Calendar($this['calendar']);
-
             //Mount controllers
-            $this->mount('', $this['controller_calendar']);
-            $this->mount('', $this['controller_front']);
+            $this->mount('', new Controller\Calendar($this['calendar']));
+            $this->mount('', new Controller\Front());
+            $this->mount('', new Controller\Resume());
+            $this->mount('', new Controller\Articles());
 
             //Mount general controller LAST!
-            $this->mount('', $this['controller_general']);
+            $this->mount('', new Controller\General());
         }
 
         //Go
@@ -112,21 +110,30 @@ class App extends SilexApplication
             return new \Guzzle\Http\Client();
         });
 
+        //Content Retriever
         $this['content'] = $this->share(function() use ($app) {
-            return new ContentRetriever\ContentMap($app['basepath'] . '/content');
+            $path = $app['basepath'] . '/content';
+            return new ContentRetriever\ContentMap($path, new Yaml());
         });
 
+        //Page Retriever
         $this['pages'] = $this->share(function() use ($app) {
-            $yaml = new \Symfony\Component\Yaml\Yaml();
-            return new ContentRetriever\Page($app['content'], $yaml);
+            return new ContentRetriever\Page($app['content']);
         });
 
+        //Asset Retriever
         $this['assets'] = $this->share(function() use ($app) {
             return new ContentRetriever\Asset($app['content']);
         });
 
+        //Google Calendar Scraper
         $this['calendar'] = $this->share(function() use ($app) {
             return new GoogleCalendar\Scraper($app['guzzle']);
+        });
+
+        //Twig for Strings
+        $this['twig.strings'] = $this->share(function() use ($app) {
+            return new \Twig_Environment(new \Twig_Loader_String());
         });
     }
 
@@ -194,7 +201,7 @@ class App extends SilexApplication
         switch ($code) {
 
             case 404:
-                return $this['twig']->render('404.html.twig');
+                return $this['twig']->render('errors/404.html.twig');
             break;
             default:
 
@@ -203,7 +210,7 @@ class App extends SilexApplication
                     return;
                 }
                 elseif (isset($this['twig'])) { //If we've loaded twig...
-                    return new Response($this['twig']->render('error.html.twig'));
+                    return new Response($this['twig']->render('errors/error.html.twig'));
                 }
                 else {
                     return new Response(

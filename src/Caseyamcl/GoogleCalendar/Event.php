@@ -89,10 +89,15 @@ class Event
      *
      * @return string
      */
-    public formattedTime()
+    public function formattedTime()
     {
-        //LEFT OFF HERE LEFT OFF HERE LEFT OFF HERE
-        return null;
+        $hour = $this->beginTimestamp->format('g');
+        $min  = $this->beginTimestamp->format('i');
+        $ampm = $this->beginTimestamp->format('a');
+        
+        return ($min == 0)
+            ? $hour . $ampm
+            : $hour . ':' . $min . $ampm;
     }
 
     // --------------------------------------------------------------

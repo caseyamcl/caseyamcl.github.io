@@ -2,8 +2,6 @@
 
 namespace Caseyamcl\ContentRetriever;
 
-use Symfony\Component\Yaml\Yaml;
-
 /**
  * Page loader
  */
@@ -13,11 +11,6 @@ class Page
      * @var ContentMap $contentMap
      */
     private $contentMap;
-
-    /**
-     * @var Symfony\Component\Yaml\Yaml;
-     */
-    private $yamlParser;
 
     /**
      * @var string
@@ -36,10 +29,9 @@ class Page
      *
      * @param contentMap $contentMap
      */
-    public function __construct(ContentMap $contentMap, Yaml $parser)
+    public function __construct(ContentMap $contentMap)
     {
         $this->contentMap = $contentMap;
-        $this->yamlParser = $parser;
     }
 
     // --------------------------------------------------------------
@@ -51,14 +43,16 @@ class Page
      */
     public function getContent($path)
     {
-        return $this->contentMap->getItem($path, $this->pageFile) ?: null;
+        $fullpath = rtrim($path, '/') . '/'  . $this->pageFile;
+        return $this->contentMap->getItem($fullpath) ?: null;
     }
-
+    
     // -------------------------------------------------------------- 
 
     public function pageExists($path)
     {
-        return (boolean) $this->contentMap->checkItemExists($path, $this->pageFile);
+        $fullpath = rtrim($path, '/') . '/' . $this->pageFile;
+        return (boolean) $this->contentMap->checkItemExists($fullpath);
     }
 
     // -------------------------------------------------------------- 
@@ -71,10 +65,11 @@ class Page
      */
     public function getMeta($path)
     {
-        $rawYaml = $this->contentMap->getItem($path, $this->metaFile);
+        $fullpath = rtrim($path, '/') . '/'  . $this->metaFile;
+        $yaml = $this->contentMap->getYamlItem($fullpath);
 
-        if ($rawYaml) {
-            return $this->yamlParser->parse($rawYaml);
+        if ($yaml) {
+            return $yaml;
         }
         else {
             return ($this->pageExists($path)) ? array() : null;

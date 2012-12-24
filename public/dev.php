@@ -2,7 +2,7 @@
 
 /**
  * @file index.php
- * CaseyMcLaughlin.com Public Index File
+ * CaseyMcLaughlin.com Public Development Index File
  *
  * @package CaseyMcLaughlin.com
  * @author Casey McLaughlin

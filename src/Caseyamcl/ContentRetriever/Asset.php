@@ -43,11 +43,10 @@ class Asset
     public function assetExists($path)
     {
         $asset = basename($path);
-        $apath = dirname($path);
         $ext   = pathinfo($asset, PATHINFO_EXTENSION);
 
         return (isset($this->mappings[$ext]))
-            ? $this->contentMap->checkItemExists($apath, $asset)
+            ? $this->contentMap->checkItemExists($path)
             : false;
     }
 
@@ -62,11 +61,8 @@ class Asset
      */
     public function getAsset($path)
     {
-        $asset = basename($path);
-        $apath = dirname($path);
-
         return $this->assetExists($path)
-            ? $this->contentMap->getItem($apath, $asset)
+            ? $this->contentMap->getItem($path)
             : false;
     }
 
@@ -78,16 +74,12 @@ class Asset
      * To be used as a callback
      *
      * @param string $path
-     * @param string $asset
      * @return void
      */
     public function streamAsset($path)
     {
-        $asset = basename($path);
-        $apath = dirname($path);
-
         if ($this->assetExists($path)) {
-            $this->contentMap->streamItem($apath, $asset);
+            $this->contentMap->streamItem($path);
         }
         else {
             echo '';

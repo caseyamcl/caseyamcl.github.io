@@ -31,7 +31,7 @@ class Calendar extends ControllerAbstract
 
     protected function init()
     {
-        $this->addRoute('/calendar', 'index');
+        $this->addRoute('calendar', 'index');
     }
 
     // --------------------------------------------------------------
@@ -50,7 +50,7 @@ class Calendar extends ControllerAbstract
             'calendar_link' => $this->calendar->getLink($this->calendarId)
         );
 
-        return $this->render('calendar', $data);
+        return $this->render('pages/calendar', $data);
     }
 }
 

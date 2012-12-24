@@ -1,0 +1,71 @@
+# Items for Front Page
+
+# -------------------------------------------------------------------
+code:
+    - url:    http://github.com/caseyamcl/phpoaipmh
+      title:  PHP OAI-PMH Client
+      tag:    PHP Library
+      desc:   A client library that makes it easy to connect to and harvest data from OAI-PMH providers
+
+    - url:    http://github.com/caseyamcl/Configula
+      title:  Configula
+      tag:    PHP Library
+      desc:   A simple PHP configuration reader that supports local config files and favors convention over configuration
+
+    - url:    http://github.com/caseyamcl/quickjump
+      title:  Quickjump
+      tag:    DokuWiki Theme
+      desc:   A nice-looking Dokuwiki Theme that makes jumping around to different areas of your wiki very easy
+# -------------------------------------------------------------------
+work:
+    - path:   /work/fsu-lis4368
+      title:  Teaching - FSU LIS4368
+      tag:    current
+      desc:   I teach LIS4368 - Advanced Web Development as a senior-level course at FSU
+
+    - path:   /work/ruatrisk
+      title:  RU@Risk
+      tag:    current
+      desc:   A tailored messaging and research data management system
+
+    - path:   /work/biotea
+      title:  bioteà
+      tag:    current
+      desc:   An RDF dataset and API for Pubmed Central Documents
+# -------------------------------------------------------------------
+presentations:
+    - path:   /presentations/the-new-way-to-code-php
+      title:  The New Way to Code PHP
+      tag:    2012 Dec 18
+      desc:   "Tallahassee PHP User Group presentation about Composer, PHP-FIG, PSR Standards, and sharing code"
+
+    - path:   /presentations/rest-app-architecture-principles
+      title:  REST Application Architecture Principles
+      tag:    2012 Feb 21
+      desc:   Tallahassee PHP User Group presentation introducing RESTful architecture and desgin principles
+# -------------------------------------------------------------------
+articles:
+    - path:   /articles/backups-and-disaster-recovery-kit
+      title:  Backups and Disaster Recovery Kit
+      tag:    2012 Jan 13
+      desc:   Do you have a backup in your IT shop?  Do you have a contingency plan in case things go wrong?
+
+    - path:   /articles/playing-with-asynchronous-php-processing
+      title:  Playing with Asynchronous PHP Processing
+      tag:    2010 Sep 24
+      desc:   I present a concept for creating a worker-process for asynchronous job queue processing in PHP using CRON
+
+    - path:   /articles/setup-a-local-configuration-file-in-codeigniter
+      title:  Setup a Local Configuration File in CodeIgniter
+      tag:    2011 Apr 29
+      desc:   "How to manage configuration settings for a single CodeIgniter application, when that application may have many different environments"
+
+    - path:   /articles/ssh-tunnels-with-plink-and-heidisql
+      title:  SSH Tunnels with Plink and HeidiSQL
+      tag:    2012 Jan 2
+      desc:   "How to use Plink and HeidiSQL together to connect to MySQL servers via SSH tunnels, which can be tricky."
+
+    - path:   /articles/teaaching-php-course-curriculum
+      title:  Teaching PHP Course Curriculum
+      tag:    2012 Jan 13
+      desc:   "The problem, succinctly stated, is: How do you best organize 14 weeks of study to teach PHP to a group of motivated College students?"

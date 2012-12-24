@@ -1,3 +1,180 @@
+{% extends 'base.html.twig' %}
+{% block page_headers %}
+<style type='text/css'>
+
+.hresume ul,
+.hresume ol {
+    padding-left: 20px;
+}
+
+.hresume li {
+    margin: 25px 0;
+    padding-left: 20px;
+}
+
+.hresume ul ul,
+.hresume ol ul,
+.hresume ol ol,
+.hresume ul ol {
+    margin: 2px 0 2px;
+    padding-left: 25px;
+}
+
+.hresume ul ul li,
+.hresume ol ul li,
+.hresume ol ol li,
+.hresume ul ol li {
+    margin: 5px 0;
+}
+
+.hresume > section > ul {
+    list-style-type: none;
+}
+
+/* -- Personal and Contact Information ----------------------- */
+.hresume address.vcard {
+    font-style: normal;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    margin-bottom: 1.5em;
+}
+
+.hresume address.vcard .adr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.9em;
+}
+
+.hresume address.vcard .contact_info {
+    margin-top: 0.5em;
+}
+
+.hresume address.vcard .contact_info > span {
+    display: block;
+}
+
+.hresume address.vcard .contact_info abbr {
+    border: none;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.hresume address.vcard a {
+    color: #444;
+}
+
+.resume address.vcard a:hover {
+    color: #000;
+}
+
+/* -- Education, Experience, and Projects -------------------------- */
+
+.hresume .education p,
+.hresume .experience p,
+.hresume .project p,
+.hresume .guest-lecture p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.hresume .education .summary {
+    font-weight: bold;  
+}
+
+.hresume .education .duration,
+.hresume .experience .duration,
+.hresume .project .duration {
+    font-weight: bold;
+    float: right;
+}
+
+.hresume .education .duration .dtstart,
+.hresume .education .duration .dtsep {
+    display: none;
+}
+
+.hresume .experience .title {
+    font-weight: bold;
+}
+
+.hresume .project .title {
+    font-weight: bold;
+}
+
+.hresume .project .project-link {
+    font-style: italic;
+    font-size: 0.9em;
+    float: right;
+}
+
+.hresume .guest-lecture .venue {
+    font-weight: bold;
+}
+
+.hresume .guest-lecture .date {
+    float: right;
+    font-weight: bold;
+}
+
+/* -- Other Activities -------------------------------------- */
+
+.hresume .other-activities li {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+
+/* -- Research Participation -------------------------------- */
+
+.hresume .hcitation .author.self {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.hresume .hcitation .publication .volumetitle,
+.hresume .hcitation .presentation .title {
+    font-style: italic;
+}
+
+/* -- Skills ----------------------------------------------- */
+
+.hresume .skill_list {
+    margin-left: 40px;
+}
+
+.hresume .skill_list ul li {
+    margin: 2px 0;
+}
+
+/* -- Overrides for Mobile -------------------------------- */
+
+@media only screen and (max-width: 767px) {
+    
+    .hresume .contact_info > span {
+        float: none;
+        display: block;
+    }
+    
+    .hresume li {
+        padding-left: 0px;
+    }
+    
+    .hresume .date,
+    .hresume .project-link {
+        float: none !important;
+        display: block !important;
+        font-weight: normal !important;
+        font-style: italic;
+        font-size: 0.9em;
+    }
+    
+    .hresume .description {
+        font-size: 0.9em;
+    }
+}
+</style>
+{% endblock %}
+{% block content %}
 <div class="hresume fourteen columns offset-by-one noprintlinks">
     
     <address id='contactinfo' class="vcard">
@@ -242,14 +419,14 @@
                 <span class="description">Presentation at the VIVO 2012 Conference, Miami, Florida</span>
             </li>
 
-        	<li class="presentation">
-        		<span class="author firstauthor fn">Mardis, M.A.</span>,
-        		<span class="author fn self">McLaughlin, C.</span>,
-        		&amp; <span class="author fn">Gingell, G.</span>
-        		(<span class="year">2012</span>):
-        		<span class="title">Digital Libraries to School Libraries.</span>
-        		<span class="description">Poster presented at the Joint Conference on Digital Libraries, Washington D.C.</span>
-        	</li>
+            <li class="presentation">
+                <span class="author firstauthor fn">Mardis, M.A.</span>,
+                <span class="author fn self">McLaughlin, C.</span>,
+                &amp; <span class="author fn">Gingell, G.</span>
+                (<span class="year">2012</span>):
+                <span class="title">Digital Libraries to School Libraries.</span>
+                <span class="description">Poster presented at the Joint Conference on Digital Libraries, Washington D.C.</span>
+            </li>
 
             <li class="presentation">
                 <span class="author firstauthor fn">Lustria, M.L.A.</span>,
@@ -331,27 +508,27 @@
         <h4>Web Projects</h4>
         <ul class="projects">
 
-        	<li class="project">
-        		<p>
-        			<span class="project-title">Biotea</span>
-        			<a class="project-link" href="http://biotea.idiginfo.org" title="Biotea Site">http://biotea.idiginfo.org</a>
-        		</p>
+            <li class="project">
+                <p>
+                    <span class="project-title">Biotea</span>
+                    <a class="project-link" href="http://biotea.idiginfo.org" title="Biotea Site">http://biotea.idiginfo.org</a>
+                </p>
 
-        		<p>
-        			<span class="title">Systems and Database Support</span>
-        			<span class="date duration"> 
+                <p>
+                    <span class="title">Systems and Database Support</span>
+                    <span class="date duration"> 
                          <span class='dtstart' datetime="2012-01-01">January, 2012</span>
-        			     <span class="dtsep">&ndash;</span>
-        			     <span class="dtend" datetime="<?php echo date('Y-M-d'); ?>">Current</span>
+                         <span class="dtsep">&ndash;</span>
+                         <span class="dtend" datetime="<?php echo date('Y-M-d'); ?>">Current</span>
                     </span>
-        		</p>
+                </p>
 
-        		<ul class="description">
-        			<li>Oversee management of a large (20m+) collection of RDF documents</li>
-        			<li>Participate in RDF implementation of Pubmed Central and other document collections</li>
-        			<li>Manage graph database, web endpoints, and web service documentation</li>
-        		</ul>
-        	</li>
+                <ul class="description">
+                    <li>Oversee management of a large (20m+) collection of RDF documents</li>
+                    <li>Participate in RDF implementation of Pubmed Central and other document collections</li>
+                    <li>Manage graph database, web endpoints, and web service documentation</li>
+                </ul>
+            </li>
 
             <li class="project">
                 <p>
@@ -638,6 +815,5 @@
         </div>    
         
     </section>
-    
-    
 </div>
+{% endblock %}

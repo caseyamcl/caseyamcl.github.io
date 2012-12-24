@@ -23,7 +23,7 @@ Options All -Indexes
 # CMCL:[RESTRICTIVE REWRITE RULES]
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	RewriteCond $1 !^(index\.php|robots\.txt|dev\.php|humans\.txt|assets\/fonts\/(.+?)\.(ttf|svg|woff|eot)|assets\/images\/(.+?)\.(jpg|png|gif|jpeg|svg)$|assets\/css\/(.+?)\.css$|assets\/js\/(.+?)\.js)
+	RewriteCond $1 !^(index\.php|robots\.txt|dev\.php|humans\.txt|assets\/fonts\/(.+?)\.(ttf|svg|woff|eot)|assets\/img\/(.+?)\.(jpg|png|gif|jpeg|svg)$|assets\/css\/(.+?)\.css$|assets\/js\/(.+?)\.js)
 	RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 

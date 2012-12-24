@@ -115,7 +115,7 @@ abstract class ControllerAbstract implements ControllerProviderInterface
      * Renders a template
      *
      * @param string $view              View filename (in Views directory)
-     * @param string|boolean $template  Template filename (in Views directory) or false
+     * @param array  $data              Data array
      * @param return string             The rendered output
      */
     protected function render($view, $data = array())
@@ -123,6 +123,19 @@ abstract class ControllerAbstract implements ControllerProviderInterface
         //File Extension
         $view .= '.html.twig';
         return $this->app['twig']->render($view, $data);      
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Render using twig with string input
+     *
+     * @param string $string
+     * @param array  $data
+     */
+    protected function renderString($string, $data = array())
+    {
+        return $this->app['twig.strings']->render($string, $data);
     }
 
     // --------------------------------------------------------------
@@ -213,6 +226,13 @@ abstract class ControllerAbstract implements ControllerProviderInterface
 
     // --------------------------------------------------------------
 
+    public function getCurrentUrl()
+    {
+        return $this->app['url.current'];
+    }
+
+    // --------------------------------------------------------------
+
     /**
      * Redirect to another path in the app
      *
@@ -224,11 +244,11 @@ abstract class ControllerAbstract implements ControllerProviderInterface
     {
         //Ensure left slash, but no right slash
         $url = ($external)
-            ? $this->app['url.app'] . '/' . trim($path, '/')
-            : $path;
+            ? $path
+            : $this->app['url.app'] . '/' . trim($path, '/');
 
         //Do it
-        return $this->app->redirect($url . $path);
+        return $this->app->redirect($url);
     } 
 
     // --------------------------------------------------------------

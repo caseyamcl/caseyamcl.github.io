@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block page_css %}
+{% block page_headers %}
 <style type='text/css'>
     article > header {
         text-align: center;
@@ -32,7 +32,7 @@
             {% if date_updated is defined %}
             and revised <time pubdate="pubdate" datetime="XX">{{ date_updated }}</time>
             {% endif %}
-            by <span class='author'>Casey McLaughlin</span>
+            by <a href='{{ site_url }}' class='author'>Casey McLaughlin</a>
         </p>
     </header>
 

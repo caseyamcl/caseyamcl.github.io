@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+{% block page_headers %}
+<style type='text/css'>
+    .frontpage .right .itemlist {
+    margin-top: -5px;
+}
+
+    .frontpage .left {
+        text-align: right;
+        vertical-align: top;
+    }
+
+    .frontpage .right {
+        padding-top: 0.6em;
+    }
+
+    .frontpage > section {
+        margin-top: 2.5em;
+    }
+
+    .frontpage > section:first-child {
+        margin-top: 0;
+    }
+
+    .frontpage .left h1,
+    .frontpage .left h2 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .frontpage .left h1 {
+        font-size: 1.8em;
+    }
+
+    .frontpage .left h2 {
+        font-size: 1.6em;
+    }
+
+    @media (max-width: 767px) {
+        .frontpage .left {
+            text-align: left;
+            border-bottom: 1px solid #CCC;
+        }
+    }
+
+
+    @media (max-width: 480px) {
+        .frontpage .left {
+            text-align: left;
+            border-bottom: 1px solid #CCC;
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class='frontpage'>
+
+    <section class='row-fluid'>
+
+        <div class='span4 left'>
+            <h1>Casey McLaughlin</h1>
+        </div>
+
+        <div class='span7 right'>
+            <p class='bigtext'>I am an IT Administrator, Instructor, and Application Developer in Tallahassee, Florida.</p>
+            <p>
+                <a href='{{ site_url }}/calendar' class='big-shiny-link'><i class="icon-calendar"></i> My Calendar <span class='go'>&raquo;</span></a>
+                <a href='{{ site_url }}/resume' class='big-shiny-link'><i class="icon-edit"></i> My Resume <span class='go'>&raquo;</span></a>
+            </P>
+        </div>
+
+    </section>
+
+    <section class='row-fluid'>
+
+        <div class='span4 left'>
+            <h2 id='code'>Code</h2>
+        </div>
+
+        <div class='span7 right'>
+            <ul class='itemlist'>
+                <li class='item highlight'>
+                    <a href='http://github.com/caseyamcl'>
+                        <i class="icon-circle-arrow-right"></i>                                      
+                        <span class='title'>My Github Profile</span>
+                    </a>
+                </li>
+
+                {% for item in items.code %}
+                <li class='item'>
+                     <a href='{{ item.url }}' title='Link to Code'>
+                        <i class='icon-play-circle'></i>
+                        <span class='title'>{{ item.title }}</span>
+                        <span class='aux'>{{ item.tag }}</span>
+                        <span class='summary'>{{ item.desc }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </section>                
+
+    <section class='row-fluid'>
+
+        <div class='span4 left'>
+            <h2 id='work'>Work</h2>
+        </div>
+
+        <div class='span7 right'>
+            <ul class='itemlist'>
+                <li class='item highlight'>
+                    <a href='#'>
+                        <i class="icon-circle-arrow-right"></i>                                      
+                        <span class='title'>View My Resume</span>
+                    </a>
+                </li>
+
+                {% for item in items.work %}
+                <li class='item'>
+                     <a href='{{ site_url }}{{ item.path }}' title='Summary of {{ item.title }}'>
+                        <i class='icon-play-circle'></i>
+                        <span class='title'>{{ item.title }}</span>
+                        <span class='aux'>{{ item.tag }}</span>
+                        <span class='summary'>{{ item.desc }}</span>
+                    </a>
+                </li>
+                {% endfor %}                
+            </ul>
+        </div>
+
+    </section>                
+
+
+    <section class='row-fluid'>
+
+        <div class='span4 left'>
+            <h2 id='articles'>Articles</h2>
+        </div>
+
+        <div class='span7 right'>
+            <ul class='itemlist'>
+                {% for item in items.articles %}
+                <li class='item'>
+                     <a href='{{ site_url }}{{ item.path }}' title='{{ item.title }}'>
+                        <i class='icon-play-circle'></i>
+                        <span class='title'>{{ item.title }}</span>
+                        <span class='aux'>{{ item.tag }}</span>
+                        <span class='summary'>{{ item.desc }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </section> 
+
+    <section class='row-fluid'>
+
+        <div class='span4 left'>
+            <h2 id='presentations'>Presentations</h2>
+        </div>
+
+        <div class='span7 right'>
+            <ul class='itemlist'>
+                {% for item in items.presentations %}
+                <li class='item'>
+                     <a href='{{ site_url }}{{ item.path }}' title='{{ item.title }}'>
+                        <i class='icon-play-circle'></i>
+                        <span class='title'>{{ item.title }}</span>
+                        <span class='aux'>{{ item.tag }}</span>
+                        <span class='summary'>{{ item.desc }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </section> 
+
+
+    <section class='row-fluid'>
+
+        <div class='span4 left'>
+            <h2 id='elsewhere'>Also Find Me At</h2>
+        </div>
+
+        <div class='span7 right'>
+            <ul>
+                <li>Facebook</li>
+                <li>Twitter</li>
+                <li>LinkedIn</li>
+            </ul>
+        </div>
+
+    </section> 
+</div>
+{% endblock %}
