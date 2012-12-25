@@ -110,6 +110,25 @@ abstract class ControllerAbstract implements ControllerProviderInterface
     // --------------------------------------------------------------
 
     /**
+     * Render RSS Feed
+     *
+     * @param array $items
+     * @param string $feedTitle
+     */
+    protected function rss($items, $feedTitle, $feedDesc = '')
+    {
+        $data = array(
+            'feedTitle' => $feedTitle,
+            'feedDesc'  => $feedDesc ?: 'Recent Items for ' . $feedTitle,
+            'items'     => $items
+        );
+
+        $content = $this->render('rss', $data);
+    }
+
+    // --------------------------------------------------------------
+
+    /**
      * Render
      *
      * Renders a template

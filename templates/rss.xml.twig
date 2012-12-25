@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+    <title>Casey McLaughlin: {{ feedTitle }}</title>
+    <description>{{ feedDesc }}</description>
+    <link>{{ current_url }}</link>
+    <lastBuildDate>{{ date() | date('D, d M y H:i:s O') }}</lastBuildDate>
+    <pubDate>{{ date() | date('D, d M y H:i:s O') }}</pubDate>
+    <ttl>1800</ttl>
+
+    <item>
+        {% for item in items %}
+             <title>{{ item.title }}</title>
+             <description>{{ item.summary }}</description>
+             <link>{{ item.url }}</link>
+             <guid>{{ item.url }}</guid>
+             <pubDate>{{ item.pubDate | date('D, d M y H:i:s O') }}</pubDate>
+        {% endfor %}
+    </item>
+ 
+</channel>
+</rss>

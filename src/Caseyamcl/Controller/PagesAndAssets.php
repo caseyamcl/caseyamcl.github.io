@@ -5,7 +5,7 @@ namespace Caseyamcl\Controller;
 /**
  * Content Controller is the default controller for all content
  */
-class General extends ControllerAbstract
+class PagesAndAssets extends ControllerAbstract
 {
     /**
      * @var Caseyamcl\ContentRetriever\Page

@@ -109,7 +109,7 @@ class ContentMap
      * @param  string $path  Path to content
      * @return string|boolean
      */
-    private function resolvePath($path)
+    public function resolvePath($path)
     {
         $path = $this->basepath . trim($path, DIRECTORY_SEPARATOR);
         return (is_readable($path)) ? $path : false;

@@ -17,7 +17,6 @@ class Front extends ControllerAbstract
         $this->indexContent = $contentLoader->getYamlItem('front/items.yml');
 
         $this->addRoute('/',              'index');
-        $this->addRoute('/articles',      'indexsec');
         $this->addRoute('/code',          'indexsec');
         $this->addRoute('/work',          'indexsec');
         $this->addRoute('/presentations', 'indexsec');

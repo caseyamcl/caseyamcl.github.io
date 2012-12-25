@@ -5,7 +5,7 @@ namespace Caseyamcl\Controller;
 /**
  * Resume Controller
  */
-class Resume extends General
+class Resume extends PagesAndAssets
 {
     // --------------------------------------------------------------
 
