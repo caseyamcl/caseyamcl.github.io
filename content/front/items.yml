@@ -21,22 +21,6 @@ code:
       tag:    DokuWiki Theme
       desc:   A nice-looking Dokuwiki Theme that makes jumping around to different areas of your wiki very easy
 # -------------------------------------------------------------------
-work:
-    - path:   /work/fsu-lis4368
-      title:  Teaching - FSU LIS4368
-      tag:    current
-      desc:   I teach LIS4368 - Advanced Web Development as a senior-level course at FSU
-
-    - path:   /work/ruatrisk
-      title:  RU@Risk
-      tag:    current
-      desc:   A tailored messaging and research data management system
-
-    - path:   /work/biotea
-      title:  bioteà
-      tag:    current
-      desc:   An RDF dataset and API for Pubmed Central Documents
-# -------------------------------------------------------------------
 presentations:
     - path:   /presentations/the-new-way-to-code-php
       title:  The New Way to Code PHP

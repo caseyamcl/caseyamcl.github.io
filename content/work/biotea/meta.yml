@@ -1,0 +1,7 @@
+title:       bioteà
+circa:       current
+description: An RDF dataset and API for Pubmed Central Documents
+screenshots:
+    - ss_1.png: Front Page,
+    - ss_2.png: Data Collection,
+    - ss_3.png: Tailored Messaging Page

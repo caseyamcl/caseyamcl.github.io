@@ -32,8 +32,9 @@ class Front extends ControllerAbstract
         //General Items
         $data['items'] = $loader->getYamlItem('front/items.yml');
 
-        //Articles
+        //Content Items with Meta
         $data['articles'] = $crawler->getItems('articles', 'date_updated DESC');
+        $data['work']     = $crawler->getItems('work',     'circa DESC');
 
         //Render the view
         return $this->render('pages/front', $data);

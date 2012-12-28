@@ -116,13 +116,13 @@
                     </a>
                 </li>
 
-                {% for item in items.work %}
+                {% for path, item in work %}
                 <li class='item'>
-                     <a href='{{ site_url }}{{ item.path }}' title='Summary of {{ item.title }}'>
+                     <a href='{{ site_url }}/{{ path }}' title='Summary of {{ item.title }}'>
                         <i class='icon-play-circle'></i>
                         <span class='title'>{{ item.title }}</span>
-                        <span class='aux'>{{ item.tag }}</span>
-                        <span class='summary'>{{ item.desc }}</span>
+                        <span class='aux'>{{ item.circa }}</span>
+                        <span class='summary'>{{ item.description }}</span>
                     </a>
                 </li>
                 {% endfor %}                
