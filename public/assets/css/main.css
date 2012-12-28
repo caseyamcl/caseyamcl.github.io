@@ -1,5 +1,10 @@
 /* Main CSS File */
 
+/* The files in the templates/pages folder also contain
+ * template-specific CSS, so if you can't find something
+ * here, check those files.
+ */
+
 /* Bootstrap Override ------------------------ */
 
 body > .container {
@@ -22,7 +27,6 @@ body > .container {
     font-size: 0.9em;
 }
 
-
 /* One off widgets -------------------------- */
 
 .bigtext {
@@ -32,6 +36,14 @@ body > .container {
 
 pre.code {
     margin: 1em auto;
+}
+
+pre {
+    overflow-x: auto;
+}
+
+pre > code {
+    white-space: pre;
 }
 
 /* Big Shiny Link --------------------------- */

@@ -1,0 +1,10 @@
+title:          CodeIgniter on the Command Line
+type:           article
+date_published: 2010-10-22
+summary:       "This post describes my adventures in writing a CLI-interface for CodeIgniter and provides sourcecode for how to do it"
+category:      Web Development
+tags:
+    - CodeIgniter
+    - CLI
+    - Command Line
+    - PHP

@@ -111,15 +111,15 @@
 {% endblock %}
 {% block content %}
 <div class='calendar'>
-    <div class="big-calendar-container row-fluid span12">
+    <div class="big-calendar-container">
         <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=caseyamcl%40gmail.com&amp;color=%232952A3&amp;ctz=America%2FNew_York" style=" border-width:0 " width="940" height="600" frameborder="0" scrolling="no"></iframe>
     </div>
 
-    <div class="medium-calendar-container row-fluid span12">
+    <div class="medium-calendar-container">
         <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=caseyamcl%40gmail.com&amp;color=%232952A3&amp;ctz=America%2FNew_York" style=" border-width:0 " width="755" height="600" frameborder="0" scrolling="no"></iframe>
     </div>
 
-    <div class="little-calendar-container row-fluid span12">
+    <div class="little-calendar-container">
         <ul class='calendar_agenda'>
             {% for currdate, events in events.getByDate %}
 

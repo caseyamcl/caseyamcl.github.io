@@ -140,13 +140,13 @@
 
         <div class='span7 right'>
             <ul class='itemlist'>
-                {% for item in items.articles %}
+                {% for path, item in articles %}
                 <li class='item'>
-                     <a href='{{ site_url }}{{ item.path }}' title='{{ item.title }}'>
+                     <a href='{{ site_url }}/{{ path }}' title='{{ item.title }}'>
                         <i class='icon-play-circle'></i>
                         <span class='title'>{{ item.title }}</span>
-                        <span class='aux'>{{ item.tag }}</span>
-                        <span class='summary'>{{ item.desc }}</span>
+                        <span class='aux'>{{ item.date_published | date('Y M d') }}</span>
+                        <span class='summary'>{{ item.summary }}</span>
                     </a>
                 </li>
                 {% endfor %}

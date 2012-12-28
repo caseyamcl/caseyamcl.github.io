@@ -40,6 +40,16 @@ class ContentMap
     // -------------------------------------------------------------- 
 
     /**
+     * Get the basepath
+     */
+    public function getBasePath()
+    {
+        return $this->basepath;
+    }
+
+    // -------------------------------------------------------------- 
+
+    /**
      * Check if item exists
      *
      * @param string $path

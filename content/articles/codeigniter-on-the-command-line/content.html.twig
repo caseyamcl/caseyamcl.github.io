@@ -1,0 +1,158 @@
+<p>
+    So, yesterday, I spent a few hours trying to create a robust 
+    command-line interface for one of my CodeIgniter applications. 
+    I learned a lot about PHP-CLI.  I also came to remember why it's
+    a bad idea to try and fit <a href='http://punditkitchen.files.wordpress.com/2009/07/128926408767331749.jpg' title='This is one reason why'>a round peg in a square hole</a>.
+</p>
+
+<p>
+    The thing is, CodeIgniter is a great little <em style='text-decoration: underline'>web</em> framework.
+    See the key word in that sentence?  Yes, you can hack some CLI functionality 
+    in, but if you want to start doing fancy stuff like adding multiple levels of 
+    interactive menus and such, then its time to rethink what you're doing.
+</p>
+
+<p>
+    On the other hand, there are many reasons to create a simple CLI-interface 
+    to your web application.  The main use would be for running of maintenance
+    tasks and automated CRON scripts.  For this kind of task, it's very easy to
+    create a CLI entry-point for your app.
+</p>
+
+<h3>How to Do It</h3>
+
+<p>
+    I started off by grabbing some advice from <a href='' title=''>NetTuts</a>
+    and downloading <a href='' title=''>Phil Sturgeon's excellent CLI library</a>.
+</p>
+
+<p>
+    In the same folder as the main <var>index.php</var> file, I created another file named
+    <var>entry.php</var> to serve as my CLI entry to the application.  That file looks like:
+</p> 
+
+<pre><code>#!/usr/bin/php
+
+/*
+ * CLI Interface for our app
+ */
+
+//Die if not the command line.
+if ( ! php_sapi_name() == 'cli' OR ! empty($_SERVER['REMOTE_ADDR']))
+{
+    header("HTTP/1.0 403 Forbidden");
+    exit('Beat It.');
+}
+
+//Read the input.. Allowed inputs are:
+// path (e.g 'welcome/index')
+// -v or --verbose To set the flag for verbose input
+// -u or --username for username
+// -p or --password for password
+// -? or --help
+
+$in_args = array();
+foreach($argv as $arg)
+{
+    if (strcmp(substr($arg, 0, 1), '-') == 0)
+    {
+        if ($arg == '-v' OR $arg == '--verbose')
+            define('CLI_VERBOSE', TRUE);
+        elseif ($arg == '-u' OR $arg == '--username')
+            define('CLI_USER', $arg);
+        elseif ($arg == '-p' OR $arg == '--password')
+            define('CLI_PASS', $arg);
+        elseif ($arg == '-?' OR $arg == '--help')
+            define('CLI_HELP_MODE', TRUE);
+        else
+            die("\n\n" . substr($arg,1) . " is not a valid option.  Use -? for help\n");
+    }
+    elseif(strcmp(basename(__FILE__), $arg) != 0)
+        $in_args[] = $arg;
+}
+
+//Set defaults for any inputs not explictely given
+if ( ! defined('CLI_HELP_MODE'))
+    define('CLI_HELP_MODE', FALSE);
+if ( ! defined('CLI_VERBOSE'))
+    define('CLI_VERBOSE', FALSE);
+if ( ! defined('CLI_USER'))
+    define('CLI_USER', '');
+if ( ! defined('CLI_PASS'))
+    define('CLI_PASS', '');
+
+//Route to the utils controller using some trickery
+if (count($in_args) > 0)
+    $_SERVER['PATH_INFO'] = $_SERVER['REQUEST_URI'] = 'shellcontroller/' . array_shift($in_args);
+else
+    $_SERVER['PATH_INFO'] = $_SERVER['REQUEST_URI'] = 'shellcontroller/index';
+
+//Run It!
+require dirname(__FILE__) . '/index.php';
+
+/* EOF */</code></pre>
+
+<p>
+    Notice that I am accepting command-line arguments.  The above code will
+    halt execution and exit if any unknown command-line arguments are given.
+    It assumes the first non-switch command line argument is the action the
+    user wants to run.  It automatically prepends the "utils" controller to
+    the route, thereby sandboxing CLI access to a single controller. The
+    controller can do whatever you want. Here's a small example wherein I
+    present a main menu if no route was specified when the user runs the CLI
+    interface:
+</p>
+
+<pre><code>
+    /**
+     * Index action displays a main menu
+     */
+    function index()
+    {
+        //Sessions work on the CLI!
+        $this->session->set_userdata('started_on_main_menu', TRUE);
+
+        //Map key entries to methods in this class
+        $allowed_actions = array(
+            'A' => 'about',
+            'E' => 'quit',
+            'Q' => 'quit',
+            '1' => 'something',
+            '2' => 'something_else'
+        );
+
+        $this->cli->clear_screen();
+        $this->cli->view('shellcontroller/index', $this->data);
+
+        $input = $this->cli->read('Make your selection: ');
+        $input = trim(strtoupper($input));
+
+        //If input was valid, run the corresponding method
+        if (in_array($input, array_keys($allowed_actions)))
+            return call_user_func(array($this, $allowed_actions[$input]));
+        else
+        {
+            //The user typed in something wonky.  Make them feel bad.
+            $this->cli->pause("You did not make a valid selection!  Press any key to try again");
+            $this->index();
+        }
+    }</code></pre>
+
+<p>
+    Notice the main menu!  The design goal for the Controller was for the
+    main menu index method to be interactive, but every other method to be
+    able to run unattended if parameters are sent, otherwise to display
+    prompts.
+</p>
+
+<p>
+    I also made some heavy modifications and additions to the CLI.php library,
+    adding the ability to run any form_validation validation function against
+    command-line inputs (w00t), adding the ability to display view files easily,
+    and adding a few other helper method here and there.
+</p>
+
+<p>
+    The code is too long to display in this post, but it's all 
+    <a href='https://gist.github.com/4400409' title='Github Gist'>up on Github Gist</a>.
+</p>

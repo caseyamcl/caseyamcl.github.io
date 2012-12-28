@@ -22,7 +22,7 @@
 </p>
 
 <p>
-	The only way to have a process continually listening for jobs on a Linux
+	The best way to have a process continually listening for jobs on a Linux
 	server is for it to be a daemon.  And, of course, unless you are a system
 	administrator with root privileges, setting up a reliable daemon is not
 	really an option.  So, if you are using a shared hosting provider, you are
@@ -46,10 +46,133 @@
 	Here's how the script would run:
 </p>
 
-<p>[[Image Here]]</p>
+<p>
+	<a href='{{ page_url }}/async_cron.png' title='Flowchart depicting process'>
+		<img src="{{ page_url }}/async_cron.png" alt="Flowchart depicting process" />
+	</a>
+</p>
 
 <p>
 	And, below is really rough example of how I might begin to implement
 	this in PHP, with logging thrown in. Now, of course, this is not production
 	code, but it's a nice template to start with.
 </p>
+
+<pre><code>#!/usr/bin/php -q
+<?php
+ 
+/*
+ * CRON Command-Line Processor for job queues...
+ *
+ * Requirements:
+ *  1. *nix-based system
+ *  2. Cron
+ *  3. Shell access
+ *  4. MySQL
+ */
+// Implement by setting permissions on this script to exeuctable, and adding
+// by adding the following to your crontab: */ 
+// */1 * * * * /path/to/this/script.php >/dev/null 2 >& 1
+ 
+ 
+define('CRON_PROCESS_LOGFILE', '/path/to/logfile.log');
+define('CRON_PROCESS_LOCK_FILE', '/path/to/lockfile.lock');
+ 
+//------------------------------------------------------
+ 
+class Cron_process
+{
+	public static function run()
+	{
+		//Log that we're getting started.
+		Cron_process::log('Attempting to start cron_process of job queue...');
+ 
+		//Check to see if a prior instance of the process is already running..
+		if ($my_special_database_connector_class->query("SELECT `status` FROM `cron_process_status`;")->row() == 'in-process'
+				OR file_exists(CRON_PROCESS_LOCK_FILE))
+		{
+			Cron_process::log('Aborted processing.. Prior job already running');
+			return FALSE;
+		}
+ 
+ 
+		//Create a lockfile and indicate in the database that the process is started..
+		$my_special_database_connector_class->query("UPDATE `cron_process_status` SET `status` = 'in-progress';");
+ 
+		if ( ! file_exists(CRON_PROCESS_LOCK_FILE))
+			touch(CRON_PROCESS_LOCK_FILE);
+		$fp = fopen(CRON_PROCESS_LOCK_FILE);
+		flock($fp, LOCK_EX);
+		fputs($fp, 'cron_process_began_' . time());
+		fflush($fp);
+ 
+		//Process the jobs using whatever queue technology you want.
+		while($my_special_queue_adapter_class->get_number_of_pending_jobs() > 0)
+		{
+			// *****************
+			// HERE is where the magic happens!!
+			//  All the code for processing the job goes
+			//  right in here..
+			// *****************
+		}
+ 
+		//Clear the lockfile and mark the job complete in MySQL
+		$my_special_database_connector_class->query("UPDATE `cron_process_status` SET `status` = 'idle';");
+ 
+		flock($fp, LOCK_UN);
+		fclose($fp);
+		unlink(CRON_PROCESS_LOCK_FILE);
+ 
+		//Log that we're done
+		Cron_process::log('Succesfully ran the cron_process. Exiting...');
+ 
+		//All done!
+		return TRUE;
+	}
+ 
+	//------------------------------------------------------
+ 
+	public static function init_logfile()
+	{
+		if ( ! is_writable(dirname(CRON_PROCESS_LOGFILE)))
+			return "Cannot write cron process logfile.  Directory " . dirname(CRON_PROCESS_LOGFILE) . " is not writable.  Check permissions";
+ 
+		if ( ! touch(CRON_PROCESS_LOGFILE))
+			return "Cannot write to cron process logfile.  Check permissions.";
+ 
+		return TRUE;
+	}
+ 
+	//------------------------------------------------------
+ 
+	public static function log($msg, $level = 'info')
+	{
+		$str = date('Y-M-d H:m:s') . " - $level - $msg\n";
+ 
+		return file_put_contents(CRON_PROCESS_LOGFILE, $str, FILE_APPEND, LOCK_EX);
+	}
+}
+ 
+//------------------------------------------------------
+// Processing starts here..
+ 
+//Initial Checks
+if (php_sapi_name() != 'cli' OR ! empty($_SERVER['REMOTE_ADDR']))
+	exit('This script can be run only from the command line!');
+ 
+//Check to ensure we can write to a logfile.
+$init_result = Cron_process::init_logfile();
+if ($init_result !== TRUE)
+	exit($init_result);
+ 
+//Include any boostrap files
+require('/path/to/any/bootstapfiles/my_special_db_class_and_others.php');
+ 
+Cron_process::run();
+exit(0);
+ 
+ 
+ 
+/* EOF: cron_async.php */
+</code>
+</pre>

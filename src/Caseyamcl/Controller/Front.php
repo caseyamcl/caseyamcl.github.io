@@ -7,14 +7,10 @@ namespace Caseyamcl\Controller;
  */
 class Front extends ControllerAbstract
 {
-    private $indexContent;
-
     // --------------------------------------------------------------
 
     protected function init()
     {
-        $contentLoader      = $this->getLibrary('content');
-        $this->indexContent = $contentLoader->getYamlItem('front/items.yml');
 
         $this->addRoute('/',              'index');
         $this->addRoute('/code',          'indexsec');
@@ -26,7 +22,20 @@ class Front extends ControllerAbstract
 
     public function index()
     {
-        $data = array('items' => $this->indexContent);
+        //View data array
+        $data = array();
+
+        //Content Loader and Crawler
+        $loader  = $this->getLibrary('content');
+        $crawler = $this->getLibrary('crawler');
+
+        //General Items
+        $data['items'] = $loader->getYamlItem('front/items.yml');
+
+        //Articles
+        $data['articles'] = $crawler->getItems('articles', 'date_updated DESC');
+
+        //Render the view
         return $this->render('pages/front', $data);
     }
 

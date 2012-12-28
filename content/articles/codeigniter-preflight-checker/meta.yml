@@ -1,0 +1,9 @@
+title:          CodeIgniter Preflight Checker
+type:           article
+date_published: 2009-06-22
+summary:       "This post builds on last week's discussion of how to make an application portable by demonstrating how to implement a 'pre-flight' check before your application runs."
+category:      Web Development
+tags:
+    - CodeIgniter
+    - Portable
+    - PHP

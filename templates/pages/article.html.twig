@@ -19,6 +19,17 @@
         line-height: 1.5em;
         margin-bottom: 1.3em;
     }
+
+    article section.article-content li {
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+    }
+
+    article .article-info time {
+        color: #111;
+        cursor: pointer;
+    }
+
 </style>
 {% endblock %}
 {% block content %}
@@ -28,9 +39,9 @@
     <header class='span12'>
         <h1>{{ title }}</h1>
         <p class='article-info'>
-            Published <time pubdate="pubdate" datetime="XX">{{ date_published }}</time>
+            Published <time pubdate="pubdate" title='{{ date_published | date('Y-m-d') }}' datetime="{{ date_published | date('Y-m-d') }}">{{ date_published | date('F j, Y') }}</time>
             {% if date_updated is defined %}
-            and revised <time pubdate="pubdate" datetime="XX">{{ date_updated }}</time>
+            and revised <time pubdate="pubdate" title='{{ date_updated | date('Y-m-d') }}' datetime="{{ date_updated | date('Y-m-d') }}">{{ date_updated | date('F j, Y') }}</time>
             {% endif %}
             by <a href='{{ site_url }}' class='author'>Casey McLaughlin</a>
         </p>
@@ -43,9 +54,9 @@
     <footer class='span12'>
         <hr />
         <p>
-            This article was published on {{ date_published }}
+            This article was published on {{ date_published | date('F j, Y') }}
             {% if date_updated is defined %} 
-            and updated on {{ date_updated }}
+            and updated on {{ date_updated | date('F j, Y') }}
             {% endif %}
             by Casey McLaughlin.
         </p>

@@ -117,6 +117,11 @@ class App extends SilexApplication
             return new ContentRetriever\ContentMap($path, new Yaml());
         });
 
+        //Content Crawler
+        $this['crawler'] = $this->share(function() use ($app) {
+            return new ContentRetriever\Crawler($app['content']);
+        });
+
         //Page Retriever
         $this['pages'] = $this->share(function() use ($app) {
             return new ContentRetriever\Page($app['content']);
