@@ -8,15 +8,15 @@
     <pubDate>{{ date() | date('D, d M y H:i:s O') }}</pubDate>
     <ttl>1800</ttl>
 
+    {% for item in items %}
     <item>
-        {% for item in items %}
-             <title>{{ item.title }}</title>
-             <description>{{ item.summary }}</description>
-             <link>{{ item.url }}</link>
-             <guid>{{ item.url }}</guid>
-             <pubDate>{{ item.pubDate | date('D, d M y H:i:s O') }}</pubDate>
-        {% endfor %}
+         <title>{{ item.title }}</title>
+         <description>{{ item.summary }}</description>
+         <link>{{ item.url }}</link>
+         <guid>{{ item.url }}</guid>
+         <pubDate>{{ item.pubDate | date('D, d M y H:i:s O') }}</pubDate>
     </item>
+    {% endfor %}
  
 </channel>
 </rss>

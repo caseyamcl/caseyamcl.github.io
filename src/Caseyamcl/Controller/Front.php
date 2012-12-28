@@ -43,7 +43,7 @@ class Front extends ControllerAbstract
     // --------------------------------------------------------------
 
     /**
-     * @TODO: Debug this
+     * Index Section: Adds a hash to the first path segment and redirects
      */
     public function indexsec()
     {

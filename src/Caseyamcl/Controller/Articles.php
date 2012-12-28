@@ -22,23 +22,41 @@ class Articles extends PagesAndAssets
             OR $this->getQueryParams('feed') == 'rss'
         );
 
-        if ($rss) {
-            return $this->feed();
-        }
-        else {
-            return $this->redirect('/#articles');
-        }
+        //Do the action
+        return ($rss)
+            ? $this->feed()
+            : $this->redirect('/#articles');
     }
 
     // --------------------------------------------------------------
 
     protected function feed($limit = 10)
     {
-        //Scan the articles directory
+        $crawler = $this->getLibrary('crawler');
 
-        //Sort by date
+        //Scan the articles directory
+        $articles = $crawler->getItems('articles', 'date_published DESC');
+
+        //Limit
+        if (count($articles) > $limit) {
+            $articles = array_slice($articles, 0, $limit);
+        }
+
+        //Convert format
+        $items = array();
+        foreach($articles as $path => $meta) {
+
+            $items[] = array(
+                'title'   => $meta['title'],
+                'summary' => $meta['summary'],
+                'url'     => $this->getUrl($path),
+                'pubDate' => $meta['date_published']
+            );
+
+        }
 
         //Render RSS template
+        return $this->rss($items, 'Articles', 'Recent articles on CaseyMcLaughlin.com');
     }
 
     // --------------------------------------------------------------

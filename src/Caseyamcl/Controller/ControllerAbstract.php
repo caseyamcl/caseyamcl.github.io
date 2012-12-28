@@ -123,7 +123,8 @@ abstract class ControllerAbstract implements ControllerProviderInterface
             'items'     => $items
         );
 
-        $content = $this->render('rss', $data);
+        $content = $this->render('rss.xml.twig', $data);
+        return new Response($content, 200, array('Content-Type' => 'application/xml+rss'));
     }
 
     // --------------------------------------------------------------
@@ -140,7 +141,11 @@ abstract class ControllerAbstract implements ControllerProviderInterface
     protected function render($view, $data = array())
     {
         //File Extension
-        $view .= '.html.twig';
+        if (substr($view, -5) != '.twig') {
+            $view .= '.html.twig';
+        }
+
+        //Load it
         return $this->app['twig']->render($view, $data);      
     }
 
@@ -253,6 +258,21 @@ abstract class ControllerAbstract implements ControllerProviderInterface
     // --------------------------------------------------------------
 
     /**
+     * Return a full URL to a page on the site
+     *
+     * @param string $path
+     * @return string
+     */
+    public function getUrl($path = '')
+    {
+        return ($path)
+            ? $this->app['url.app'] . '/' . trim($path, '/')
+            : $this->app['url.app'];
+    }
+
+    // --------------------------------------------------------------
+
+    /**
      * Redirect to another path in the app
      *
      * @param   string $path
@@ -264,7 +284,7 @@ abstract class ControllerAbstract implements ControllerProviderInterface
         //Ensure left slash, but no right slash
         $url = ($external)
             ? $path
-            : $this->app['url.app'] . '/' . trim($path, '/');
+            : $this->getUrl($path);
 
         //Do it
         return $this->app->redirect($url);
