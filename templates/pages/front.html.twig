@@ -36,6 +36,28 @@
         font-size: 1.6em;
     }
 
+    .social-icons {
+        list-style-type: none;
+    }
+
+    .social-icons > li {
+        float: left;
+        margin: 0 16px 0 0;
+    }
+
+    /* Grayscale per: http://www.karlhorky.com/2012/06/cross-browser-image-grayscale-with-css.html */
+    .social-icons li img {
+        filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+        filter: gray; /* IE6-9 */
+        -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */        
+    }
+
+    .social-icons li:hover img,
+    .social-icons li:active img {
+        filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
+        -webkit-filter: grayscale(0%);
+    }
+
     @media (max-width: 767px) {
         .frontpage .left {
             text-align: left;
@@ -65,7 +87,7 @@
             <p class='bigtext'>I am an IT Administrator, Instructor, and Application Developer in Tallahassee, Florida.</p>
             <p>
                 <a href='{{ site_url }}/calendar' class='big-shiny-link'><i class="icon-calendar"></i> My Calendar <span class='go'>&raquo;</span></a>
-                <a href='{{ site_url }}/resume' class='big-shiny-link'><i class="icon-edit"></i> My Resume <span class='go'>&raquo;</span></a>
+                <a href='{{ site_url }}/cv' class='big-shiny-link'><i class="icon-edit"></i> My Resume <span class='go'>&raquo;</span></a>
             </P>
         </div>
 
@@ -110,7 +132,7 @@
         <div class='span7 right'>
             <ul class='itemlist'>
                 <li class='item highlight'>
-                    <a href='#'>
+                    <a href='{{ site_url }}/cv'>
                         <i class="icon-circle-arrow-right"></i>                                      
                         <span class='title'>View My CV</span>
                     </a>
@@ -186,10 +208,27 @@
         </div>
 
         <div class='span7 right'>
-            <ul>
-                <li>Facebook</li>
-                <li>Twitter</li>
-                <li>LinkedIn</li>
+            <ul class='social-icons'>
+                <li>
+                    <a href='http://github.com/caseyamcl' title='Github'>
+                        <img alt='Github' src='{{ base_url }}/assets/img/social-octocat.png' />
+                    </a>
+                </li>
+                <li>
+                    <a href='http://twitter.com' title='Twitter'>
+                        <img alt='Twitter' src='{{ base_url }}/assets/img/social-twitter.png' />
+                    </a>
+                </li>
+                <li>
+                    <a href='http://linkedin.com/caseyamcl' title='LinkedIn'>
+                        <img alt='Twitter' src='{{ base_url }}/assets/img/social-linkedin.png' />
+                    </a>
+                </li>
+                <li>
+                    <a href='http://cci.fsu.edu/' title='Florida State University'>
+                        <img alt='Florida State' src='{{ base_url }}/assets/img/social-fsu.png' />
+                    </a>
+                </li>                
             </ul>
         </div>
 
