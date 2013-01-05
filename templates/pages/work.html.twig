@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+{% block page_headers %}
+    <style type='text/css'>
+
+        article header > h1 {
+            margin: 1px 0;
+        }
+
+        article header > h2 {
+            margin: 0;
+            font-size: 1.4em;
+        }
+
+        article .preview-imgs {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        article .preview-imgs li {
+            margin: 0 3px 12px 3px;
+            display: inline-block;
+        }
+
+        article .preview-imgs li .img {
+            max-width: 170px;
+        }
+
+        article .preview-imgs li.main .img {
+            max-width: 350px;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <article>
+
+        <div class='row-fluid'>
+
+        </div>
+
+
+        <div class='row-fluid'>
+
+            <section class='span4'>
+                <ul class='preview-imgs'>
+                    {% if mainscreenshot is defined %}
+                        <a href='#' title='{{ mainscreenshot.summary }}'>
+                            <li class='main'><img src='http://dummyimage.com/350x350/999/fff' alt='{{ mainscreenshot.summary }}' /></li>
+                        </a>
+                    {% endif %}
+                    {% if screenshots is defined %}
+                        {% for ss in screenshots %}
+                            <li>
+                                <a href='#' title='{{ ss.summary }}'>
+                                    <img src='http://dummyimage.com/170x170/999/fff' alt='{{ ss.summary }}' />
+                                </a>
+                            </li>        
+                        {% endfor %}
+                    {% endif %}                    
+                </ul>
+                
+                
+            </section>
+
+            <section class='span8'>
+                <header>
+                    <h1>{{ title }}</h1>
+                    <h2>{{ summary }}</h2>
+                    <h4>
+                        {% if circa == 'current' %}
+                            An ongoing project
+                        {% else %}
+                            A project I worked on during {{ circa }}
+                        {% endif %}
+                    </h4>
+                </header>
+
+                {{ content | raw }}
+            </section>
+        </div>
+
+    </article>
+{% endblock %}

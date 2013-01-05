@@ -85,6 +85,7 @@ class App extends SilexApplication
             $this->mount('', new Controller\Resume());
             $this->mount('', new Controller\Articles());
             $this->mount('', new Controller\Reveal());
+            $this->mount('', new Controller\Work());
 
             //Mount general 'pages and assets' controller LAST!
             $this->mount('', new Controller\PagesAndAssets());
