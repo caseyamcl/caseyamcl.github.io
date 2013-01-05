@@ -19,7 +19,9 @@ class Resume extends PagesAndAssets
 
     public function index()
     {
-        return $this->render('pages/resume', array());
+        $loader = $this->getLibrary('content');
+        $data   = array('resume' => $loader->getYamlItem('resume/resume.yml'));
+        return $this->render('pages/resume', $data);
     }
 }
 
