@@ -118,9 +118,10 @@ abstract class ControllerAbstract implements ControllerProviderInterface
     protected function rss($items, $feedTitle, $feedDesc = '')
     {
         $data = array(
-            'feedTitle' => $feedTitle,
-            'feedDesc'  => $feedDesc ?: 'Recent Items for ' . $feedTitle,
-            'items'     => $items
+            'feedTitle'  => $feedTitle,
+            'feedDesc'   => $feedDesc ?: 'Recent Items for ' . $feedTitle,
+            'items'      => $items,
+            'dateFormat' => 'D, d M Y H:i:s T'
         );
 
         $content = $this->render('rss.xml.twig', $data);

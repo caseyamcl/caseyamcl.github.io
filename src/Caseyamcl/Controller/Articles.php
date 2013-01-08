@@ -9,7 +9,8 @@ class Articles extends PagesAndAssets
 {
     protected function loadRoutes()
     {
-        $this->addRoute('/articles', 'articleList');
+        $this->addRoute('/articles',                'articleList');
+        $this->addRoute('/articles/feed',           'feed');
         $this->addRoute('/articles/{article_slug}', 'getContent');
     }
 
@@ -30,11 +31,11 @@ class Articles extends PagesAndAssets
 
     // --------------------------------------------------------------
 
-    protected function feed($limit = 10)
+    public function feed($limit = 10)
     {
         $crawler = $this->getLibrary('crawler');
 
-        //Scan the articles directory
+        //Scan the articles directory and sort by date published
         $articles = $crawler->getItems('articles', 'date_published DESC');
 
         //Limit
