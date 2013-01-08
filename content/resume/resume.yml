@@ -2,7 +2,7 @@
 name:        Casey A. McLaughlin
 locality:    Tallahassee
 region:      Florida
-postal-code: 32303
+postalcode:  32303
 email:       caseyamcl@gmail.com
 website:     http://caseymclaughlin.com
 phone:       (850) 284-7271
@@ -35,4 +35,362 @@ teaching:
         start:      2008-05-01
         end:        current
 
-# TODO: Finish this...
+experience:
+    - organization: Florida State University Institute for Digital Information and Scientific Communication
+      title:        IT Administrator / Non-Tenure faculty
+      description:
+        - 'Manage team of designers, developers, and sysadmins to support online repositories and web applications'
+        - 'Participate in information management research for grant-based data collections'
+        - 'Implement semantic web technologies in large data repositories'
+      duration:
+        start:      2011-01-01
+        end:        current
+
+    - organization: Florida State University College of Communication and Information
+      title:        Director of Application Development
+      description:
+        - 'Develop project management procedures and strategies, and manage multiple simultaneous web application development projects'
+        - 'Provide experiential learning and on-the-job training to undergraduate students through internships and mentoring'
+        - 'Provide assistance to faculty for utilizing IT resources in research grants'
+        - 'Manage and deploy Linux server systems for hosting hundreds of non-profit and academic websites, including several medium-to-high traffic sites and large databases'
+        - 'Ensure that faculty and staff have access to the very best tools for teaching, research, and service'
+      duration:
+        start:      2009-07-01
+        end:        2011-08-01
+
+    - organization: Florida State University College of Information
+      title:        Information Technology Coordinator
+      description:  
+        - 'Coordinated all major IT projects within the College'
+        - 'Managed tactical and operational IT planning, procurement, implementation, and systems maintenance'
+        - 'Developed departmental business continuity plan'
+        - 'Completed overhaul of IT server systems, including implementation of virtual technologies and relocation to managed datacenter'
+        - 'Developed standard operating procedures for server management'
+        - 'Coordinated with other departments at FSU to reduce overhead by moving many functions onto centrally managed University-provided services, such as email, calendaring, listservs, firewall, etc.'
+        - 'Developed polices for, and managed $200,000 annual IT budget'
+      duration:
+        start:      2005-06-01
+        end:        2009-06-30
+
+    - organization: Liquifusion Studios
+      title:        IT Consultant
+      description:
+        - 'Developed comprehensive IT evaluations and solution plans for small businesses in the Florida Panhandle, which I then implemented.'
+        - 'Designed a three-tiered Small Business Self-Evaluation IT Checklist focused on security, business continuity, and resource management for general distribution'
+      duration:
+        start:      2005-08-01
+        end:        2008-01-01
+
+    - organization: Florida State University School of Library and Information Science
+      title:        User Services Supervisor
+      description:
+        - 'Oversaw operations of Helpdesk employing five part-time graduate students and 20 undergraduate interns.'
+        - 'Reduced open ticket time by 120% in four months by implementing new performance measurement tools and standard operating procedures to reduce the need for re-training'
+        - 'Provided IT support to over 50 faculty/staff and 600 students, including hardware and software support'
+        - 'Reduced expenses on employee workstations by implementing a managed replacement cycle for technology'
+        - 'Led effort to consolidate calendaring and email systems onto an externally managed Exchange system'
+      duration:
+        start:      2004-09-01
+        end:        2005-06-01
+
+research:
+    - type:        Presentation
+      title:       'RDFising Pubmed Central'
+      date:        2012-07-14
+      description: 'Publication Submitted to Bio-Ontologies 2012'
+      authors:
+        - 'Garcia-Castro, L.J.'
+        - 'McLaughlin, C.'
+        - 'Flager, S.'
+
+    - type:        Presentation
+      title:       'Semantic Enrichment of Biomedical Literature, RDF for full text PubMed Central'
+      date:        2012-08
+      description: 'Presentation at the VIVO 2012 Conference, Miami, Florida'
+      authors:
+        - 'Garcia-Castro, L.J.'
+        - 'McLaughlin, C.'
+        - 'Garcia, A.'
+
+    - type:        Presentation
+      title:       'Digital Libraries to School Libraries.'
+      date:        2012-07
+      description: 'Poster presented at the Joint Conference on Digital Libraries, Washington D.C.'
+      authors:
+        - 'Mardis, M.A.'
+        - 'McLaughlin, C.'
+        - 'Gingell, G.'
+
+    - type:        Presentation
+      title:       'Investigating the WAHI: A Randomized Control Trial of an Online Interactive Tailored Video Intervention for STD Awareness'
+      date:        2012-06
+      description: 'Poster presented at the Kentucky Conference on Health Communication, Lexington, Kentucky'
+      authors:
+        - 'Lustria, M.L.A.'
+        - 'Cortese, J.'
+        - 'McLaughlin, C.'
+
+    - type:        Presentation
+      title:       'An Information System for Analyzing and Discovering Suicide Research Literature'
+      date:        2012-04-18
+      description: 'Presentation at the American Association of Suicidology Conference, Baltimore, Maryland'     
+      authors:
+        - 'Riccardi, G.'
+        - 'Leiva, D.'
+        - 'McLaughlin, C.'
+        - 'Garcia-Castro, A.'
+
+    - type:        Presentation
+      title:       'Digital Libraries to School Libraries (DL2SL): A Strategy for Open Content Integration in Schools'
+      date:        2010-11
+      description: 'Poster to presented at the Institute of Museum and Library Services Annual Meeting, Washington, D.C.'        
+      authors:
+        - 'Mardis, M.A.'
+        - 'McLaughlin, C.'
+
+    - type:        Publication
+      title:       'Participatory design of a health informatics system for rural health practitioners and disadvantaged women'
+      volumetitle: Journal of the American Society for Information Science and Technology
+      volume:      61(11)
+      volumepages: 2243-2255
+      doi:         doi:10.1002/asi.21390
+      date:        2010
+      authors:
+        - 'Lustria, M.L.A.'
+        - 'Kazmer, M. M. M.'
+        - 'Glueckauf, R. L.'
+        - 'Hawkins, R.'
+        - 'Randeree, E.'
+        - 'Rosario, I. B.'
+        - 'McLaughlin, C.'
+        - 'Redmond, S.'
+
+    - type:         Presentation
+      title:       'Supporting Breast Cancer Screening Needs of Rural, Disadvantaged Women Via a Tailored Reminder System (Information Needs and Perceived Barriers to Preventive Care)'
+      description: 'Poster to be presented at the Florida Health Disparities Research Invitational Summit, Ft. Lauderdale, Florida. (Regional)'
+      date:        2010
+      authors:
+        - 'Lustria, M.L.A.'
+        - 'Kazmer, M. M. M.'
+        - 'Glueckauf, R. L.'
+        - 'Randeree, E.'
+        - 'Rosario, I. B.'
+        - 'McLaughlin, C.'
+        - 'Webster, A.'
+
+    - type:         Presentation
+      title:        'Supporting Breast Cancer Screening Needs of Rural, Disadvantaged Women Via a Tailored Reminder System (Using Participatory Approaches for Designing Health Informatics Systems for Application in Rural Settings)'
+      description:  'Poster to be presented at the Florida Health Disparities Research Invitational Summit, Ft. Lauderdale, Florida. (Regional)'
+      date:         2010
+      authors:
+        - 'Lustria, M.L.A'
+        - 'Kazmer, M. M. M.'
+        - 'Glueckauf, R. L.'
+        - 'Randeree, E.'
+        - 'Rosario, I. B.'
+        - 'McLaughlin, C.'
+        - 'Webster, A.'
+
+projects:
+    - title:     Biotea
+      link:      http://biotea.idiginfo.org
+      role:      Systems and Database Support
+      duration:
+        start:   2012-01-01
+        end:     current
+      description:
+       - 'Oversee management of a large (20m+) collection of RDF documents'
+       - 'Participate in RDF implementation of Pubmed Central and other document collections'
+       - 'Manage graph database, web endpoints, and web service documentation'
+
+    - title:     FSU SKY Compute Cloud
+      link:      http://sc.fsu.edu
+      role:      Project Lead
+      duration:
+        start:   2011-08-01
+        end:     current
+      description:
+        - 'Oversee implementation and maintenance of an Openstack compute system for scientific research at FSU'
+        - 'Work with principal investigators and researchers at FSU to coordinate computing needs within this system'
+        - 'Establish baseline service level expectations and ensure the system and staff provide those services'
+
+    - title:     Military Suicide Research Consortium
+      link:      http://msrc.fsu.edu
+      role:      Project Lead
+      duration:
+        start:   2011-01-01
+        end:     current
+      description:
+        - 'Manage design, development, and systems maintenance for large online repository / web tool to support MSRC'
+        - 'Develop and manage custom Drupal implementation and supporting modules'
+        - 'Develop innovative interfaces for users to interact with a large academic journal collection'
+
+    - title:     RU@Risk Online Intervention and Data Collection Tool
+      link:      http://strategichealthpros.com/ruatrisk
+      role:      Lead Developer
+      duration:
+        start:   2009-05-01
+        end:     current
+      description:
+        - 'Conceptualize, plan, and develop an online survey and STD-ordering kit targeted at College students'
+        - 'Develop online survey system using PHP and CodeIgniter'
+        - 'Audit application for HIPAA standards'
+        - 'Develop and document secure REST interface to interface with the Department of Health systems for STD kit order management'
+
+    - title:     Catastrophic Finance Insurance Information Portal
+      link:      http://catriskfinancing.org
+      role:      Lead Developer
+      duration:
+        start:   2009-11-01
+        end:     current
+      description:
+        - 'Worked with FSU Storm Risk Management Center to determine and implement client needs'
+        - 'Developed a custom CMS for an information repository'
+        - 'Subsequently developed a custom API for the CMS, and migrated content into Drupal 7'
+        - 'Manage maintenance and development of custom database query tools'
+
+    - title:     iSpace Web Hosting System
+      link:      http://ispace.ci.fsu.edu
+      role:      Developer / Systems Administrator
+      duration:
+        start:   2006-08-01
+        end:     2011-06-01
+      description:
+        - 'Plan, develop, and deploy a custom web and virtual server hosting solution for students and faculty'
+        - 'Develop online end-user documentation and training materials in collaboration with undergraduate students'
+        - 'Integrate many technologies to provide turnkey web services to users, including LDAP, PHP, PAM, MySQL, and DNS'
+        - 'Manage integration with the FSUID authentication system and user accounts'
+
+    - title:     Digital Libraries to School Libraries
+      link:      http://dl2sl.org
+      role:      Lead Developer
+      duration:
+        start:   2009-10-01
+        end:     current
+      description:
+        - 'Conceptualize, plan, and develop a tool to allow librarians to easily share and add digital resources to their collections'
+        - 'Conduct workshops with librarians and information professionals'
+        - 'Implement the MARC21, MODS, METS standards in PHP and CodeIgniter'
+        - 'Develop sophisticated web scraper in PHP'
+        - 'Interface with Destiny, Alexandria, and other popular catalog software'
+        - 'Work with librarians and information professionals to determine needs and implement tools'
+        - 'Design front-end interface for Web2Marc tool'
+
+    - title:     STEER Research Project
+      link:      https://strategichealthpros.com/front/index.php/steer
+      role:      Lead Developer
+      duration:
+        start:   2007-08-01
+        end:     2010-05-01
+      description:
+        - 'Plan, develop, evaluate, deploy, and maintain full featured online patient record management system'
+        - 'Coordinate and manage team of application developers'
+
+    - title:     Ready4Changes Online Survey and Intervention
+      link:      https://strategichealthpros.com/front/index.php/rcp
+      role:      Lead Developer
+      duration:
+        start:   2007-08-01
+        end:     2009-12-01
+      description:
+        - 'Plan, develop, evaluate, deploy, and maintain a web-based survey and tailored content delivery system'
+        - 'Coordinate and manage team of application developers'
+
+activities:
+    - type:  Organization
+      date:  current
+      role:  Founder / Organizer
+      title: Tallahassee PHP User Group
+
+    - type:  Conference
+      date:  2011-10-01
+      role:  Participant
+      title: DrupalCamp Atlanta
+
+    - type:  Conference
+      date:  2010-10-31
+      role:  Poster Presenter
+      title: National Science Digital Library Annual Meeting
+
+    - type:  Conference
+      date:  2010-05
+      role:  Participant
+      title: PHPTek 2010
+
+    - type:  Conference
+      date:  2010-07
+      role:  Participant
+      title: O’Reilly National Open Source Convention
+
+    - type:  Organization
+      date:  2008-01
+      role:  Member
+      title: 'Association of Information Technology Professionals, FSU Chapter'
+
+    - type:  Conference
+      date:  2006
+      role:  Participant
+      title: National and Southeast Regional Educause Conference
+
+    - type:  Conference
+      date:  2005
+      role:  Participant
+      title: National and Southeast Regional Educause Conference
+
+    - type:  Workshop
+      date:  2005
+      role:  Participant
+      title: Cornell Policy Writing Workshop
+
+    - type:  Guest Talk
+      date:  2009-04-01
+      role:  Presenter
+      title: Introduction to Server Virtualization
+      venue: Florida State University Association of Information Technology Professionals
+
+    - type:  Guest Talk
+      date:  2008-09-01
+      role:  Presenter
+      title: IT Ethics
+      venue: Florida State University College of Information
+
+skills:
+  - section: Management
+    skills:
+      - 'IT operations'
+      - 'Budget and resource management'
+      - 'Policy writing and procedure management'
+      - 'Strong written and verbal Communication'
+  - section: IT Management
+    skills:
+      - 'Installation and maintenance of server systems'
+      - 'Management of Linux systems, mostly CentOS and Ubuntu Server'
+      - 'Systems architecture planning, mostly Open Source'
+      - 'LAMP Stack, Lighttpd, and NGINX management'
+      - 'Server Virtualization: vmWare, KVM, Xen'
+      - 'Network management (SMB TCP/IP network planning, implementation, and maintenance)'
+      - 'Windows Active Directory deployment and management'
+      - 'MySQL deployment, configuration, and maintenance'
+      - 'Apache SOLR/Lucene (integration with Drupal)'
+      - 'LDAP integration with Linux (PAM), PHP, Wordpress, and Drupal'
+  - section: Web Development
+    skills:
+      - 'Large web application project management'
+      - 'Web application project management'
+      - 'RDF/RDFa, Microformats, and Semantic Web Tool Integration'
+      - 'Drupal site planning, development, and maintenance'
+      - 'Drupal migration planning and implementation'
+      - 'Drupal module development'
+      - 'Certified PHP developer'
+      - 'MVC: CodeIgniter and Zend Frameworks'
+      - 'HTML5, CSS, Jquery/JS development'
+      - 'Version control (Git, Mercurial, and Subversion)'
+      - 'Eclipse, Netbeans, and VIM'
+      - 'REST development, Web APIs, JSON, and XML'
+      - 'Knowledge of Information Formats: MARC21, MODS, METS, DC'
+      - 'Wordpress Management and Plugin Development'
+      - 'Responsive and mobile website development'
+  - section: Instruction
+    skills:
+      - 'Design and development of course curriculum'
+      - 'Experience in course leadership and integrating applied skills into a management curriculum'

@@ -29,9 +29,8 @@ class PagesAndAssets extends ControllerAbstract
 
         //Load resources
         $this->pageLoader  = $this->getLibrary('pages');
-        $this->assetLoader = $this->getLibrary('assets');        
+        $this->assetLoader = $this->getLibrary('assets');  
     }
-
 
     // --------------------------------------------------------------
 

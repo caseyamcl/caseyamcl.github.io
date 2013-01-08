@@ -79,11 +79,7 @@
 
     <section class='row-fluid'>
 
-        <div class='span4 left'>
-            <h1>Casey McLaughlin</h1>
-        </div>
-
-        <div class='span7 right'>
+        <div class='span7 offset4 right'>
             <p class='bigtext'>I am an IT Administrator, Instructor, and Application Developer in Tallahassee, Florida.</p>
             <p>
                 <a href='{{ site_url }}/calendar' class='big-shiny-link'><i class="icon-calendar"></i> My Calendar <span class='go'>&raquo;</span></a>
@@ -144,7 +140,7 @@
                         <i class='icon-play-circle'></i>
                         <span class='title'>{{ item.title }}</span>
                         <span class='aux'>{{ item.circa }}</span>
-                        <span class='summary'>{{ item.description }}</span>
+                        <span class='summary'>{{ item.summary }}</span>
                     </a>
                 </li>
                 {% endfor %}                
@@ -177,6 +173,7 @@
 
     </section> 
 
+    {#
     <section class='row-fluid'>
 
         <div class='span4 left'>
@@ -197,8 +194,8 @@
                 {% endfor %}
             </ul>
         </div>
-
-    </section> 
+    </section>
+    #} 
 
 
     <section class='row-fluid'>
