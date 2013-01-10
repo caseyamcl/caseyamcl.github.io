@@ -23,11 +23,11 @@
             display: inline-block;
         }
 
-        article .preview-imgs li .img {
+        article .preview-imgs li img {
             max-width: 170px;
         }
 
-        article .preview-imgs li.main .img {
+        article .preview-imgs li.main img {
             max-width: 350px;
         }
 
@@ -46,15 +46,15 @@
             <section class='span4'>
                 <ul class='preview-imgs'>
                     {% if mainscreenshot is defined %}
-                        <a href='#' title='{{ mainscreenshot.summary }}'>
-                            <li class='main'><img src='http://dummyimage.com/350x350/999/fff' alt='{{ mainscreenshot.summary }}' /></li>
+                        <a href='{{ page_url }}/{{ mainscreenshot.file }}' title='{{ mainscreenshot.summary }}'>
+                            <li class='main'><img src='{{ page_url }}/{{ mainscreenshot.file }}' alt='{{ mainscreenshot.summary }}' /></li>
                         </a>
                     {% endif %}
                     {% if screenshots is defined %}
                         {% for ss in screenshots %}
                             <li>
                                 <a href='#' title='{{ ss.summary }}'>
-                                    <img src='http://dummyimage.com/170x170/999/fff' alt='{{ ss.summary }}' />
+                                    <img src='{{ page_url }}/{{ss.file}}' alt='{{ ss.summary }}' />
                                 </a>
                             </li>        
                         {% endfor %}

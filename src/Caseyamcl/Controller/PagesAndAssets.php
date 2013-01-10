@@ -94,7 +94,10 @@ class PagesAndAssets extends ControllerAbstract
      */
     protected function renderPage($path, array $data = array())
     {
-        $data = array('content' => $this->getPageContent($path));
+        $data = array(
+            'content'  => $this->getPageContent($path),
+            'page_url' => $this->getCurrentUrl()
+        );
 
         //Also get page data
         $data = array_merge($data, $this->getMeta($path));

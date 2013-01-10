@@ -1,19 +1,20 @@
 title:       bioteà
+url:         http://biotea.idiginfo.org
 circa:       current
 summary:     An RDF dataset and API for Pubmed Central Documents
 mainscreenshot:
-    file:    ss_1.png
-    summary: Data Collection
+    file:    screenshot_main.png
+    summary: Biotea Homepage
 
-screenshots:
-    - file:    ss_2.png
-      summary: Data Collection
+# screenshots:
+#     - file:    ss_2.png
+#       summary: Data Collection
 
-    - file:    ss_3.png
-      summary: Data Collection
+#     - file:    ss_3.png
+#       summary: Data Collection
 
-    - file:    ss_4.png
-      summary: Data Collection
+#     - file:    ss_4.png
+#       summary: Data Collection
 
-    - file:    ss_5.png
-      summary: Data Collection
+#     - file:    ss_5.png
+#       summary: Data Collection

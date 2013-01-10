@@ -35,6 +35,11 @@ body > header h1 a {
     color: #F5F5F5;
 }
 
+body > header h1 a:hover {
+    text-decoration: none;
+    color: #cef;
+}
+
 @media (max-width: 767px) {
     body > header {
         margin-left: -20px;

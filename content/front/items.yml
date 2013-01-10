@@ -16,6 +16,12 @@ code:
       tag:    PHP Library
       desc:   A simple PHP configuration reader that supports local config files and favors convention over configuration
 
+    - url:    http://github.com/caseyamcl/geshiforci
+      title:  GeSHi for CodeIgniter
+      tag:    PHP Library
+      desc:   A fully-featured library for syntax highlighting in CodeIgniter
+
+
     - url:    http://github.com/caseyamcl/quickjump
       title:  Quickjump
       tag:    DokuWiki Theme
