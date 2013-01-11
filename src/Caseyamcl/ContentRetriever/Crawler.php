@@ -134,7 +134,7 @@ class Crawler
                 return 0;
             }
             else {
-                return ($a[$sortBy] > $b[$sortBy]) ? -1 : 1;
+                return ($a[$sortBy] > $b[$sortBy]) ? 1 : -1;
             }
         };
 
