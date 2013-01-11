@@ -1,0 +1,25 @@
+{
+    "name": "icecave/isolator",
+    "type": "library",
+    "description": "Mock out calls to built-in PHP functions.",
+    "keywords": ["test", "phpunit", "phake", "unit", "mock", "fake"],
+    "homepage": "https://github.com/IcecaveStudios/isolator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Harris",
+            "email": "james.harris@icecave.com.au"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "phake/phake": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Icecave\\Isolator": "lib"
+        }
+    }
+}

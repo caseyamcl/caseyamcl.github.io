@@ -1,0 +1,15 @@
+# AppFog Manifest File
+--- 
+applications: 
+  .: 
+    framework: 
+      info: 
+        exec: 
+        mem: 128M
+        description: PHP Application
+      name: php
+    mem: 1G
+    url: ${name}.${target-base}
+    name: caseymclaughlin
+    instances: 1
+    infra: aws
