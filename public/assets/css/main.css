@@ -55,6 +55,15 @@ body > header h1 a:hover {
     font-size: 0.9em;
 }
 
+.container > footer a {
+    color: #777;
+    text-decoration: none;
+}
+
+.container > footer a:hover {
+    text-decoration: underline;
+}
+
 /* One off widgets -------------------------- */
 
 .bigtext {
@@ -131,6 +140,7 @@ pre > code {
 .itemlist > li.item > a {
     color: #333;
     display: block;
+    border: 1px solid #FFF;
 }
 
 .itemlist > li.item.highlight > a:hover .title {
@@ -162,6 +172,11 @@ pre > code {
 .itemlist > li.item > a:hover {
     text-decoration: none;
     background-color: #F1F1F1;
+    border: 1px solid #D4D4D4;
+}
+
+.itemlist > li.item.highlight a:hover {
+    border: 1px solid #FFF;
 }
 
 
