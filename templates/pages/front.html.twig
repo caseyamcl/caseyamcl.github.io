@@ -58,11 +58,20 @@
         -webkit-filter: grayscale(0%);
     }
 
+    .frontpage .headshot {
+        border: 1px solid #444;
+        box-shadow: -1px 1px 1px #555;
+    }
+
     @media (max-width: 767px) {
         .frontpage .left {
             text-align: left;
             border-bottom: 1px solid #CCC;
         }
+
+        .buttonlinks {
+            text-align: center;
+        }        
     }
 
 
@@ -79,9 +88,12 @@
 
     <section class='row-fluid'>
 
-        <div class='span7 offset4 right'>
+        <div class='span4 left visible-desktop visible-tablet'>
+            <img class='headshot' src='{{ base_url}}/assets/img/headshot_100px.jpg' title='' />
+        </div>
+        <div class='span7 right'>
             <p class='bigtext'>I am an IT Administrator, Instructor, and Application Developer in Tallahassee, Florida.</p>
-            <p>
+            <p class='buttonlinks'>
                 <a href='{{ site_url }}/calendar' class='big-shiny-link'><i class="icon-calendar"></i> My Calendar <span class='go'>&raquo;</span></a>
                 <a href='{{ site_url }}/cv' class='big-shiny-link'><i class="icon-edit"></i> My Resume <span class='go'>&raquo;</span></a>
             </P>
