@@ -80,6 +80,7 @@ class App extends SilexApplication
         else {            
 
             //Mount controllers
+            $this->mount('', new Controller\Redirects());
             $this->mount('', new Controller\Calendar($this['calendar']));
             $this->mount('', new Controller\Front());
             $this->mount('', new Controller\Resume());

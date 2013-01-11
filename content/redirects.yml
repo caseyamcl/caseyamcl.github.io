@@ -1,0 +1,21 @@
+# Redirects
+- old: '/2011/04/setup-a-local-configuration-file-in-codeigniter'
+  new: '/articles/setup-a-local-configuration-file-in-codeigniter'
+
+- old: '/2010/11/how-to-use-ssh-tunnels-with-heidisql-and-plink'
+  new: '/articles/ssh-tunnels-with-plink-and-heidisql'
+
+- old: '/2010/01/backups-and-disaster-recovery-kit' 
+  new: '/articles/backups-and-disaster-recovery-kit'
+
+- old: '/2010/10/codeigniter-on-the-command-line'
+  new: '/articles/codeigniter-on-the-command-line'
+
+- old: '/2009/06/codeigniter-preflight-checker'
+  new: '/articles/codeigniter-preflight-checker'
+
+- old: '/2010/09/playing-with-asynchronous-php-processing'
+  new: '/articles/playing-with-asynchronous-php-processing'
+
+- old: '/2009/08/teaching-php-course-curriculum'
+  new: '/articles/teaching-php-course-curriculum'
