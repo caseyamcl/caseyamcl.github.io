@@ -4,9 +4,12 @@
         <title>Casey McLaughlin | {% block pagetitle %}Website{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        {% block page_maincss %}
         <link href="{{ base_url }}/assets/css/bootstrap.css" rel="stylesheet">
         <link href="{{ base_url }}/assets/css/bootstrap-responsive.css" rel="stylesheet">
         <link href="{{ base_url }}/assets/css/main.css" rel="stylesheet">
+        {% endblock %}
+
         {% block page_headers %}
         {% endblock %}
     </head>
@@ -20,24 +23,28 @@
             </div>
         </header>
 
-        <div class='container'>
+        {% block page_content %}{% endblock %}
 
-            {% block content %}
-            {% endblock %}
+        {% block page_mainjs %}
+            <script type='text/javascript' src='{{ base_url }}/assets/js/bootstrap.min.js'></script>
+        {% endblock %}
 
-            <footer>
-                <p>
-                    <a  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US" title='Creative Commons Share Alike 3.0 License'>
-                        <img src='{{ base_url }}/assets/img/cc_12x12_gray.png' alt='Creative Commons Share-Alike' />
-                    </a>
-                    <a href='{{ site_url }}' title='Home'>
-                        Casey McLaughlin
-                    </a>
-                </p>
-            </footer>
-        </div>
+        {% block page_analyticsjs %}
+            {% if site_is_public %}
+                <script type="text/javascript">
 
-        <script type='text/javascript' src='{{ base_url }}/assets/js/bootstrap.min.js'></script>
+                    var _gaq = _gaq || [];
+                    _gaq.push(['_setAccount', 'UA-37597056-1']);
+                    _gaq.push(['_trackPageview']);
 
+                    (function() {
+                      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                    })();
+
+                </script>
+            {% endif %}
+        {% endblock %}
     </body>
 </html>

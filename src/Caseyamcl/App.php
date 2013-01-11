@@ -186,6 +186,10 @@ class App extends SilexApplication
                 $twig->addExtension(new \Twig_Extension_Debug());
             }
 
+            //Site is public?
+            $isPublic = (boolean) (substr($_SERVER['HTTP_HOST'], 0, strlen('localhost')) != 'localhost');
+            $twig->addGlobal('site_is_public', $isPublic);
+
             return $twig;
         }));      
     }
@@ -209,7 +213,7 @@ class App extends SilexApplication
         switch ($code) {
 
             case 404:
-                return $this['twig']->render('errors/404.html.twig');
+                return $this['twig']->render('error/404.html.twig');
             break;
             default:
 
@@ -218,7 +222,7 @@ class App extends SilexApplication
                     return;
                 }
                 elseif (isset($this['twig'])) { //If we've loaded twig...
-                    return new Response($this['twig']->render('errors/error.html.twig'));
+                    return new Response($this['twig']->render('error/error.html.twig'));
                 }
                 else {
                     return new Response(

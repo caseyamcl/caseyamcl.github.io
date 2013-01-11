@@ -1,4 +1,7 @@
 # Redirects
+- old: '/feed'
+  new: '/articles/feed'
+
 - old: '/2011/04/setup-a-local-configuration-file-in-codeigniter'
   new: '/articles/setup-a-local-configuration-file-in-codeigniter'
 
