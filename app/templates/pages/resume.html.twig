@@ -188,10 +188,40 @@
     } 
 }
 
+
+/* -- Overrides for Mobile -------------------------------- */
+
+@media only print {
+
+    body {
+        margin-top: 0.5in;
+        margin-bottom: 0.5in;
+    }
+
+    body > header,
+    body > .container > footer {
+        display: none;
+    }
+
+    .container {
+        margin-top: 0;
+    }
+
+    .hresume .vcard h2.fn {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    /* Bootstrap Override - Hide links in Resume Print */
+    a[href]:after {
+        content: "";
+    }
+}
+
 </style>
 {% endblock %}
 {% block content %}
-<div class="hresume noprintlinks">
+<div class="hresume">
     
     <address id='contactinfo' class="vcard">
         <h2 class="fn">{{ resume.name }}</h2>
