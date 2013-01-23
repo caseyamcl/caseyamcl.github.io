@@ -154,7 +154,7 @@ research:
       volume:      61(11)
       volumepages: 2243-2255
       doi:         doi:10.1002/asi.21390
-      date:        2010
+      date:        2010-07-26
       authors:
         - 'Lustria, M.L.A.'
         - 'Kazmer, M. M. M.'
@@ -168,7 +168,7 @@ research:
     - type:         Presentation
       title:       'Supporting Breast Cancer Screening Needs of Rural, Disadvantaged Women Via a Tailored Reminder System (Information Needs and Perceived Barriers to Preventive Care)'
       description: 'Poster to be presented at the Florida Health Disparities Research Invitational Summit, Ft. Lauderdale, Florida. (Regional)'
-      date:        2010
+      date:        2010-10
       authors:
         - 'Lustria, M.L.A.'
         - 'Kazmer, M. M. M.'
@@ -181,7 +181,7 @@ research:
     - type:         Presentation
       title:        'Supporting Breast Cancer Screening Needs of Rural, Disadvantaged Women Via a Tailored Reminder System (Using Participatory Approaches for Designing Health Informatics Systems for Application in Rural Settings)'
       description:  'Poster to be presented at the Florida Health Disparities Research Invitational Summit, Ft. Lauderdale, Florida. (Regional)'
-      date:         2010
+      date:         2010-10
       authors:
         - 'Lustria, M.L.A'
         - 'Kazmer, M. M. M.'
@@ -328,17 +328,17 @@ activities:
       title: 'Association of Information Technology Professionals, FSU Chapter'
 
     - type:  Conference
-      date:  2006
+      date:  2006-06
       role:  Participant
       title: National and Southeast Regional Educause Conference
 
     - type:  Conference
-      date:  2005
+      date:  2005-06
       role:  Participant
       title: National and Southeast Regional Educause Conference
 
     - type:  Workshop
-      date:  2005
+      date:  2005-06
       role:  Participant
       title: Cornell Policy Writing Workshop
 
