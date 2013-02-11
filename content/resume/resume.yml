@@ -94,6 +94,18 @@ experience:
         end:        2005-06-01
 
 research:
+
+    - type:        Presentation
+      title:       'A Pilot Study of a Web-Based Tailored Intervention to Promote STD Screening Among College Students'
+      date:        2013-03-28
+      description: 'Poster presented at DC Area Health Communication Conference'
+      authors:
+        - 'Lustria, M. L. A.'
+        - 'Cortese, J.'
+        - 'Schmitt, K.'
+        - 'Kung. M.'
+        - 'McLaughlin, C.'
+
     - type:        Presentation
       title:       'RDFising Pubmed Central'
       date:        2012-07-14
