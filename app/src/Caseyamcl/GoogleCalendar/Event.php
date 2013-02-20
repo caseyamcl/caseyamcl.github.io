@@ -36,10 +36,17 @@ class Event
     /**
      * @var boolean
      */
-    private $allDay;
+    private $allDay = false;
 
     // --------------------------------------------------------------
 
+    /**
+     * Constructor
+     *
+     * @param DateTime $beginTimestamp  Mandatory beginning timestamp
+     * @param string   $summary         Mandatory summary/title
+     * @param DateTime $endTimeStamp    Optional end timestamp
+     */
     public function __construct(DateTime $beginTimestamp, $summary, DateTime $endTimestamp = null)
     {
         $this->setStartTime($beginTimestamp);
@@ -52,6 +59,11 @@ class Event
 
     // --------------------------------------------------------------
 
+    /**
+     * Magic Method to get private properties
+     *
+     * @param string $item
+     */
     public function __get($item)
     {
         switch ($item) {
@@ -68,22 +80,27 @@ class Event
 
     // --------------------------------------------------------------
 
+    /**
+     * Magic method for determining if a class property is set
+     *
+     * Useful for using Events directly in Twig templates
+     *
+     * @param string $item  The property name
+     */
     public function __isset($item)
     {
         if (in_array($item, array('beginTime', 'endTime'))) {
             return true;
         }
         else {
-            return (in_array($item, array_keys(get_object_vars($this))));    
+            return in_array($item, array_keys(get_object_vars($this)));
         }
-
-        
     }
 
     // --------------------------------------------------------------
 
     /**
-     * Get frmatted time for short calendar
+     * Get formatted time for friendlier time display
      *
      * e.g. (9am or 9:30am or 9:41am)
      *
@@ -94,7 +111,7 @@ class Event
         $hour = $this->beginTimestamp->format('g');
         $min  = $this->beginTimestamp->format('i');
         $ampm = $this->beginTimestamp->format('a');
-        
+
         return ($min == 0)
             ? $hour . $ampm
             : $hour . ':' . $min . $ampm;
@@ -102,6 +119,11 @@ class Event
 
     // --------------------------------------------------------------
 
+    /**
+     * Set Mandatory Start Time
+     *
+     * @param DateTime $dateTime
+     */
     public function setStartTime(DateTime $dateTime)
     {
         $this->beginTimestamp = $dateTime;
@@ -112,6 +134,11 @@ class Event
 
     // --------------------------------------------------------------
 
+    /**
+     * Set Optional End Time
+     *
+     * @param DateTime $dateTime
+     */
     public function setEndTime(DateTime $dateTime)
     {
         $this->endTimestamp;
@@ -119,6 +146,11 @@ class Event
 
     // --------------------------------------------------------------
 
+    /**
+     * Set Summary (title)
+     *
+     * @param string $summary
+     */
     public function setSummary($summary)
     {
         $this->summary = $summary;
@@ -126,6 +158,11 @@ class Event
 
     // --------------------------------------------------------------
 
+    /**
+     * Set Optional Location
+     *
+     * @param string $location
+     */
     public function setLocation($location)
     {
         $this->location = $location;
@@ -133,6 +170,11 @@ class Event
 
     // --------------------------------------------------------------
 
+    /**
+     * Set All Day Indicator
+     *
+     * @param boolean $allDay
+     */
     public function setAllDay($allDay)
     {
         $this->allDay = (boolean) $allDay;

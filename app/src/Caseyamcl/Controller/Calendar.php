@@ -1,7 +1,7 @@
 <?php
 
 namespace Caseyamcl\Controller;
-use Caseyamcl\GoogleCalendar\Scraper;
+use Caseyamcl\GoogleCalendar\Client as CalendarClient;
 use Guzzle\Http\Exception\BadResponseException;
 
 /**
@@ -21,7 +21,7 @@ class Calendar extends ControllerAbstract
 
     // --------------------------------------------------------------
 
-    public function __construct(Scraper $calendar, $calendarId = 'caseyamcl@gmail.com')
+    public function __construct(CalendarClient $calendar, $calendarId = 'caseyamcl@gmail.com')
     {
         $this->calendar   = $calendar;
         $this->calendarId = $calendarId;
@@ -42,7 +42,7 @@ class Calendar extends ControllerAbstract
             $calEvents = $this->calendar->getEvents($this->calendarId);
         }
         catch (BadResponseException $err) {
-            return $this->abort(500, "Error retrieving Google Calendar");
+            return $this->abort(500, "Error retrieving Google Calendar: ", $err->getMessage());
         }
 
         $data = array(

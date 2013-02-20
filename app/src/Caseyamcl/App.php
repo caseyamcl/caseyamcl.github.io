@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\TwigServiceProvider;
+use Symfony\Component\Yaml\Yaml;
+use Eloquent\Asplode\Asplode;
 use RuntimeException, Exception;
-use \Symfony\Component\Yaml\Yaml;
+
 
 /**
  * Main DL2SL Application Library
@@ -18,7 +20,7 @@ class App extends SilexApplication
     const DEVELOPMENT = 1;
     const PRODUCTION  = 2;
     const MAINTENANCE = 3;
-     
+
     // --------------------------------------------------------------
 
     /**
@@ -58,6 +60,9 @@ class App extends SilexApplication
         if ($mode == self::DEVELOPMENT) {
             $this['debug'] = true;
         }
+        else {
+            Asplode::instance()->install();
+        }
 
         //Load common libraries
         $this->loadCommonLibraries();
@@ -77,7 +82,7 @@ class App extends SilexApplication
         if ($this['site_mode'] == self::MAINTENANCE) {
             $this->doMaintenance();
         }
-        else {            
+        else {
 
             //Mount controllers
             $this->mount('', new Controller\Redirects());
@@ -93,14 +98,14 @@ class App extends SilexApplication
         }
 
         //Go
-        parent::run();        
+        parent::run();
     }
 
     // --------------------------------------------------------------
 
     /**
      * Load common libraries
-     * 
+     *
      * Needed for both CLI and web application
      */
     protected function loadCommonLibraries()
@@ -136,7 +141,7 @@ class App extends SilexApplication
 
         //Google Calendar Scraper
         $this['calendar'] = $this->share(function() use ($app) {
-            return new GoogleCalendar\Scraper($app['guzzle']);
+            return new GoogleCalendar\Client($app['guzzle']);
         });
 
         //Twig for Strings
@@ -191,7 +196,7 @@ class App extends SilexApplication
             $twig->addGlobal('site_is_public', $isPublic);
 
             return $twig;
-        }));      
+        }));
     }
 
     // --------------------------------------------------------------
@@ -251,7 +256,7 @@ class App extends SilexApplication
 
         //All routes point to maintenance
         $this->match('/',     $maint);
-        $this->match('{url}', $maint)->assert('url', '.+');        
+        $this->match('{url}', $maint)->assert('url', '.+');
     }
 }
 
