@@ -54,7 +54,7 @@ class PagesAndAssets extends ControllerAbstract
      */
     protected function getTemplateName()
     {
-        return 'general';
+        return 'pages/general';
     }
 
     // --------------------------------------------------------------
