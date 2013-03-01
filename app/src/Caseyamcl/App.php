@@ -34,7 +34,7 @@ class App extends SilexApplication
     {
         $className = get_called_class();
         $that = new $className($mode);
-        $that->run();
+        $that->go();
     }
 
     // --------------------------------------------------------------
@@ -70,7 +70,12 @@ class App extends SilexApplication
 
     // --------------------------------------------------------------
 
-    public function run()
+    /**
+     * Main method to run webapp
+     *
+     * Loads libraries and runs Silex App
+     */
+    public function go()
     {
         //Before Hook
         $this->before(array($this, 'loadWebLibraries'));
