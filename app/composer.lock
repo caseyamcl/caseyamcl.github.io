@@ -7,20 +7,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/asplode.git",
-                "reference": "1.0.4"
+                "reference": "1.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/asplode/zipball/1.0.4",
-                "reference": "1.0.4",
+                "url": "https://api.github.com/repos/eloquent/asplode/zipball/1.0.5",
+                "reference": "1.0.5",
                 "shasum": ""
             },
             "require": {
-                "icecave/isolator": "2.*",
+                "icecave/isolator": ">=2.0,<3.0",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phake/phake": "1.*"
+                "icecave/archer": ">=0.2,<1.0"
             },
             "type": "library",
             "autoload": {
@@ -50,20 +50,20 @@
                 "handler",
                 "handling"
             ],
-            "time": "2012-08-06 01:24:33"
+            "time": "2013-03-04 08:07:03"
         },
         {
             "name": "guzzle/guzzle",
-            "version": "v3.2.0",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "v3.2.0"
+                "reference": "v3.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/v3.2.0",
-                "reference": "v3.2.0",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/v3.3.0",
+                "reference": "v3.3.0",
                 "shasum": ""
             },
             "require": {
@@ -86,6 +86,7 @@
                 "guzzle/plugin-cache": "self.version",
                 "guzzle/plugin-cookie": "self.version",
                 "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-error-response": "self.version",
                 "guzzle/plugin-history": "self.version",
                 "guzzle/plugin-log": "self.version",
                 "guzzle/plugin-md5": "self.version",
@@ -95,7 +96,7 @@
                 "guzzle/stream": "self.version"
             },
             "require-dev": {
-                "doctrine/common": "*",
+                "doctrine/cache": "*",
                 "monolog/monolog": "1.*",
                 "phpunit/phpunit": "3.7.*",
                 "symfony/class-loader": "*",
@@ -107,7 +108,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "3.2-dev"
                 }
             },
             "autoload": {
@@ -142,7 +143,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-02-15 01:33:10"
+            "time": "2013-03-04 00:41:45"
         },
         {
             "name": "icecave/isolator",
@@ -282,12 +283,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Silex.git",
-                "reference": "9705ba7d5dd709262c451854f4e18f8c58171dfa"
+                "reference": "fd37f81b63a61f12f3693c0be07c7f89b963a85d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/9705ba7d5dd709262c451854f4e18f8c58171dfa",
-                "reference": "9705ba7d5dd709262c451854f4e18f8c58171dfa",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/fd37f81b63a61f12f3693c0be07c7f89b963a85d",
+                "reference": "fd37f81b63a61f12f3693c0be07c7f89b963a85d",
                 "shasum": ""
             },
             "require": {
@@ -354,7 +355,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2013-02-26 12:56:45"
+            "time": "2013-03-07 15:20:30"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -743,7 +744,9 @@
             "time": "2013-02-09 18:21:53"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
@@ -751,5 +754,11 @@
     "stability-flags": {
         "silex/silex": 20,
         "eloquent/asplode": 20
-    }
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }
