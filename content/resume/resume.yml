@@ -108,8 +108,11 @@ research:
 
     - type:        Presentation
       title:       'RDFising Pubmed Central'
-      date:        2012-07-14
+      date:        2013-04-15
       description: 'Publication Submitted to Bio-Ontologies 2012'
+      volumetitle: Journal of Biomedical Semantics
+      volume:      '4(Supp 1):S5'
+      doi:         '10.1186/2041-1480-4-S1-S5'
       authors:
         - 'Garcia-Castro, L.J.'
         - 'McLaughlin, C.'
