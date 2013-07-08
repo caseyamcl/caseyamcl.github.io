@@ -1,31 +1,35 @@
 {
-    "hash": "56977b9ab307d1d2ea6e77eb410daa25",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "c7312b35f6a547cfa598d4254c957064",
     "packages": [
         {
-            "name": "eloquent/asplode",
-            "version": "dev-master",
+            "name": "filp/whoops",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/eloquent/asplode.git",
-                "reference": "1.0.5"
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "1.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/asplode/zipball/1.0.5",
-                "reference": "1.0.5",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/1.0.1",
+                "reference": "1.0.1",
                 "shasum": ""
             },
             "require": {
-                "icecave/isolator": ">=2.0,<3.0",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "icecave/archer": ">=0.2,<1.0"
+                "mockery/mockery": "dev-master",
+                "silex/silex": "1.0.*@dev"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Eloquent\\Asplode": "src"
+                    "Whoops": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -34,36 +38,35 @@
             ],
             "authors": [
                 {
-                    "name": "Erin Millard",
-                    "email": "ezzatron@gmail.com",
-                    "homepage": "http://ezzatron.com/"
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
                 }
             ],
-            "description": "Drop-in exception-based error handling for PHP.",
-            "homepage": "https://github.com/eloquent/asplode",
+            "description": "php error handling for cool kids",
+            "homepage": "https://github.com/filp/whoops",
             "keywords": [
                 "error",
-                "errorexception",
                 "exception",
-                "failure",
-                "fault",
-                "handler",
-                "handling"
+                "handling",
+                "library",
+                "silex-provider",
+                "whoops"
             ],
-            "time": "2013-03-04 08:07:03"
+            "time": "2013-04-12 11:09:30"
         },
         {
             "name": "guzzle/guzzle",
-            "version": "v3.3.0",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "v3.3.0"
+                "reference": "v3.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/v3.3.0",
-                "reference": "v3.3.0",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/v3.4.0",
+                "reference": "v3.4.0",
                 "shasum": ""
             },
             "require": {
@@ -99,6 +102,7 @@
                 "doctrine/cache": "*",
                 "monolog/monolog": "1.*",
                 "phpunit/phpunit": "3.7.*",
+                "psr/log": "1.0.*",
                 "symfony/class-loader": "*",
                 "zend/zend-cache1": "1.12",
                 "zend/zend-log1": "1.12",
@@ -108,7 +112,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -143,68 +147,20 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-03-04 00:41:45"
-        },
-        {
-            "name": "icecave/isolator",
-            "version": "2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/IcecaveStudios/isolator.git",
-                "reference": "2.1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/IcecaveStudios/isolator/archive/2.1.1.zip",
-                "reference": "2.1.1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "icecave/testing": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Icecave\\Isolator": "lib"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Harris",
-                    "email": "james.harris@icecave.com.au"
-                }
-            ],
-            "description": "Mock out calls to built-in PHP functions.",
-            "homepage": "https://github.com/IcecaveStudios/isolator",
-            "keywords": [
-                "fake",
-                "mock",
-                "phake",
-                "phpunit",
-                "test",
-                "unit"
-            ],
-            "time": "2013-01-14 04:17:36"
+            "time": "2013-04-12 05:58:15"
         },
         {
             "name": "pimple/pimple",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
-                "url": "git://github.com/fabpot/Pimple.git",
-                "reference": "v1.0.1"
+                "url": "https://github.com/fabpot/Pimple.git",
+                "reference": "v1.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Pimple/archive/v1.0.1.zip",
-                "reference": "v1.0.1",
+                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/v1.0.2",
+                "reference": "v1.0.2",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +193,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2012-11-11 08:32:34"
+            "time": "2013-03-08 08:21:40"
         },
         {
             "name": "psr/log",
@@ -283,12 +239,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Silex.git",
-                "reference": "fd37f81b63a61f12f3693c0be07c7f89b963a85d"
+                "reference": "1cd7f3f050b78dae4458d93892355720f56659f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/fd37f81b63a61f12f3693c0be07c7f89b963a85d",
-                "reference": "fd37f81b63a61f12f3693c0be07c7f89b963a85d",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/1cd7f3f050b78dae4458d93892355720f56659f9",
+                "reference": "1cd7f3f050b78dae4458d93892355720f56659f9",
                 "shasum": ""
             },
             "require": {
@@ -301,13 +257,14 @@
             },
             "require-dev": {
                 "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
+                "monolog/monolog": ">=1.4,<2.0,>=1.4.1",
                 "swiftmailer/swiftmailer": "4.2.*",
                 "symfony/browser-kit": ">=2.1,<2.3-dev",
                 "symfony/config": ">=2.1,<2.3-dev",
                 "symfony/css-selector": ">=2.1,<2.3-dev",
                 "symfony/dom-crawler": ">=2.1,<2.3-dev",
                 "symfony/finder": ">=2.1,<2.3-dev",
-                "symfony/form": ">=2.1,<2.3-dev",
+                "symfony/form": ">=2.1.4,<2.3-dev",
                 "symfony/locale": ">=2.1,<2.3-dev",
                 "symfony/monolog-bridge": ">=2.1,<2.3-dev",
                 "symfony/options-resolver": ">=2.1,<2.3-dev",
@@ -322,7 +279,8 @@
             "suggest": {
                 "symfony/browser-kit": ">=2.1,<2.3-dev",
                 "symfony/css-selector": ">=2.1,<2.3-dev",
-                "symfony/dom-crawler": ">=2.1,<2.3-dev"
+                "symfony/dom-crawler": ">=2.1,<2.3-dev",
+                "symfony/form": "To make use of the FormServiceProvider, >= 2.1.4 is required"
             },
             "type": "library",
             "extra": {
@@ -355,21 +313,21 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2013-03-07 15:20:30"
+            "time": "2013-04-11 12:23:56"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "v2.2.0-RC3"
+                "reference": "v2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/v2.2.1",
+                "reference": "v2.2.1",
                 "shasum": ""
             },
             "require": {
@@ -413,17 +371,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "v2.2.0"
+                "reference": "v2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.2.0",
-                "reference": "v2.2.0",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.2.1",
+                "reference": "v2.2.1",
                 "shasum": ""
             },
             "require": {
@@ -459,21 +417,21 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-02-26 09:42:13"
+            "time": "2013-04-06 10:15:43"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "target-dir": "Symfony/Component/HttpKernel",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "v2.2.0"
+                "reference": "v2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/v2.2.0",
-                "reference": "v2.2.0",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/v2.2.1",
+                "reference": "v2.2.1",
                 "shasum": ""
             },
             "require": {
@@ -528,21 +486,21 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-01 06:52:29"
+            "time": "2013-04-06 10:16:33"
         },
         {
             "name": "symfony/routing",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "v2.2.0-RC3"
+                "reference": "v2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.2.1",
+                "reference": "v2.2.1",
                 "shasum": ""
             },
             "require": {
@@ -586,21 +544,21 @@
             ],
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
-            "time": "2013-02-11 11:24:47"
+            "time": "2013-03-23 12:03:22"
         },
         {
             "name": "symfony/twig-bridge",
-            "version": "v2.1.8",
+            "version": "v2.1.9",
             "target-dir": "Symfony/Bridge/Twig",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/TwigBridge.git",
-                "reference": "v2.1.8"
+                "reference": "v2.1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/TwigBridge/zipball/v2.1.8",
-                "reference": "v2.1.8",
+                "url": "https://api.github.com/repos/symfony/TwigBridge/zipball/v2.1.9",
+                "reference": "v2.1.9",
                 "shasum": ""
             },
             "require": {
@@ -645,21 +603,21 @@
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "http://symfony.com",
-            "time": "2013-02-22 12:51:30"
+            "time": "2013-03-13 13:40:23"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "v2.2.0-RC3"
+                "reference": "v2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.2.1",
+                "reference": "v2.2.1",
                 "shasum": ""
             },
             "require": {
@@ -692,20 +650,20 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-01-27 16:49:19"
+            "time": "2013-03-23 07:49:54"
         },
         {
             "name": "twig/twig",
-            "version": "v1.12.2",
+            "version": "v1.12.3",
             "source": {
                 "type": "git",
-                "url": "git://github.com/fabpot/Twig.git",
-                "reference": "v1.12.2"
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "v1.12.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/v1.12.2",
-                "reference": "v1.12.2",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/v1.12.3",
+                "reference": "v1.12.3",
                 "shasum": ""
             },
             "require": {
@@ -741,7 +699,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-02-09 18:21:53"
+            "time": "2013-04-08 12:40:11"
         }
     ],
     "packages-dev": [
@@ -752,8 +710,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "silex/silex": 20,
-        "eloquent/asplode": 20
+        "silex/silex": 20
     },
     "platform": [
 

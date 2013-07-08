@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\TwigServiceProvider;
+use Whoops\Provider\Silex\WhoopsServiceProvider;
 use Symfony\Component\Yaml\Yaml;
-use Eloquent\Asplode\Asplode;
 use RuntimeException, Exception;
 
 
@@ -59,9 +59,12 @@ class App extends SilexApplication
         //App mode
         if ($mode == self::DEVELOPMENT) {
             $this['debug'] = true;
+            $this->register(new WhoopsServiceProvider);
+
         }
         else {
-            Asplode::instance()->install();
+            //@TODO: Make 'whoops' handler that prints out user friendly page
+            //Then we can get rid of the error handling code in this class...
         }
 
         //Load common libraries

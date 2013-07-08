@@ -15,7 +15,7 @@
         "silex/silex":            "1.0.x-dev",
         "twig/twig":              ">=1.12",
         "symfony/twig-bridge":    "2.1.*",
-        "eloquent/asplode":       "dev-master",
+        "filp/whoops":            ">=1.0.1",
         "symfony/yaml":           ">=2.1.0",
         "guzzle/guzzle":          ">=3.0.6,<4.0"
     },
