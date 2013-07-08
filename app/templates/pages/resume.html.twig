@@ -353,11 +353,11 @@
                 <li class="{{ item.type | lower }}">
                     {% for k, author in item.authors %}
 
-                        {% if k == 0 and author == 'McLaughlin, C.' %}
+                        {% if k == 0 and author in ['McLaughlin, C.', 'Casey McLaughlin'] %}
                             <span class='author fn firstauthor self'>{{ author }}</span>,
                         {% elseif k == 0 %}
                             <span class='author fn firstauthor'>{{ author }}</span>,
-                        {% elseif author == 'McLaughlin, C.' %}
+                        {% elseif author in ['McLaughlin, C.', 'Casey McLaughlin'] %}
                             <span class='author fn self'>{{ author }}</span>,
                         {% else %}
                             <span class='author fn'>{{ author }}</span>,

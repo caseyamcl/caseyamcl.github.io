@@ -94,6 +94,29 @@ experience:
         end:        2005-06-01
 
 research:
+    - type:        Presentation
+      title:       'PDFJailbreak - a communal architecture for making biomedical PDFs semantic'
+      date:        2013-07-20
+      description: 'Presentation at BioLink SIG 2013'
+      authors:
+        - 'Alexander Garcia'
+        - 'Peter Murray-Rust'
+        - 'Gully APC Burns'
+        - 'Robert Stevens'
+        - 'Dominika Tkaczyk'
+        - 'Casey McLaughlin'
+        - 'Amaury Belin'
+        - 'Angelo Di Iorio'
+        - 'Leyla García'
+        - 'Célya Gruson-Daniel'
+        - 'Ross Mounce'
+        - 'Andrea Giovanni Nuzzolese'
+        - 'Silvio Peroni'
+        - 'Jeremy Spinks'
+        - 'Boris VillazonTerrazas'
+        - 'Oscar Corcho'
+        - 'Olga Giraldo'
+        - 'Mike Wabiszewski'
 
     - type:        Presentation
       title:       'A Pilot Study of a Web-Based Tailored Intervention to Promote STD Screening Among College Students'
