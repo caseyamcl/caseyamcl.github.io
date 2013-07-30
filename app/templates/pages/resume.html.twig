@@ -157,6 +157,21 @@
     margin: 2px 0;
 }
 
+/* -- Activities ------------------------------------------ */
+
+.hresume .activities li {
+    margin-bottom: 0.5em;
+}
+
+.hresume .activities li span.title {
+    display: block;
+}
+
+.hresume .activities li span.type,
+.hresume .activities li span.link {
+    font-size: 0.9em;
+}
+
 /* -- Overrides for Mobile -------------------------------- */
 
 @media only screen and (max-width: 767px) {
@@ -431,7 +446,9 @@
                         {% else %}
                             <span class="dtend" datetime="{{ item.date | date('Y-m-d') }}">{{ item.date | date('F, Y') }}</span>
                         {% endif %}
-                    </span>                        
+                    </span>
+                    <span class='type'><em>{{ item.type }}</em></span>
+                    {% if item.link is defined %} - <span class='link'><a href='{{ item.link }}' title='Link'>{{ item.link }}</a></span>{% endif %}
                 </li>
             {% endfor %}
         </ul>
