@@ -16,9 +16,9 @@ Options All -Indexes
 
 # CMCL:[RESTRICTIVE REWRITE RULES]
 <IfModule mod_rewrite.c>
-	RewriteEngine on
-  RewriteCond $1 !^(index\.php|robots\.txt|dev\.php|humans\.txt|(assets|reveal)\/(.+?)\.(ttf|svg|woff|eot|jpg|png|gif|jpeg|svg|css|js|html))
-	RewriteRule ^(.*)$ index.php/$1 [L]
+    RewriteEngine on
+     RewriteRule ^(index\.php|robots\.txt|dev\.php|humans\.txt|(assets|reveal)\/(.+?)\.(ttf|svg|woff|eot|jpg|png|gif|jpeg|svg|css|js|html)) - [PT,L]
+     RewriteRule .* index.php?/$0 [PT,L,QSA]
 </IfModule>
 
 # CMCL:[HIDE HIDDEN]
