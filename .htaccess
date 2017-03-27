@@ -1,6 +1,12 @@
 # CMCL:[NO INDEXES]
 Options All -Indexes
 
+# CMCL:[NO HIDDEN FILES]
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
 # 6G FIREWALL/BLACKLIST
 # @ https://perishablepress.com/6g/
 
