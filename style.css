@@ -1,0 +1,97 @@
+body{
+
+    line-height:1.6;
+    font-size:18px;
+    color:#444;
+    font-family: 'Arimo', sans-serif;
+
+    background: url(cp.png);
+}
+
+article {
+    padding:0 10px;
+    max-width:750px;
+    margin:40px auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    text-align: center;
+}
+
+h1,h2,h3{
+    line-height:1.2
+}
+
+h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.5em;
+    font-weight: 500;
+    margin: 0;
+    color: #6F1C24;
+}
+
+h2 {
+    margin: 0.5em 0;
+    font-size: 1.2em;
+}
+
+h2 span {
+    font-size: 0.8em;
+}
+
+.headshot {
+    border-radius: 50%;
+    border: 1px solid #444;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.action-links a,
+.action-links a:visited {
+    display: inline-block;
+    font-size: 2em;
+    color:#444;
+    padding: 0 0.25em;
+    text-decoration: none;
+}
+
+.fa-twitter:hover {
+    color: #1da1f2;
+}
+
+.fa-facebook:hover {
+    color: #3b5998;
+}
+
+.fa-linkedin:hover {
+    color: #0077b5;
+}
+
+.fa-github:hover {
+    color: #bd2c00;
+}
+
+.fa-envelope:hover {
+    color: green;
+}
+
+.fsu-logo {
+    background-image: url(fsu-seal.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    color: transparent;
+}
+
+.fsu-logo:hover {
+    background-image: url(fsu-seal-garnet.png);
+}
