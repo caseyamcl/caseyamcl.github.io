@@ -41,8 +41,8 @@ h2 span {
 }
 
 .headshot {
+    width: 200px;
     border-radius: 50%;
-    border: 1px solid #444;
 }
 
 .sr-only {

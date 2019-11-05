@@ -1,2 +1,3 @@
 /app/vendor
 composer.phar
+.well-known/

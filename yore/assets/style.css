@@ -1,0 +1,120 @@
+body {
+    line-height:1.6;
+    font-size:18px;
+    color:#444;
+    font-family: 'Arimo', sans-serif;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+#yore-article-browser {
+    background-color: #eee;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 25%;
+    overflow-y: auto;
+    font-size: 0.9em;
+}
+
+#yore-article-viewer {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 25%;
+    bottom: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+.article-browser-toggle {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    #yore-article-browser {
+        width: 75%;
+        left: -75%;
+    }
+    #yore-article-viewer {
+        left: 0;
+        width: 100%;
+    }
+
+    #yore-article-browser.navmode {
+        left: 0;
+    }
+    #yore-article-browser.navmode + #yore-article-viewer {
+        left: 75%;
+    }
+
+    .article-browser-toggle {
+        display: inline-block;
+    }
+}
+
+ul.article-list {
+    margin: 1em 0;
+    list-style-type: none;
+    padding: 0 1em;
+}
+
+ul.article-list li {
+    padding-left: 0;
+    padding-bottom: 0.5em;
+}
+
+ul.article-list li a,
+ul.article-list li span {
+    display: block;
+}
+
+ul li.active {
+    background-color: #fff;
+}
+
+article {
+    padding: 1em 10px;
+    max-width:750px;
+    margin: 0 auto;
+}
+
+h1,h2,h3{
+    line-height:1.2
+}
+
+h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.5em;
+    font-weight: 500;
+    margin: 0;
+    color: #6F1C24;
+}
+
+h2 {
+    margin: 0.5em 0;
+    font-size: 1.2em;
+}
+
+h2 span {
+    font-size: 0.8em;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
