@@ -1,13 +1,3 @@
-#RewriteEngine on
-#RewriteCond %{REQUEST_URI}!^/yore/
-#RewriteCond %{REQUEST_URI}!^/cp.png	
-#RewriteCond %{REQUEST_URI}!^/favicon.gif
-#RewriteCond %{REQUEST_URI}!^/favicon.ico
-#RewriteCond %{REQUEST_URI}!^/fsu-seal-garnet.png
-#RewriteCond %{REQUEST_URI}!^/fsu-seal.png
-#RewriteCond %{REQUEST_URI}!^/headshot.jpg
-#RewriteCond %{REQUEST_URI}!^/humans.txt
-#RewriteCond %{REQUEST_URI}!^/index.html
-#RewriteCond %{REQUEST_URI}!^/robots.txt
-#RewriteCond %{REQUEST_URI}!^/style.css 
-#RewriteRule (.*) https://caseymclaughlin.com/$1 [R=301,L]
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.yourdomain.com/$1 [R,L]
