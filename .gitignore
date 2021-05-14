@@ -1,3 +1,4 @@
 /app/vendor
 composer.phar
 .well-known/
+.idea
